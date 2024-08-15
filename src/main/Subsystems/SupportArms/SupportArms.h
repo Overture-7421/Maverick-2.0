@@ -15,13 +15,11 @@ SupportArms(); //Constructor
 
 void Periodic() override; //Method that activates the susbystem
 
-void SetRightServoAngle(double angle); //Method to set the angle of the right servo
-void SetLeftServoAngle(double angle);  //Method to set the angle of the right servo
+void setServoAngle(double angle); //Method to set the angle of the right servo
 
  private:
-  frc::Servo RightServo{0}; //Declaration of right servo and when will it be connected
-  frc::Servo LeftServo{1}; //Declaration of left servo and when will it be connected
+  frc::Servo rightServo{0}; //Declaration of right servo and when will it be connected
+  frc::Servo leftServo{1}; //Declaration of left servo and when will it be connected
 
-  bool isRightServoInverted = false; //Booleans that may invert one servo
-  bool isLeftServoInverted = true;
+  const double slope = 0.5/135;
 };
