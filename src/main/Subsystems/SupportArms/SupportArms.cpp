@@ -11,7 +11,6 @@ void SupportArms::Periodic() {
 
     SetRightServoAngle(0.0); // Where the wanted positions of the servos are put on (ranges from 0.0 to 1.0)
     SetLeftServoAngle(0.0);
-
 }
 
 void SupportArms::SetRightServoAngle(double angle) { //Conditional that allows us to invert the right servo if needed.
