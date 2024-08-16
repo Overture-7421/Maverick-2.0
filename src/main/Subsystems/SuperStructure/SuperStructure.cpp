@@ -1,41 +1,58 @@
 #include "SuperStructure.h"
+#include "Constants.h"
 
 SuperStructure::SuperStructure() {
 
 //Basically says motor 2, to follow motor one (ID, Bool if is inverted or not)
 
-  lowerMotor2.setFollow(10, false);
+  lowerLeftMotor.setFollow(lowerRightMotor.GetDeviceID(), true);
 
-//Adjust the gear ratio?
+//setSensorToMechanism calculates how many rotor rotations it needs for one sensor rotation.
 
-  lowerMotor1.setSensorToMechanism(0.0);  
-  upperMotor.setSensorToMechanism(0.0);   
+  lowerRightMotor.setSensorToMechanism(Constants::LowerSensorToMechanism); 
+  upperMotor.setSensorToMechanism(Constants::UpperSensorToMechanism);   
+
+//setRotorToSensorRatio calculates how many rotor rotations it needs for onw mechanism rotation. GearRatio.
+  lowerRightMotor.setRotorToSensorRatio(Constants::LowerGearRatio);
+  upperMotor.setRotorToSensorRatio(Constants::UpperGearRatio);  
+
+  lowerRightMotor.setFusedCANCoder(Constants::LowerCANCoderID);
+  upperMotor.setFusedCANCoder(Constants::UpperCANCoderID);
+
+  lowerRightMotor.setClosedLoopVoltageRamp(Constants::VoltageRamp);
+  upperMotor.setClosedLoopVoltageRamp(Constants::VoltageRamp);
+
+  //limita pico de corriente inicial
+
+  lowerRightMotor.setStatorCurrentLimit(true, Constants::StatorCurrentLimit);
+  upperMotor.setStatorCurrentLimit(true, Constants::StatorCurrentLimit);
+
+  lowerRightMotor.setSupplyCurrentLimit(true, Constants::SupplyCurrentLimit, Constants::TriggerThresholdCurrent, Constants::TriggerThresholdTime);
+  upperMotor.setSupplyCurrentLimit(true, Constants::SupplyCurrentLimit, Constants::TriggerThresholdCurrent, Constants::TriggerThresholdTime);
+
+  lowerRightMotor.configureMotionMagic(Constants::CruiseVelocity, Constants::CruiseAcceleration, 0.0);
+  upperMotor.configureMotionMagic(Constants::CruiseVelocity, Constants::CruiseAcceleration, 0.0);
+
+  lowerRightMotor.setContinuousWrap();
+  upperMotor.setContinuousWrap();
+
 
 //Apply the PID values.
 
-  lowerMotor1.setPIDValues(0.1, 0.0, 0.0, 0.0, 0.0);
+  lowerRightMotor.setPIDValues(0.1, 0.0, 0.0, 0.0, 0.0);
   upperMotor.setPIDValues(0.1, 0.0, 0.0, 0.0, 0.0); 
 
+  
 }
 
 //Command that moves to the designated lower position.
-frc2::CommandPtr SuperStructure::moveToLowerPosition(double lowerPosition, double upperPosition) {
-  return this->RunOnce([this, lowerPosition, upperPosition] {
+frc2::CommandPtr SuperStructure::setAngle(units::degree_t lowerAngle, units::degree_t upperAngle) {
+    double actualLowerAngle = lowerAngle.value() / 360;
+    double actualUpperAngle = upperAngle.value() / 360;
+    lowerRightMotor.setMotionMagicPosition(actualLowerAngle, 0.0, true);
+    upperMotor.setMotionMagicPosition(actualUpperAngle, 0.0, true);
 
-  });
-}
-
-//Command that moves to the designated middle position.
-frc2::CommandPtr SuperStructure::moveToMiddlePosition(double lowerPosition, double upperPosition) {
-  return this->RunOnce([this, lowerPosition, upperPosition] {
-  });
-}
-
-//Command that moves to the designated upperposition.
-frc2::CommandPtr SuperStructure::moveToUpperPosition(double lowerPosition, double upperPosition) {
-  return this->RunOnce([this, lowerPosition, upperPosition] {
-  });
-}
+  };
 
 
 //Literally nothing lol
