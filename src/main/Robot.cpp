@@ -6,6 +6,7 @@
 
 #include <fmt/core.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/MathUtil.h>
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
