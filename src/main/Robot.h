@@ -8,9 +8,17 @@
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include "OvertureLib/Gamepad/Gamepad.h"
 
 class Robot : public frc::TimedRobot {
  public:
+
+  virtual void ConfigDriverBindings();
+	virtual void ConfigOperatorBindings();
+	virtual void ConfigDefaultCommands();
+	virtual void ConfigCharacterizationBindings();
+
+  
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
