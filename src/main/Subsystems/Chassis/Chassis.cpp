@@ -1,62 +1,75 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 #include "Chassis.h"
 
-Chassis::Chassis() = default;
+// Inicialización de miembros estáticos
+frc::SimpleMotorFeedforward<units::meters> Chassis::feedForwardFrontLeft{0_V, 0_V / 1_mps, 0_V / 1_mps_sq};
+frc::SimpleMotorFeedforward<units::meters> Chassis::feedForwardFrontRight{0_V, 0_V / 1_mps, 0_V / 1_mps_sq};
+frc::SimpleMotorFeedforward<units::meters> Chassis::feedForwardBackLeft{0_V, 0_V / 1_mps, 0_V / 1_mps_sq};
+frc::SimpleMotorFeedforward<units::meters> Chassis::feedForwardBackRight{0_V, 0_V / 1_mps, 0_V / 1_mps_sq};
 
-// This method will be called once per scheduler run
-void Chassis::Periodic() {}
-
-
-units::meters_per_second_t Chassis::getMaxModuleSpeed(){
-    return 5.39_mps;
+Chassis::Chassis() 
+    : SwerveChassis(),
+      frontLeftModule(FrontLeftConfig()),
+      frontRightModule(FrontRightConfig()),
+      backLeftModule(BackLeftConfig()),
+      backRightModule(BackRightConfig()) {
+    frc::SmartDashboard::PutData("Chassis/Odometry", &field2d);
 }
 
-units::meter_t  Chassis::getDriveBaseRadius(){
-    return 0.3732276_m;
+ModuleConfig Chassis::FrontLeftConfig() {
+    ModuleConfig config{feedForwardFrontLeft};
+    config.DrivedId = 1;
+    config.TurnId = 2;
+    config.CanCoderId = 3;
+    config.ModuleName = "Front Left";
+    config.Offset = 0_deg;
+    return config;
 }
 
-frc::Rotation2d Chassis::getRotation2d(){
-    return 
+ModuleConfig Chassis::FrontRightConfig() {
+    ModuleConfig config{feedForwardFrontRight};
+    config.DrivedId = 4;
+    config.TurnId = 5;
+    config.CanCoderId = 6;
+    config.ModuleName = "Front Right";
+    config.Offset = 0_deg;
+    return config;
 }
 
-//OverPigeon(13, "OverCANivore")
-
-frc::Rotation3d Chassis::getRotation3d(){
-   return
+ModuleConfig Chassis::BackLeftConfig() {
+    ModuleConfig config{feedForwardBackLeft};
+    config.DrivedId = 7;
+    config.TurnId = 8;
+    config.CanCoderId = 9;
+    config.ModuleName = "Back Left";
+    config.Offset = 0_deg;
+    return config;
 }
 
-
-SwerveModule& Chassis::getFrontLeftModule(){
-   return 27_m;
+ModuleConfig Chassis::BackRightConfig() {
+    ModuleConfig config{feedForwardBackRight};
+    config.DrivedId = 10;
+    config.TurnId = 11;
+    config.CanCoderId = 12;
+    config.ModuleName = "Back Right";
+    config.Offset = 0_deg;
+    return config;
 }
 
-SwerveModule& Chassis::getFrontRightModule(){
-   return 27_m;
-}
+void Chassis::shuffleboardPeriodic(){
+    frc::SmartDashboard::PutNumber("Odometry/LinearX", getCurrentSpeeds().vx.value());
+    frc::SmartDashboard::PutNumber("Odometry/LinearY", getCurrentSpeeds().vy.value());
+    frc::SmartDashboard::PutNumber("Odometry/Angular", getCurrentSpeeds().omega.value());
 
-SwerveModule& Chassis::getBackLeftModule(){
-   return 27_m;
-}
+    frc::SmartDashboard::PutNumber("Odometry/AccelX", getCurrentAccels().ax.value());
+    frc::SmartDashboard::PutNumber("Odometry/AccelY", getCurrentAccels().ay.value());
+    frc::SmartDashboard::PutNumber("Odometry/AccelOmega", getCurrentAccels().omega.value());
 
-SwerveModule& Chassis::getBackRightModule(){
-   return 27_m;
-}
+    frc::SmartDashboard::PutNumber("Odometry/X", getEstimatedPose().X().value());
+    frc::SmartDashboard::PutNumber("Odometry/Y", getEstimatedPose().Y().value());
+    frc::SmartDashboard::PutNumber("Odometry/Rotation", getEstimatedPose().Rotation().Degrees().value());
 
-frc::SlewRateLimiter<units::meters_per_second>& Chassis::getVxLimiter(){
-    return VxLimiter;
-}
-
-frc::SlewRateLimiter<units::meters_per_second>& Chassis::getVyLimiter(){
-    return VyLimiter;
-}
-
-frc::SlewRateLimiter<units::radians_per_second>& Chassis::getVwLimiter(){
-    return VwLimiter;
-}
-
-frc::SwerveDriveKinematics<4>& Chassis::getKinematics(){
-    return kinematics;
+    frontLeftModule.shuffleboardPeriodic();
+    frontRightModule.shuffleboardPeriodic();
+    backLeftModule.shuffleboardPeriodic();
+    backRightModule.shuffleboardPeriodic();
 }
