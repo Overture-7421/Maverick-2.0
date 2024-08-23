@@ -8,8 +8,8 @@ SupportArms::SupportArms() = default;
 
 // This method will be called once per scheduler run
 void SupportArms::setServoAngle(units::degree_t angle) { //Conditional that allows us to invert the right servo if needed.
-    double angleToServo = angle * (slope) + 0.5;
-    double invertedAngle = angle * (-slope) + 0.5;
+    double angleToServo = angle.value() * (slope) + 0.5;
+    double invertedAngle = angle.value() * (-slope) + 0.5;
     rightServo.Set(angleToServo);
     leftServo.Set(invertedAngle);
 }

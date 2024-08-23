@@ -12,6 +12,51 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+
+  frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
+  frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
+  frc::SmartDashboard::PutNumber("setTheVoltage", 0.0);
+  // gamepad.B().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kForward));
+  // gamepad.A().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kReverse));
+  // gamepad.X().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kForward));
+  // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
+
+
+  #ifndef __FRC_ROBORIO__
+	simMotorManager.Init({
+	  {2, "Offseason 2024/motors/back_right_drive"},
+	  {4, "Offseason 2024/motors/back_left_drive"},
+	  {6, "Offseason 2024/motors/front_left_drive"},
+	  {8, "Offseason 2024/motors/front_right_drive"},
+
+	  {1, "Offseason 2024/motors/back_right_rotation"},
+	  {3, "Offseason 2024/motors/back_left_rotation"},
+	  {5, "Offseason 2024/motors/front_left_rotation"},
+	  {7, "Offseason 2024/motors/front_right_rotation"},
+
+    {11, "Offseason 2024/motors/lower_arm"},
+    {12, "Offseason 2024/motors/upper_arm"}
+
+
+		});
+
+	simPigeonManager.Init("Offseason 2024/imu");
+
+	simCANCoderManager.Init({
+	  {9, "Offseason 2024/cancoders/back_right_cancoder"},
+	  {10, "Offseason 2024/cancoders/back_left_cancoder"},
+	  {11, "Offseason 2024/cancoders/front_left_cancoder"},
+	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
+
+	  {29, "Offseason 2024/cancoders/upper_cancoder"},
+	  {28, "Offseason 2024/cancoders/lower_cancoder"}
+
+
+		});
+
+	simDutyCycleEncoderManager.Init({});
+#endif
+
 }
 
 /**
@@ -22,7 +67,15 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+
+  frc2::CommandScheduler::GetInstance().Run();
+  superStructure.getCurrentAngle(superStructure.lowerCANCoder.GetAbsolutePosition().GetValueAsDouble(), superStructure.upperCANCoder.GetAbsolutePosition().GetValueAsDouble());
+  frc::SmartDashboard::PutNumber("upperMotor position", superStructure.upperMotor.GetPosition().GetValueAsDouble());
+  frc::SmartDashboard::PutNumber("lowerMotor position:", superStructure.lowerRightMotor.GetPosition().GetValueAsDouble());
+
+  
+}
 
 /**
  * This autonomous (along with the chooser code above) shows how to select
@@ -56,9 +109,19 @@ void Robot::AutonomousPeriodic() {
   }
 }
 
-void Robot::TeleopInit() {}
+void Robot::TeleopInit() {
 
-void Robot::TeleopPeriodic() {}
+
+
+}
+
+void Robot::TeleopPeriodic() {
+//superStructure.setAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0))).Schedule();
+superStructure.setToAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0)));
+//superStructure.lowerRightMotor.setVoltage(units::volt_t(frc::SmartDashboard::GetNumber("setTheVoltage", 0.0)), false);
+
+
+}
 
 void Robot::DisabledInit() {}
 

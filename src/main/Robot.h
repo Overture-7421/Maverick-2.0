@@ -8,8 +8,14 @@
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <OvertureLib/Robots/OverRobot/OverRobot.h>
+#include "Subsystems/SuperStructure/SuperStructure.h"
+#include <frc2/command/CommandScheduler.h>
+#include <frc/smartdashboard/SendableChooser.h>
+#include <OvertureLib/Gamepad/Gamepad.h>
 
-class Robot : public frc::TimedRobot {
+class Robot : public OverRobot{
  public:
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -29,4 +35,11 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
+
+
+
+  SuperStructure superStructure;
+  Gamepad gamepad{0, 0.1, 0.1};
+
+
 };
