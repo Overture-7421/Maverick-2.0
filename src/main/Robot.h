@@ -8,8 +8,14 @@
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <OvertureLib/Robots/OverRobot/OverRobot.h>
+#include <OvertureLib/Gamepad/Gamepad.h>
 
-class Robot : public frc::TimedRobot {
+#include "Subsystems/Intake/Intake.h"
+#include "Subsystems/Storage/Storage.h"
+#include "Subsystems/Shooter/Shooter.h"
+
+class Robot : public OverRobot {
  public:
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -23,6 +29,13 @@ class Robot : public frc::TimedRobot {
   void TestPeriodic() override;
   void SimulationInit() override;
   void SimulationPeriodic() override;
+
+
+  Gamepad driver{0,0, 0};
+
+  Intake intake;
+  Storage storage;
+  Shooter shooter;
 
  private:
   frc::SendableChooser<std::string> m_chooser;

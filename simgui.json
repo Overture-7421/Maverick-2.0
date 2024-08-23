@@ -5,7 +5,56 @@
       "/SmartDashboard/Auto Modes": "String Chooser"
     }
   },
+  "NetworkTables": {
+    "transitory": {
+      "LiveWindow": {
+        "open": true
+      },
+      "Offseason 2024": {
+        "motors": {
+          "front_left_rotation": {
+            "open": true
+          },
+          "open": true,
+          "shooter_motor": {
+            "open": true
+          }
+        },
+        "open": true
+      },
+      "Shuffleboard": {
+        ".metadata": {
+          "open": true
+        },
+        "open": true
+      },
+      "SmartDashboard": {
+        "Auto Modes": {
+          "open": true
+        },
+        "open": true
+      }
+    }
+  },
   "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
     "visible": true
+  },
+  "Plot": {
+    "Plot <0>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 332
+        }
+      ]
+    }
   }
 }

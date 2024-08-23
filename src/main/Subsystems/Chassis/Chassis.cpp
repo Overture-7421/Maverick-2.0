@@ -4,6 +4,7 @@
 
 #include "Chassis.h"
 
+/*
 Chassis::Chassis() = default;
 
 // This method will be called once per scheduler run
@@ -60,3 +61,5 @@ frc::SlewRateLimiter<units::radians_per_second>& Chassis::getVwLimiter(){
 frc::SwerveDriveKinematics<4>& Chassis::getKinematics(){
     return kinematics;
 }
+
+*/

@@ -28,7 +28,8 @@ class Intake : public frc2::SubsystemBase {
 
 
  private:
-    OverTalonFX intakeMotor{20, ControllerNeutralMode::Coast, false, "OverCANivore"};
+ //ID 20
+    OverTalonFX intakeMotor{20, ControllerNeutralMode::Coast, true, "rio"};
 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

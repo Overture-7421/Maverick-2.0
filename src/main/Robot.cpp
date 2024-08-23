@@ -12,6 +12,60 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+
+  driver.A().OnTrue(intake.startIntake());
+  driver.A().OnFalse(intake.stopIntake());
+  
+  driver.B().OnTrue(storage.startStorage());
+  driver.B().OnFalse(storage.stopStorage());
+
+  driver.Y().OnTrue(shooter.shooterCommand());
+  driver.Y().OnFalse(shooter.stopShooterCommand());
+
+
+  #ifndef __FRC_ROBORIO__
+	simMotorManager.Init({
+	  {2, "Offseason 2024/motors/back_right_drive"},
+	  {4, "Offseason 2024/motors/back_left_drive"},
+	  {6, "Offseason 2024/motors/front_left_drive"},
+	  {8, "Offseason 2024/motors/front_right_drive"},
+
+	  {1, "Offseason 2024/motors/back_right_rotation"},
+	  {3, "Offseason 2024/motors/back_left_rotation"},
+	  {5, "Offseason 2024/motors/front_left_rotation"},
+	  {7, "Offseason 2024/motors/front_right_rotation"},
+
+    {11, "Offseason 2024/motors/lower_arm"},
+    {12, "Offseason 2024/motors/upper_arm"},
+
+    {20, "Offseason 2024/motors/intake_motor"},
+    {24, "Offseason 2024/motors/storage_motor"},
+    {25, "Offseason 2024/motors/shooter_motor"}
+
+
+
+
+		});
+
+	simPigeonManager.Init("Sample Robot/imu");
+
+	simCANCoderManager.Init({
+	  {9, "Offseason 2024/cancoders/back_right_cancoder"},
+	  {10, "Offseason 2024/cancoders/back_left_cancoder"},
+	  {11, "Offseason 2024/cancoders/front_left_cancoder"},
+	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
+
+	  {29, "Offseason 2024/cancoders/upper_cancoder"},
+	  {28, "Offseason 2024/cancoders/lower_cancoder"}
+
+
+		});
+
+	simDutyCycleEncoderManager.Init({});
+#endif
+
+
+
 }
 
 /**
@@ -22,7 +76,13 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  frc2::CommandScheduler::GetInstance().Run();
+
+  //frc::SmartDashboard::PutNumber("actualVelocity", shooter.getVelocityVoltage());
+
+
+}
 
 /**
  * This autonomous (along with the chooser code above) shows how to select
@@ -56,9 +116,28 @@ void Robot::AutonomousPeriodic() {
   }
 }
 
-void Robot::TeleopInit() {}
+void Robot::TeleopInit() {
 
-void Robot::TeleopPeriodic() {}
+  //frc::SmartDashboard::PutNumber("objectiveVelocity", 0);
+  //frc::SmartDashboard::PutNumber("intakeVoltage", 0);
+  //frc::SmartDashboard::PutNumber("storageVoltage", 0);
+
+}
+
+
+void Robot::TeleopPeriodic() {
+  /*
+  double objectiveVelocity = frc::SmartDashboard::GetNumber("objectiveVelocity", 0);
+  shooter.setObjectiveVelocity(objectiveVelocity);
+
+  units::volt_t intakeVoltage = units::volt_t(frc::SmartDashboard::GetNumber("intakeVoltage", 0));
+  intake.setVoltage(intakeVoltage);
+
+  units::volt_t storageVoltage = units::volt_t(frc::SmartDashboard::GetNumber("storageVoltage", 0));
+  storage.setVoltage(storageVoltage);
+  */
+
+}
 
 void Robot::DisabledInit() {}
 

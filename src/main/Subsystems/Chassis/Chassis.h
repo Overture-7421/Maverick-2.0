@@ -9,6 +9,7 @@
 
 class Chassis: public SwerveChassis {
  public:
+	/*
   Chassis();
 
 	virtual units::meters_per_second_t getMaxModuleSpeed() = 0;
@@ -33,9 +34,11 @@ class Chassis: public SwerveChassis {
 	bool configuredChassis = false;
 
 	void shuffleboardPeriodic();
+	*/
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
+  /*
   void Periodic() override;
 
  private:
@@ -58,9 +61,9 @@ class Chassis: public SwerveChassis {
 	SwerveModule frontLeftModule {moduleConfig};
 	SwerveModule frontRighttModule {moduleConfig};
 	SwerveModule backLeftModule {moduleConfig};
-SwerveModule backLeftModule {moduleConfig};
+	SwerveModule backLeftModule {moduleConfig};
 
-
+	*/
 	
 
 	//OverPigeon overPigeon;
