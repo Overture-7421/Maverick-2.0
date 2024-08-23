@@ -8,6 +8,9 @@
 #include <frc/MathUtil.h>
 
 void Robot::RobotInit() {
+
+
+
   #ifndef __FRC_ROBORIO__
 	simMotorManager.Init({
 	  {2, "Offseason 2024/motors/back_right_drive"},
@@ -52,7 +55,9 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  frc2::CommandScheduler::GetInstance().Run();
+}
 
 /**
  * This autonomous (along with the chooser code above) shows how to select
@@ -89,16 +94,16 @@ void Robot::AutonomousPeriodic() {
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-
   frc::ChassisSpeeds speeds{
-    joystickForwardBack.GetRawAxis(1) * chassis.getMaxModuleSpeed(),  // Forward/backward
-    joystickLeftRight.GetRawAxis(0) * chassis.getMaxModuleSpeed(),  // Left/right
-    joystickRotation.GetRawAxis(2) * 7_rad_per_s // Rotation
+    joystick.GetRawAxis(1) * chassis.getMaxModuleSpeed(),  // Forward/backward
+    joystick.GetRawAxis(0) * chassis.getMaxModuleSpeed(),  // Left/right
+    joystick.GetRawAxis(2) * 7_rad_per_s // Rotation
   };
 
   
-  chassis.Drive(speeds);
+  chassis.setTargetSpeeds(speeds);
   
+
 }
 
 void Robot::DisabledInit() {}

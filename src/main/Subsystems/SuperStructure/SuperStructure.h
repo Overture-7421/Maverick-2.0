@@ -10,6 +10,7 @@
 
 class SuperStructure : public frc2::SubsystemBase {
  public:
+ /*
   SuperStructure();
 
   // Commands for moving to specific positions (positions might change)
@@ -20,11 +21,11 @@ class SuperStructure : public frc2::SubsystemBase {
  private:
 
   /* Motors, and how they must be declared (First number is ID, Second thing is the status of the motor, boolean is 
-  if it is inverted) */
+  if it is inverted) 
 
   OverTalonFX lowerLeftMotor{10, ControllerNeutralMode::Coast, false, "rio"};
   OverTalonFX lowerRightMotor{11, ControllerNeutralMode::Coast, false, "rio"};
   OverTalonFX upperMotor{12, ControllerNeutralMode::Brake, false, "rio"};
 
-
+  */
 };

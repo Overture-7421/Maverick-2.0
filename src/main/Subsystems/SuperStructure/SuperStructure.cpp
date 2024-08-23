@@ -1,6 +1,7 @@
 #include "SuperStructure.h"
 #include "Constants.h"
 
+/*
 SuperStructure::SuperStructure() {
 
 //Basically says motor 2, to follow motor one (ID, Bool if is inverted or not)
@@ -59,3 +60,5 @@ frc2::CommandPtr SuperStructure::setAngle(units::degree_t lowerAngle, units::deg
 
 void SuperStructure::Periodic() {
 }
+
+*/

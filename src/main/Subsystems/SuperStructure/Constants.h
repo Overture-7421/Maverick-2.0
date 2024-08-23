@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-
+/*
 struct Constants {
 
   constexpr static const double LowerGearRatio = 172.8;
@@ -23,3 +23,5 @@ struct Constants {
 
 
 };
+
+*/

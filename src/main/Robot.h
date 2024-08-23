@@ -33,11 +33,7 @@ class Robot : public OverRobot {
 
  private:
 
-  frc::XboxController xbox{0}; 
-  frc::Joystick joystickLeftRight{0};
-  frc::Joystick joystickForwardBack{1};
-  frc::Joystick joystickRotation{2};
-  frc::ChassisSpeeds Drive;
+  frc::Joystick joystick{0};
   Chassis chassis;
 
   frc::SendableChooser<std::string> m_chooser;
