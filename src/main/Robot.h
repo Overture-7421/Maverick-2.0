@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 #pragma once
 
 #include <string>
@@ -9,16 +5,19 @@
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include "OvertureLib/Gamepad/Gamepad.h"
+// Include headers for the simulation managers
+#include "OvertureLib/Simulation/SimCANCoderManager/SimCANCoderManager.h"
+#include "OvertureLib/Simulation/SimDutyCycleEncoderManager/SimDutyCycleEncoderManager.h"
+#include "OvertureLib/Simulation/SimMotorManager/SimMotorManager.h"
+#include "OvertureLib/Simulation/SimPigeonManager/SimPigeonManager.h"
+#include "OvertureLib/Robots/OverRobot/OverRobot.h"
+#include "Subsystems/Chassis/Chassis.h"
+#include <frc/XboxController.h>
+#include <frc/Joystick.h>
+#include "frc/DriverStation.h"
 
-class Robot : public frc::TimedRobot {
+class Robot : public OverRobot {
  public:
-
-  virtual void ConfigDriverBindings();
-	virtual void ConfigOperatorBindings();
-	virtual void ConfigDefaultCommands();
-	virtual void ConfigCharacterizationBindings();
-
-  
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
@@ -33,6 +32,14 @@ class Robot : public frc::TimedRobot {
   void SimulationPeriodic() override;
 
  private:
+
+  frc::XboxController xbox{0}; 
+  frc::Joystick joystickLeftRight{0};
+  frc::Joystick joystickForwardBack{1};
+  frc::Joystick joystickRotation{2};
+  frc::ChassisSpeeds Drive;
+  Chassis chassis;
+
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";

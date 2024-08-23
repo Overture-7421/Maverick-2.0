@@ -2,6 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+/*
 #include "SupportArms.h"
 
 SupportArms::SupportArms() = default;
@@ -15,4 +17,4 @@ void SupportArms::setServoAngle(units::degree_t angle) { //Conditional that allo
 }
                 
 void SupportArms::Periodic() { 
-}
+}*/

@@ -3,15 +3,45 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-
 #include <fmt/core.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/MathUtil.h>
 
 void Robot::RobotInit() {
-  m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-  m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+  #ifndef __FRC_ROBORIO__
+	simMotorManager.Init({
+	  {2, "Offseason 2024/motors/back_right_drive"},
+	  {4, "Offseason 2024/motors/back_left_drive"},
+	  {6, "Offseason 2024/motors/front_left_drive"},
+	  {8, "Offseason 2024/motors/front_right_drive"},
+
+	  {1, "Offseason 2024/motors/back_right_rotation"},
+	  {3, "Offseason 2024/motors/back_left_rotation"},
+	  {5, "Offseason 2024/motors/front_left_rotation"},
+	  {7, "Offseason 2024/motors/front_right_rotation"},
+
+    {11, "Offseason 2024/motors/lower_arm"},
+    {12, "Offseason 2024/motors/upper_arm"}
+
+
+		});
+
+	simPigeonManager.Init("Offseason 2024/imu");
+
+	simCANCoderManager.Init({
+	  {9, "Offseason 2024/cancoders/back_right_cancoder"},
+	  {10, "Offseason 2024/cancoders/back_left_cancoder"},
+	  {11, "Offseason 2024/cancoders/front_left_cancoder"},
+	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
+
+	  {29, "Offseason 2024/cancoders/upper_cancoder"},
+	  {28, "Offseason 2024/cancoders/lower_cancoder"}
+
+
+		});
+
+	simDutyCycleEncoderManager.Init({});
+#endif
 }
 
 /**
@@ -58,7 +88,18 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+
+  frc::ChassisSpeeds speeds{
+    joystickForwardBack.GetRawAxis(1) * chassis.getMaxModuleSpeed(),  // Forward/backward
+    joystickLeftRight.GetRawAxis(0) * chassis.getMaxModuleSpeed(),  // Left/right
+    joystickRotation.GetRawAxis(2) * 7_rad_per_s // Rotation
+  };
+
+  
+  chassis.Drive(speeds);
+  
+}
 
 void Robot::DisabledInit() {}
 
