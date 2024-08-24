@@ -15,6 +15,7 @@
 #include <frc/XboxController.h>
 #include <frc/Joystick.h>
 #include "frc/DriverStation.h"
+#include "OvertureLib/Gamepad/Gamepad.h"
 
 class Robot : public OverRobot {
  public:
@@ -34,7 +35,9 @@ class Robot : public OverRobot {
  private:
 
   frc::Joystick joystick{0};
+  Gamepad gamepad{0,0.2, 0.1}; 
   Chassis chassis;
+
 
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";

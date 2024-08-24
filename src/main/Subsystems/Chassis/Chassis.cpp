@@ -13,24 +13,16 @@ frc::SimpleMotorFeedforward<units::meters> feedForwardBackLeft{0.010764_V, 2.075
 frc::SimpleMotorFeedforward<units::meters> feedForwardBackRight{0.20934_V, 2.0879_V / 1_mps, 0.098433_V / 1_mps_sq};
 
 Chassis::Chassis()
-    : SwerveChassis(),
-      frontLeftModule(FrontLeftConfig()),
-      frontRightModule(FrontRightConfig()),
-      backLeftModule(BackLeftConfig()),
-      backRightModule(BackRightConfig()),
-      poseLog(frc::DataLogManager::GetLog(), "/chassis/pose"),
-      visionPoseLog(frc::DataLogManager::GetLog(), "/chassis/visionPose")
+    : SwerveChassis()
 {
-    frc::DataLogManager::Start();
+    configureSwerveBase();
+
+    pigeon.SetYaw(0_deg);
+    resetHeading();
 }
 
-
-
-
 void Chassis::Drive(const frc::ChassisSpeeds& speeds){
-    // Convert the desired chassis speeds to individual module states using kinematics
     auto moduleStates = kinematics.ToSwerveModuleStates(speeds);
-    // Set the module states using the base class methodsetModuleStates(moduleStates);
 }
 
 units::meters_per_second_t Chassis::getMaxModuleSpeed() {
@@ -108,9 +100,10 @@ ModuleConfig Chassis::FrontLeftConfig(){
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;
-    config.kP = 53.0;
+    config.kP = 56.0; //Original 53
     config.ModuleName = "Front Left";
-    config.Offset = 0_deg;
+    config.Offset = -0.443359375_tr;
+    config.DriveInverted = true;
     return config;
 }
 
@@ -134,9 +127,10 @@ ModuleConfig Chassis::FrontRightConfig(){
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;
     config.kP = 53.0;
+    config.DriveInverted = true;
 
     config.ModuleName = "Front Right";
-    config.Offset = 0_deg;
+    config.Offset = -0.13037109375_tr;
     return config;
 }
 
@@ -145,7 +139,6 @@ ModuleConfig Chassis::BackLeftConfig(){
     config.DrivedId = 4;
     config.TurnId = 3;
     config.CanCoderId = 10;
-
     config.DriveStatorCurrentLimit = 110;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
@@ -159,10 +152,10 @@ ModuleConfig Chassis::BackLeftConfig(){
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;
-    config.kP = 53.0;
-
+    config.kP = 53.0; //Original 53
     config.ModuleName = "Back Left";
-    config.Offset = 0_deg;
+    config.DriveInverted = true;
+    config.Offset = 0.05419921875_tr;
     return config;
 }
 
@@ -186,29 +179,38 @@ ModuleConfig Chassis::BackRightConfig(){
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;
     config.kP = 53.0;
-
+    config.DriveInverted = true;
     config.ModuleName = "Back Right";
-    config.Offset = 0_deg;
+    config.Offset = 0.0791015625_tr;
     return config;
 }
 
+ void Chassis::shuffleboardPeriodic(){
+    frc::SmartDashboard::PutNumber("Odometry/LinearX",
+			desiredSpeeds.vx.value());
+	frc::SmartDashboard::PutNumber("Odometry/LinearY",
+			desiredSpeeds.vy.value());
+	frc::SmartDashboard::PutNumber("Odometry/Angular",
+			desiredSpeeds.omega.value());
 
+	frc::SmartDashboard::PutNumber("Odometry/AccelX", currentAccels.ax.value());
+	frc::SmartDashboard::PutNumber("Odometry/AccelY", currentAccels.ay.value());
+	frc::SmartDashboard::PutNumber("Odometry/AccelOmega",
+			currentAccels.omega.value());
 
-void Chassis::shuffleboardPeriodic(){
-    // frc::SmartDashboard::PutNumber("Odometry/LinearX", getCurrentSpeeds().vx.value());
-    // frc::SmartDashboard::PutNumber("Odometry/LinearY", getCurrentSpeeds().vy.value());
-    // frc::SmartDashboard::PutNumber("Odometry/Angular", getCurrentSpeeds().omega.value());
+	frc::SmartDashboard::PutNumber("Odometry/SpeedX", desiredSpeeds.vx.value());
+	frc::SmartDashboard::PutNumber("Odometry/SpeedY", desiredSpeeds.vy.value());
+	frc::SmartDashboard::PutNumber("Odometry/SpeedOmega",
+			desiredSpeeds.omega.value());
 
-    // frc::SmartDashboard::PutNumber("Odometry/AccelX", getCurrentAccels().ax.value());
-    // frc::SmartDashboard::PutNumber("Odometry/AccelY", getCurrentAccels().ay.value());
-    // frc::SmartDashboard::PutNumber("Odometry/AccelOmega", getCurrentAccels().omega.value());
+	field2d.SetRobotPose(latestPose);
+	frc::SmartDashboard::PutNumber("Odometry/X", latestPose.X().value());
+	frc::SmartDashboard::PutNumber("Odometry/Y", latestPose.Y().value());
+	frc::SmartDashboard::PutNumber("Odometry/Rotation",
+			latestPose.Rotation().Degrees().value());
 
-    // frc::SmartDashboard::PutNumber("Odometry/X", getEstimatedPose().X().value());
-    // frc::SmartDashboard::PutNumber("Odometry/Y", getEstimatedPose().Y().value());
-    // frc::SmartDashboard::PutNumber("Odometry/Rotation", getEstimatedPose().Rotation().Degrees().value());
-
-    // frontLeftModule.shuffleboardPeriodic();
-    // frontRightModule.shuffleboardPeriodic();
-    // backLeftModule.shuffleboardPeriodic();
-    // backRightModule.shuffleboardPeriodic();
+	getFrontLeftModule().shuffleboardPeriodic();
+	getFrontRightModule().shuffleboardPeriodic();
+	getBackRightModule().shuffleboardPeriodic();
+	getBackLeftModule().shuffleboardPeriodic();
 }
