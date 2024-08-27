@@ -11,17 +11,22 @@
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
-  frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
-  frc::SmartDashboard::PutNumber("setTheVoltage", 0.0);
+  //frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+  //frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
+  //frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
+  //frc::SmartDashboard::PutNumber("setTheVoltage", 0.0);
   // gamepad.B().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kForward));
   // gamepad.A().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kReverse));
   // gamepad.X().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kForward));
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
-  driver.A().OnTrue(intake.startIntake());
-  driver.A().OnFalse(intake.stopIntake());
+
+  driver.A().OnTrue(ampCommand);
+  ampCommand.
+  
+
+  //driver.A().OnTrue(intake.startIntake());
+  //driver.A().OnFalse(intake.stopIntake());
   
   driver.B().OnTrue(storage.startStorage());
   driver.B().OnFalse(storage.stopStorage());
@@ -81,9 +86,9 @@ void Robot::RobotInit() {
  */
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();
-  superStructure.getCurrentAngle(superStructure.lowerCANCoder.GetAbsolutePosition().GetValueAsDouble(), superStructure.upperCANCoder.GetAbsolutePosition().GetValueAsDouble());
-  frc::SmartDashboard::PutNumber("upperMotor position", superStructure.upperMotor.GetPosition().GetValueAsDouble());
-  frc::SmartDashboard::PutNumber("lowerMotor position:", superStructure.lowerRightMotor.GetPosition().GetValueAsDouble());
+  //superStructure.getCurrentAngle(superStructure.lowerCANCoder.GetAbsolutePosition().GetValueAsDouble(), superStructure.upperCANCoder.GetAbsolutePosition().GetValueAsDouble());
+  //frc::SmartDashboard::PutNumber("upperMotor position", superStructure.upperMotor.GetPosition().GetValueAsDouble());
+  //frc::SmartDashboard::PutNumber("lowerMotor position:", superStructure.lowerRightMotor.GetPosition().GetValueAsDouble());
 
   //frc::SmartDashboard::PutNumber("actualVelocity", shooter.getVelocityVoltage());
 
@@ -130,7 +135,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
   //superStructure.setAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0))).Schedule();
-  superStructure.setToAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0)));
+  //superStructure.setToAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0)));
   //superStructure.lowerRightMotor.setVoltage(units::volt_t(frc::SmartDashboard::GetNumber("setTheVoltage", 0.0)), false);
 
    /*

@@ -1,23 +1,25 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+#include "ManualSpeakerCommand.h" // Asegúrate de incluir la clase SuperStructure
 
-#include "ManualSpeakerCommand.h"
-
-ManualSpeakerCommand::ManualSpeakerCommand() {
-  // Use addRequirements() here to declare subsystem dependencies.
+ManualSpeakerCommand::ManualSpeakerCommand(SuperStructure* superstructure)
+    : superstructure{superstructure} {
+  // Declara dependencias del subsistema.
+  AddRequirements({superstructure});
 }
 
-// Called when the command is initially scheduled.
-void ManualSpeakerCommand::Initialize() {}
+// Inicializa el comando, moviendo las partes superior e inferior a las posiciones deseadas.
+void ManualSpeakerCommand::Initialize() {
+  superstructure->setToAngle(-15_deg, 60_deg);
+}
 
-// Called repeatedly when this Command is scheduled to run
+// Ejecutar cada ciclo del comando (no es necesario en este caso).
 void ManualSpeakerCommand::Execute() {}
 
-// Called once the command ends or is interrupted.
+// Finaliza el comando si es interrumpido o terminado.
 void ManualSpeakerCommand::End(bool interrupted) {}
 
-// Returns true when the command should end.
+// Retorna true cuando el comando debe finalizar.
 bool ManualSpeakerCommand::IsFinished() {
-  return false;
+  // Podrías terminar el comando si alcanzaste la posición deseada.
+  // O podrías usar una condición específica para terminar el comando.
+  return true; 
 }

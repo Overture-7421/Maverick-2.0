@@ -1,23 +1,26 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 #include "AmpCommand.h"
+// Asegúrate de incluir la clase SuperStructure
 
-AmpCommand::AmpCommand() {
-  // Use addRequirements() here to declare subsystem dependencies.
+AmpCommand::AmpCommand(SuperStructure* superstructure)
+    : superstructure{superstructure} {
+  // Declara dependencias del subsistema.
+  AddRequirements({superstructure});
 }
 
-// Called when the command is initially scheduled.
-void AmpCommand::Initialize() {}
+// Inicializa el comando, moviendo las partes superior e inferior a las posiciones deseadas.
+void AmpCommand::Initialize() {
+  superstructure->setToAngle(70_deg, 65_deg);
+}
 
-// Called repeatedly when this Command is scheduled to run
+// Ejecutar cada ciclo del comando (no es necesario en este caso).
 void AmpCommand::Execute() {}
 
-// Called once the command ends or is interrupted.
+// Finaliza el comando si es interrumpido o terminado.
 void AmpCommand::End(bool interrupted) {}
 
-// Returns true when the command should end.
+// Retorna true cuando el comando debe finalizar.
 bool AmpCommand::IsFinished() {
-  return false;
+  // Podrías terminar el comando si alcanzaste la posición deseada.
+  // O podrías usar una condición específica para terminar el comando.
+  return true; 
 }

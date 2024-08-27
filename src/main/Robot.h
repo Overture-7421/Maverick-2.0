@@ -22,6 +22,8 @@
 #include <frc2/command/CommandScheduler.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <OvertureLib/Gamepad/Gamepad.h>
+#include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
+#include "Commands/AmpCommand/AmpCommand.h"
 
 class Robot : public OverRobot {
  public:
@@ -38,12 +40,15 @@ class Robot : public OverRobot {
   void SimulationInit() override;
   void SimulationPeriodic() override;
 
-
-  Gamepad driver{0,0, 0};
+  Gamepad gamepad{0, 0.1, 0.1};
+  Gamepad driver{0,0.25, 0.5};
 
   Intake intake;
   Storage storage;
   Shooter shooter;
+  SuperStructure superStructure;
+
+
 
  private:
   frc::SendableChooser<std::string> m_chooser;
@@ -51,10 +56,10 @@ class Robot : public OverRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
 
+   ManualSpeakerCommand* manualSpeakerCommand;
+   AmpCommand ampCommand;
 
-
-  SuperStructure superStructure;
-  Gamepad gamepad{0, 0.1, 0.1};
+  
 
 
 };
