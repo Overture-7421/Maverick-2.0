@@ -21,8 +21,7 @@ void Robot::RobotInit() {
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
 
-  driver.A().OnTrue(ampCommand);
-  ampCommand.
+  driver.A().OnTrue(ampCommandd->ampCommand());
   
 
   //driver.A().OnTrue(intake.startIntake());

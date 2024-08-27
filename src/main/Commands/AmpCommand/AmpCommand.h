@@ -20,6 +20,8 @@ class AmpCommand : public frc2::CommandHelper<frc2::Command, AmpCommand> {
   void End(bool interrupted) override;
   bool IsFinished() override;
 
+  frc2::CommandPtr ampCommand();
+
  private:
   SuperStructure* superstructure;
 };

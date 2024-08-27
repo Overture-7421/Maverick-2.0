@@ -57,7 +57,7 @@ class Robot : public OverRobot {
   std::string m_autoSelected;
 
    ManualSpeakerCommand* manualSpeakerCommand;
-   AmpCommand ampCommand;
+   AmpCommand *ampCommandd;
 
   
 

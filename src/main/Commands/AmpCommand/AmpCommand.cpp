@@ -7,9 +7,14 @@ AmpCommand::AmpCommand(SuperStructure* superstructure)
   AddRequirements({superstructure});
 }
 
+frc2::CommandPtr AmpCommand::ampCommand(){
+    superstructure->setToAngle(70_deg, 65_deg);
+  
+
+}
+
 // Inicializa el comando, moviendo las partes superior e inferior a las posiciones deseadas.
 void AmpCommand::Initialize() {
-  superstructure->setToAngle(70_deg, 65_deg);
 }
 
 // Ejecutar cada ciclo del comando (no es necesario en este caso).
