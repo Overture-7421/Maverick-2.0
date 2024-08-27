@@ -38,7 +38,7 @@ class Robot : public OverRobot {
  private:
 
   frc::Joystick joystick{0};
-  Gamepad gamepad{0,0.2, 0.1}; 
+  Gamepad gamepad{0,0.4, 0.2}; 
   Chassis chassis;
 
  /* frc::AprilTagFieldLayout& tagLayout;

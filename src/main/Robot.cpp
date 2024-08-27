@@ -100,7 +100,7 @@ void Robot::TeleopPeriodic() {
   frc::ChassisSpeeds speeds{
     gamepad.GetRawAxis(1) * chassis.getMaxModuleSpeed(),  // Forward/backward
     gamepad.GetRawAxis(0) * chassis.getMaxModuleSpeed(),  // Left/right
-    gamepad.getTwist() * 1.5_tps // Rotation
+    gamepad.getTwist() * -1.5_tps // Rotation
   };
 chassis.setTargetSpeeds(speeds);
 }
