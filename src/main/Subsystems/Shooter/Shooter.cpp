@@ -9,8 +9,8 @@ Shooter::Shooter(){
     leftMotor.setFollow(25, true);
 
     rightMotor.setPIDValues(0.1,0,0,0,0.065);
-    rightMotor.setSensorToMechanism(Constants::ShooterGearRatio);
-    rightMotor.setRotorToSensorRatio(Constants::ShooterMotorToSensor);
+    rightMotor.setSensorToMechanism(ConstantsSh::ShooterGearRatio);
+    rightMotor.setRotorToSensorRatio(ConstantsSh::ShooterMotorToSensor);
 
     rightMotor.setClosedLoopVoltageRamp(0.1);
     rightMotor.setSupplyCurrentLimit(true, 40, 60, 0.25);
@@ -21,12 +21,12 @@ void Shooter::setVoltage(units::volt_t voltage){
 }
 
 frc2::CommandPtr Shooter::shooterCommand(){
-    return this->RunOnce([this] {this->setObjectiveVelocity(Constants::ShooterSpeaker);});
+    return this->RunOnce([this] {this->setObjectiveVelocity(ConstantsSh::ShooterSpeaker);});
     //return this->RunOnce([this] {this->setVoltage(Constants::SpeakerVolt);});
 };
 
 frc2::CommandPtr Shooter::stopShooterCommand(){
-    return this->RunOnce([this] {this->setObjectiveVelocity(Constants::StopShooterSpeaker);});
+    return this->RunOnce([this] {this->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);});
     //return this->RunOnce([this] {this->setVoltage(Constants::SpeakerStopVolt);});
 };
 

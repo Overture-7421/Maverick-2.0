@@ -16,15 +16,15 @@ void Storage::setVoltage(units::volt_t voltage){
 }
 
 frc2::CommandPtr Storage::startStorage(){
-    return this->RunOnce([this] {this->setVoltage(Constants::startVoltage);});
+    return this->RunOnce([this] {this->setVoltage(ConstantsSt::startVoltage);});
 };
 
 frc2::CommandPtr Storage::stopStorage(){
-    return this->RunOnce([this] {this->setVoltage(Constants::stopVoltage);});
+    return this->RunOnce([this] {this->setVoltage(ConstantsSt::stopVoltage);});
 };
 
 frc2::CommandPtr Storage::reverseStorage(){
-    return this->RunOnce([this] {this->setVoltage(Constants::reverseVoltage);});
+    return this->RunOnce([this] {this->setVoltage(ConstantsSt::reverseVoltage);});
 };
 
 void Storage::Periodic() {}

@@ -1,5 +1,8 @@
 #include "SuperStructure.h"
 #include <iostream>
+
+
+
 SuperStructure::SuperStructure() {
   auto getConfig = upperCANCoder.getConfiguration();
   getConfig.MagnetSensor.SensorDirection = ctre::phoenix6::signals::SensorDirectionValue::Clockwise_Positive;
@@ -14,18 +17,18 @@ SuperStructure::SuperStructure() {
 
 // setSensorToMechanism calculates how many sensor it needs for one mechanism rotation. 
 
-   lowerRightMotor.setSensorToMechanism(Constants::LowerSensorToMechanism); 
-   upperMotor.setSensorToMechanism(Constants::UpperSensorToMechanism);   
+   lowerRightMotor.setSensorToMechanism(ConstantsSS::LowerSensorToMechanism); 
+   upperMotor.setSensorToMechanism(ConstantsSS::UpperSensorToMechanism);   
 
 // //setRotorToSensorRatio calculates how many rotor rotations it needs for onw sensor rotation. GearRatio.
-   lowerRightMotor.setRotorToSensorRatio(Constants::LowerGearRatio);
-   upperMotor.setRotorToSensorRatio(Constants::UpperGearRatio);  
+   lowerRightMotor.setRotorToSensorRatio(ConstantsSS::LowerGearRatio);
+   upperMotor.setRotorToSensorRatio(ConstantsSS::UpperGearRatio);  
 
-   lowerRightMotor.setFusedCANCoder(Constants::LowerCANCoderID);
-   upperMotor.setFusedCANCoder(Constants::UpperCANCoderID);
+   lowerRightMotor.setFusedCANCoder(ConstantsSS::LowerCANCoderID);
+   upperMotor.setFusedCANCoder(ConstantsSS::UpperCANCoderID);
 
-   lowerRightMotor.setClosedLoopVoltageRamp(Constants::VoltageRamp);
-   upperMotor.setClosedLoopVoltageRamp(Constants::VoltageRamp);
+   lowerRightMotor.setClosedLoopVoltageRamp(ConstantsSS::VoltageRamp);
+   upperMotor.setClosedLoopVoltageRamp(ConstantsSS::VoltageRamp);
 
 //   //limita pico de corriente inicial
 
@@ -44,7 +47,7 @@ SuperStructure::SuperStructure() {
    lowerRightMotor.setPIDValues(100, 10, 0.0, 0.0, 0.0);
    upperMotor.setPIDValues(100, 60, 0.0, 0.0, 0.0); 
 
-   lowerRightMotor.configureMotionMagic(Constants::CruiseVelocity, Constants::CruiseAcceleration, 0.0);
+   lowerRightMotor.configureMotionMagic(ConstantsSS::CruiseVelocity, ConstantsSS::CruiseAcceleration, 0.0);
    upperMotor.configureMotionMagic(0.5, 2, 0.0);
 
   

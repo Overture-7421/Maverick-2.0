@@ -5,7 +5,7 @@
 #pragma once
 #include <OvertureLib/MotorControllers/OverTalonFX/OverTalonFX.h>
 
-class Constants {
+class ConstantsSh {
  public:
   constexpr static const double ShooterSpeaker = 100.0;
   constexpr static const double StopShooterSpeaker = 0.0;

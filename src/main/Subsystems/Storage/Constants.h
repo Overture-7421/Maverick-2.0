@@ -5,7 +5,7 @@
 #pragma once
 #include "Storage.h"
 
-class Constants {
+class ConstantsSt {
 
   public:
 

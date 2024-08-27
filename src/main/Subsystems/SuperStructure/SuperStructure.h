@@ -16,8 +16,7 @@
 
 class SuperStructure : public frc2::SubsystemBase {
  public:
- 
- SuperStructure();
+  SuperStructure();
 
   frc2::CommandPtr SysIdQuasistatic(frc2::sysid::Direction direction);
   frc2::CommandPtr SysIdDynamic(frc2::sysid::Direction direction);
@@ -29,9 +28,9 @@ class SuperStructure : public frc2::SubsystemBase {
 
   OverTalonFX lowerLeftMotor{22, ControllerNeutralMode::Brake, true, "rio"};
   OverTalonFX lowerRightMotor{21, ControllerNeutralMode::Brake, false, "rio"};
-  OverCANCoder lowerCANCoder{Constants::LowerCANCoderID, -112.148438_deg, "rio"};
+  OverCANCoder lowerCANCoder{ConstantsSS::LowerCANCoderID, -112.148438_deg, "rio"};
   OverTalonFX upperMotor{23, ControllerNeutralMode::Coast, true, "rio"};
-  OverCANCoder upperCANCoder{Constants::UpperCANCoderID, 183.779297_deg, "rio"};
+  OverCANCoder upperCANCoder{ConstantsSS::UpperCANCoderID, 183.779297_deg, "rio"};
 
   void getCurrentAngle(double currentLowerAngle, double currentUpperAngle);
 
