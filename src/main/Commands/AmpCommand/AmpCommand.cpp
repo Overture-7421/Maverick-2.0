@@ -4,10 +4,20 @@
 
 #include "AmpCommand.h"
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.
-// For more information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 AmpCommand::AmpCommand() {
-  // Add your commands here, e.g.
-  // AddCommands(FooCommand{}, BarCommand{});
+  // Use addRequirements() here to declare subsystem dependencies.
+}
+
+// Called when the command is initially scheduled.
+void AmpCommand::Initialize() {}
+
+// Called repeatedly when this Command is scheduled to run
+void AmpCommand::Execute() {}
+
+// Called once the command ends or is interrupted.
+void AmpCommand::End(bool interrupted) {}
+
+// Returns true when the command should end.
+bool AmpCommand::IsFinished() {
+  return false;
 }

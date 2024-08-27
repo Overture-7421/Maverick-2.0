@@ -4,12 +4,30 @@
 
 #pragma once
 
+#include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
 
+/**
+ * An example command.
+ *
+ * <p>Note that this extends CommandHelper, rather extending Command
+ * directly; this is crucially important, or else the decorator functions in
+ * Command will *not* work!
+ */
 class AmpCommand
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
-                                 AmpCommand> {
+    : public frc2::CommandHelper<frc2::Command, AmpCommand> {
  public:
   AmpCommand();
+
+  void Initialize() override;
+
+  void Execute() override;
+
+  void End(bool interrupted) override;
+
+  bool IsFinished() override;
 };
+
+//Upper 65
+//Lower 70
+

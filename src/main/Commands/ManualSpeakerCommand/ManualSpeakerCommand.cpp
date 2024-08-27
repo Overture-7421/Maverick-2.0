@@ -4,10 +4,20 @@
 
 #include "ManualSpeakerCommand.h"
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.
-// For more information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 ManualSpeakerCommand::ManualSpeakerCommand() {
-  // Add your commands here, e.g.
-  // AddCommands(FooCommand{}, BarCommand{});
+  // Use addRequirements() here to declare subsystem dependencies.
+}
+
+// Called when the command is initially scheduled.
+void ManualSpeakerCommand::Initialize() {}
+
+// Called repeatedly when this Command is scheduled to run
+void ManualSpeakerCommand::Execute() {}
+
+// Called once the command ends or is interrupted.
+void ManualSpeakerCommand::End(bool interrupted) {}
+
+// Returns true when the command should end.
+bool ManualSpeakerCommand::IsFinished() {
+  return false;
 }
