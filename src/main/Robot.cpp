@@ -43,6 +43,10 @@ void Robot::RobotInit() {
 
 	simDutyCycleEncoderManager.Init({});
 #endif
+
+  config1.cameraName = "camera1";
+  config2.cameraName = "camera2";
+  
 }
 
 /**
@@ -54,7 +58,11 @@ void Robot::RobotInit() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
-   frc2::CommandScheduler::GetInstance().Run();
+  frc2::CommandScheduler::GetInstance().Run();
+
+  camera1.updateOdometry();
+  camera2.updateOdometry();
+  
 }
 
 
