@@ -16,7 +16,8 @@
 
 class SuperStructure : public frc2::SubsystemBase {
  public:
-  SuperStructure();
+ 
+ SuperStructure();
 
   frc2::CommandPtr SysIdQuasistatic(frc2::sysid::Direction direction);
   frc2::CommandPtr SysIdDynamic(frc2::sysid::Direction direction);

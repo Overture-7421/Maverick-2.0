@@ -5,17 +5,29 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include "OvertureLib/MotorControllers/OverTalonFX/OverTalonFX.h"
+#include <frc2/command/Commands.h>
 
 class Shooter : public frc2::SubsystemBase {
  public:
   Shooter();
 
+  frc2::CommandPtr shooterCommand();
+  frc2::CommandPtr stopShooterCommand();
+  double getVelocityVoltage();
+  void setVoltage(units::volt_t voltage);
+  void setObjectiveVelocity(double velocity);
+
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic() override;
+  void Periodic() override; 
 
  private:
+  OverTalonFX rightMotor{25, ControllerNeutralMode::Coast, true, "rio"};
+  OverTalonFX leftMotor{26, ControllerNeutralMode::Coast, false, "rio"};  
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

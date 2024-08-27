@@ -12,7 +12,6 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-
   frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
   frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
   frc::SmartDashboard::PutNumber("setTheVoltage", 0.0);
@@ -20,6 +19,15 @@ void Robot::RobotInit() {
   // gamepad.A().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kReverse));
   // gamepad.X().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kForward));
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
+
+  driver.A().OnTrue(intake.startIntake());
+  driver.A().OnFalse(intake.stopIntake());
+  
+  driver.B().OnTrue(storage.startStorage());
+  driver.B().OnFalse(storage.stopStorage());
+
+  driver.Y().OnTrue(shooter.shooterCommand());
+  driver.Y().OnFalse(shooter.stopShooterCommand());
 
 
   #ifndef __FRC_ROBORIO__
@@ -35,7 +43,11 @@ void Robot::RobotInit() {
 	  {7, "Offseason 2024/motors/front_right_rotation"},
 
     {11, "Offseason 2024/motors/lower_arm"},
-    {12, "Offseason 2024/motors/upper_arm"}
+    {12, "Offseason 2024/motors/upper_arm"},
+
+    {20, "Offseason 2024/motors/intake_motor"},
+    {24, "Offseason 2024/motors/storage_motor"},
+    {25, "Offseason 2024/motors/shooter_motor"}
 
 
 		});
@@ -68,13 +80,13 @@ void Robot::RobotInit() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
-
   frc2::CommandScheduler::GetInstance().Run();
   superStructure.getCurrentAngle(superStructure.lowerCANCoder.GetAbsolutePosition().GetValueAsDouble(), superStructure.upperCANCoder.GetAbsolutePosition().GetValueAsDouble());
   frc::SmartDashboard::PutNumber("upperMotor position", superStructure.upperMotor.GetPosition().GetValueAsDouble());
   frc::SmartDashboard::PutNumber("lowerMotor position:", superStructure.lowerRightMotor.GetPosition().GetValueAsDouble());
 
-  
+  //frc::SmartDashboard::PutNumber("actualVelocity", shooter.getVelocityVoltage());
+
 }
 
 /**
@@ -110,16 +122,27 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-
-
+   //frc::SmartDashboard::PutNumber("objectiveVelocity", 0);
+  //frc::SmartDashboard::PutNumber("intakeVoltage", 0);
+  //frc::SmartDashboard::PutNumber("storageVoltage", 0);
 
 }
 
 void Robot::TeleopPeriodic() {
-//superStructure.setAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0))).Schedule();
-superStructure.setToAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0)));
-//superStructure.lowerRightMotor.setVoltage(units::volt_t(frc::SmartDashboard::GetNumber("setTheVoltage", 0.0)), false);
+  //superStructure.setAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0))).Schedule();
+  superStructure.setToAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0)));
+  //superStructure.lowerRightMotor.setVoltage(units::volt_t(frc::SmartDashboard::GetNumber("setTheVoltage", 0.0)), false);
 
+   /*
+  double objectiveVelocity = frc::SmartDashboard::GetNumber("objectiveVelocity", 0);
+  shooter.setObjectiveVelocity(objectiveVelocity);
+
+  units::volt_t intakeVoltage = units::volt_t(frc::SmartDashboard::GetNumber("intakeVoltage", 0));
+  intake.setVoltage(intakeVoltage);
+
+  units::volt_t storageVoltage = units::volt_t(frc::SmartDashboard::GetNumber("storageVoltage", 0));
+  storage.setVoltage(storageVoltage);
+  */
 
 }
 

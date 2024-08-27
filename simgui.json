@@ -7,6 +7,9 @@
   },
   "NetworkTables": {
     "transitory": {
+      "LiveWindow": {
+        "open": true
+      },
       "Offseason 2024": {
         "cancoders": {
           "lower_cancoder": {
@@ -14,6 +17,13 @@
           },
           "open": true,
           "upper_cancoder": {
+            "open": true
+          },
+          "front_left_rotation": {
+            "open": true
+          },
+          "open": true,
+          "shooter_motor": {
             "open": true
           }
         },
@@ -28,6 +38,12 @@
         },
         "open": true
       },
+      "Shuffleboard": {
+        ".metadata": {
+          "open": true
+        },
+        "open": true
+      },
       "SmartDashboard": {
         "Auto Modes": {
           "open": true
@@ -37,6 +53,9 @@
     }
   },
   "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
     "visible": true
   },
   "Plot": {
@@ -66,3 +85,5 @@
     }
   }
 }
+
+

@@ -23,7 +23,8 @@ class Storage : public frc2::SubsystemBase {
   void Periodic() override;
 
  private:
- OverTalonFX storagemotor{24, ControllerNeutralMode::Coast, false, "CANIvore"};
+ //ID 24
+ OverTalonFX storagemotor{24, ControllerNeutralMode::Coast, false, "rio"};
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
