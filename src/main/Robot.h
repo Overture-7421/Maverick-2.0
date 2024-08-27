@@ -20,6 +20,8 @@
 
 class Robot : public OverRobot {
  public:
+
+ 
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
@@ -39,13 +41,13 @@ class Robot : public OverRobot {
   Gamepad gamepad{0,0.2, 0.1}; 
   Chassis chassis;
 
-  frc::AprilTagFieldLayout& tagLayout;
-	Chassis& chassisApril;
+ /* frc::AprilTagFieldLayout& tagLayout;
+	Chassis chassisApril;
 	AprilTags::Config config1;
 	AprilTags::Config config2;
   
   AprilTags camera1 {tagLayout, chassisApril, config1};
-  AprilTags camera2 {tagLayout, chassisApril, config2};
+  AprilTags camera2 {tagLayout, chassisApril, config2};*/
 
 
   frc::SendableChooser<std::string> m_chooser;

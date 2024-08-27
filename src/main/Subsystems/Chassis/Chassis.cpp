@@ -112,7 +112,6 @@ ModuleConfig Chassis::FrontRightConfig(){
     config.DrivedId = 8;
     config.TurnId = 7;
     config.CanCoderId = 12;
-
     config.DriveStatorCurrentLimit = 110;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
@@ -128,7 +127,6 @@ ModuleConfig Chassis::FrontRightConfig(){
     config.WheelDiameter = 4_in;
     config.kP = 53.0;
     config.DriveInverted = true;
-
     config.ModuleName = "Front Right";
     config.Offset = -0.13037109375_tr;
     return config;
