@@ -4,7 +4,9 @@
 
 #include "AmpCommand.h"
 
-AmpCommand::AmpCommand() {
+AmpCommand::AmpCommand(SuperStructure superstructure, Shooter shooter) {
+  this->superStructure = superStructure;
+  AddRequirements(superStructure, shooter);
   // Use addRequirements() here to declare subsystem dependencies.
 }
 

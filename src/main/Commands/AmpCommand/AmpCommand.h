@@ -6,6 +6,8 @@
 
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
+#include "Subsystems/SuperStructure/SuperStructure.h"
+#include "Subsystems/Shooter/Shooter.h"
 
 /**
  * An example command.
@@ -17,7 +19,7 @@
 class AmpCommand
     : public frc2::CommandHelper<frc2::Command, AmpCommand> {
  public:
-  AmpCommand();
+  AmpCommand(SuperStructure superStructure, Shooter shooter);
 
   void Initialize() override;
 
@@ -26,6 +28,10 @@ class AmpCommand
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+  private:
+  SuperStructure superStructure;
+  Shooter shooter;
 };
 
 //Upper 65
