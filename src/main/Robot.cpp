@@ -98,10 +98,10 @@ void Robot::TeleopPeriodic() {
   chassis.shuffleboardPeriodic();
 
   frc::ChassisSpeeds speeds{
-      (Utils::ApplyAxisFilter(gamepad.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),  // Forward/backward
-      (Utils::ApplyAxisFilter(gamepad.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),  // Left/right  
-      gamepad.getTwist() * 1.5_tps // Rotation
-   };
+     (Utils::ApplyAxisFilter(gamepad.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),  // Forward/backward
+      (Utils::ApplyAxisFilter(gamepad.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),  
+    gamepad.getTwist() * 1.5_tps // Rotation
+  };
 chassis.setTargetSpeeds(speeds);
 }
 
