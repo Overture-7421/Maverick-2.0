@@ -12,18 +12,17 @@
       },
       "Offseason 2024": {
         "cancoders": {
+          "front_left_rotation": {
+            "open": true
+          },
           "lower_cancoder": {
             "open": true
           },
           "open": true,
-          "upper_cancoder": {
-            "open": true
-          },
-          "front_left_rotation": {
-            "open": true
-          },
-          "open": true,
           "shooter_motor": {
+            "open": true
+          },
+          "upper_cancoder": {
             "open": true
           }
         },
@@ -85,5 +84,3 @@
     }
   }
 }
-
-

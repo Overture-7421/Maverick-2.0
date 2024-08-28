@@ -21,7 +21,7 @@ void Robot::RobotInit() {
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
 
-  driver.A().OnTrue(ampCommandd->ampCommand());
+  driver.A().OnTrue(AmpCommand(&superStructure).ToPtr());
   
 
   //driver.A().OnTrue(intake.startIntake());
@@ -46,8 +46,8 @@ void Robot::RobotInit() {
 	  {5, "Offseason 2024/motors/front_left_rotation"},
 	  {7, "Offseason 2024/motors/front_right_rotation"},
 
-    {11, "Offseason 2024/motors/lower_arm"},
-    {12, "Offseason 2024/motors/upper_arm"},
+    {21, "Offseason 2024/motors/lower_arm"},
+    {23, "Offseason 2024/motors/upper_arm"},
 
     {20, "Offseason 2024/motors/intake_motor"},
     {24, "Offseason 2024/motors/storage_motor"},
@@ -64,7 +64,7 @@ void Robot::RobotInit() {
 	  {11, "Offseason 2024/cancoders/front_left_cancoder"},
 	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
 
-	  {29, "Offseason 2024/cancoders/upper_cancoder"},
+	  {27, "Offseason 2024/cancoders/upper_cancoder"},
 	  {28, "Offseason 2024/cancoders/lower_cancoder"}
 
 

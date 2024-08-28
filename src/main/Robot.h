@@ -56,10 +56,6 @@ class Robot : public OverRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
 
-   ManualSpeakerCommand* manualSpeakerCommand;
-   AmpCommand *ampCommandd;
-
-  
 
 
 };

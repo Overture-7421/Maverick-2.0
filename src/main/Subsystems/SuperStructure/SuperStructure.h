@@ -25,6 +25,7 @@ class SuperStructure : public frc2::SubsystemBase {
   void setToAngle(units::degree_t lowerAngle, units::degree_t upperAngle);
 
   frc2::CommandPtr setAngle(units::degree_t lowerAngle, units::degree_t upperAngle);
+  bool getTargetPosition(units::degree_t lowerAngle, units::degree_t upperAngle);
 
   OverTalonFX lowerLeftMotor{22, ControllerNeutralMode::Brake, true, "rio"};
   OverTalonFX lowerRightMotor{21, ControllerNeutralMode::Brake, false, "rio"};

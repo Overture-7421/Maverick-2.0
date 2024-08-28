@@ -82,7 +82,15 @@ void SuperStructure::getCurrentAngle(double lowerAngle, double upperAngle){
     double currentUpperAngle = upperAngle * 360;
     frc::SmartDashboard::PutNumber("current lower angle", currentLowerAngle);
     frc::SmartDashboard::PutNumber("current upper angle", currentUpperAngle);
-   };
+};
+
+bool SuperStructure::getTargetPosition(units::degree_t lowerAngle, units::degree_t upperAngle){
+   if(lowerAngle == lowerRightMotor.GetPosition().GetValue() && upperAngle == upperMotor.GetPosition().GetValue()){
+    return true;
+   } else {
+    return false;
+   }
+}
 
 frc2::CommandPtr SuperStructure::SysIdQuasistatic(frc2::sysid::Direction direction){
   return m_sysIdRoutine.Quasistatic(direction);
