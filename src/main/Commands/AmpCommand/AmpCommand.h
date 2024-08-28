@@ -2,12 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#pragma once
 
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/ParallelCommandGroup.h>
 #include "Subsystems/SuperStructure/SuperStructure.h"
 #include "Subsystems/Shooter/Shooter.h"
+#include <frc2/command/CommandHelper.h>
+#pragma once
 
 /**
  * An example command.
@@ -19,21 +21,12 @@
 class AmpCommand
     : public frc2::CommandHelper<frc2::Command, AmpCommand> {
  public:
-  AmpCommand(SuperStructure superStructure, Shooter shooter);
+  explicit AmpCommand(SuperStructure* superstructure);
 
   void Initialize() override;
-
   void Execute() override;
-
   void End(bool interrupted) override;
-
   bool IsFinished() override;
-
-  private:
-  SuperStructure superStructure;
-  Shooter shooter;
 };
 
-//Upper 65
-//Lower 70
 

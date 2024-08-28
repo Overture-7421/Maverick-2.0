@@ -11,17 +11,21 @@
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
-  frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
-  frc::SmartDashboard::PutNumber("setTheVoltage", 0.0);
+  //frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+  //frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
+  //frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
+  //frc::SmartDashboard::PutNumber("setTheVoltage", 0.0);
   // gamepad.B().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kForward));
   // gamepad.A().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kReverse));
   // gamepad.X().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kForward));
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
-  driver.A().OnTrue(intake.startIntake());
-  driver.A().OnFalse(intake.stopIntake());
+
+  driver.A().OnTrue(AmpCommand(&superStructure).ToPtr());
+  
+
+  //driver.A().OnTrue(intake.startIntake());
+  //driver.A().OnFalse(intake.stopIntake());
   
   driver.B().OnTrue(storage.startStorage());
   driver.B().OnFalse(storage.stopStorage());
@@ -42,8 +46,8 @@ void Robot::RobotInit() {
 	  {5, "Offseason 2024/motors/front_left_rotation"},
 	  {7, "Offseason 2024/motors/front_right_rotation"},
 
-    {11, "Offseason 2024/motors/lower_arm"},
-    {12, "Offseason 2024/motors/upper_arm"},
+    {21, "Offseason 2024/motors/lower_arm"},
+    {23, "Offseason 2024/motors/upper_arm"},
 
     {20, "Offseason 2024/motors/intake_motor"},
     {24, "Offseason 2024/motors/storage_motor"},
@@ -60,7 +64,7 @@ void Robot::RobotInit() {
 	  {11, "Offseason 2024/cancoders/front_left_cancoder"},
 	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
 
-	  {29, "Offseason 2024/cancoders/upper_cancoder"},
+	  {27, "Offseason 2024/cancoders/upper_cancoder"},
 	  {28, "Offseason 2024/cancoders/lower_cancoder"}
 
 
