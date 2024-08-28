@@ -14,14 +14,12 @@ public:
     Chassis();
  
   void shuffleboardPeriodic();
-  void Drive(const frc::ChassisSpeeds& speeds); // Method to control the chassisprivate:
+  void Drive(const frc::ChassisSpeeds& speeds); 
    
   units::meters_per_second_t getMaxModuleSpeed() override; 
   units::meter_t getDriveBaseRadius() override;
   frc::Rotation2d getRotation2d() override;
   frc::Rotation3d getRotation3d() override;
-  void getTo();
-
   SwerveModule& getFrontLeftModule() override;
   SwerveModule& getFrontRightModule() override;
   SwerveModule& getBackLeftModule() override;
@@ -69,9 +67,9 @@ private:
   ChassisAccels currentAccels;
   frc::Pose2d latestPose;
   frc::SwerveDriveKinematics<4> kinematics {{
-                 frc::Translation2d {-13.125_in, 10.375_in}, //BackLeftModule
-                 frc::Translation2d {-13.125_in, -10.375_in},  //BackRightModule
                  frc::Translation2d {7.625_in, 10.375_in}, //FrontLeftModule
-                 frc::Translation2d {7.625_in, -10.375_in}  //FrontRightModule
+                 frc::Translation2d {7.625_in, -10.375_in},  //FrontRightModule
+                 frc::Translation2d {-13.125_in, -10.375_in}, //BackRightModule
+                 frc::Translation2d {-13.125_in, 10.375_in}  //BackLeftModule
                                                }};
 };

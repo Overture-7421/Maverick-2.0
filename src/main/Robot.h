@@ -17,6 +17,7 @@
 #include "frc/DriverStation.h"
 #include "OvertureLib/Gamepad/Gamepad.h"
 #include "OvertureLib/Subsystems/Vision/AprilTags/AprilTags.h"
+#include "OvertureLib/Math/Utils.h"
 
 class Robot : public OverRobot {
  public:
@@ -38,18 +39,8 @@ class Robot : public OverRobot {
  private:
 
   frc::Joystick joystick{0};
-  Gamepad gamepad{0,0.2, 0.1}; 
+  Gamepad gamepad{0,0.0, 0.1}; 
   Chassis chassis;
-
- /* frc::AprilTagFieldLayout& tagLayout;
-	Chassis chassisApril;
-	AprilTags::Config config1;
-	AprilTags::Config config2;
-  
-  AprilTags camera1 {tagLayout, chassisApril, config1};
-  AprilTags camera2 {tagLayout, chassisApril, config2};*/
-
-
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
