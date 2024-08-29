@@ -12,11 +12,10 @@ class Shooter : public frc2::SubsystemBase {
  public:
   Shooter();
 
-  frc2::CommandPtr shooterCommand();
-  frc2::CommandPtr stopShooterCommand();
   double getVelocityVoltage();
   void setVoltage(units::volt_t voltage);
   void setObjectiveVelocity(double velocity);
+  bool getObjectiveVelocity(double velocity);
 
 
   /**

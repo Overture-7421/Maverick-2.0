@@ -4,10 +4,9 @@
 
 #include "GroundGrabCommand.h"
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.
-// For more information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-GroundGrabCommand::GroundGrabCommand() {
-  // Add your commands here, e.g.
-  // AddCommands(FooCommand{}, BarCommand{});
-}
+frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage){
+    return frc2::cmd::Parallel(
+        intake->startIntake(),
+        storage->startStorage()
+    );
+};

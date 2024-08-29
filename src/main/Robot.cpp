@@ -21,7 +21,14 @@ void Robot::RobotInit() {
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
 
-  driver.A().OnTrue(AmpCommand(&superStructure).ToPtr());
+  driver.A().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
+  driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage).ToPtr());
+
+  driver.Y().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
+  driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage).ToPtr());
+
+  driver.X().OnTrue(GroundGrabCommand(&intake, &storage));
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage).ToPtr());
   
 
   //driver.A().OnTrue(intake.startIntake());
@@ -30,8 +37,8 @@ void Robot::RobotInit() {
   driver.B().OnTrue(storage.startStorage());
   driver.B().OnFalse(storage.stopStorage());
 
-  driver.Y().OnTrue(shooter.shooterCommand());
-  driver.Y().OnFalse(shooter.stopShooterCommand());
+  //driver.Y().OnTrue(shooter.shooterCommand());
+  //driver.Y().OnFalse(shooter.stopShooterCommand());
 
 
   #ifndef __FRC_ROBORIO__

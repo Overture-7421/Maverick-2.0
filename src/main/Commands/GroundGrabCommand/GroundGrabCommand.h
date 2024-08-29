@@ -4,12 +4,9 @@
 
 #pragma once
 
-#include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
+#include "Subsystems/Intake/Intake.h"
+#include "Subsystems/Storage/Storage.h"
 
-class GroundGrabCommand
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
-                                 GroundGrabCommand> {
- public:
-  GroundGrabCommand();
-};
+#include <frc2/command/Commands.h>
+
+frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage);

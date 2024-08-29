@@ -22,8 +22,12 @@
 #include <frc2/command/CommandScheduler.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <OvertureLib/Gamepad/Gamepad.h>
+
 #include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
 #include "Commands/AmpCommand/AmpCommand.h"
+#include "Commands/ClosedCommand/ClosedCommand.h"
+#include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
+#include "Commands/GroundGrabCommand/GroundGrabCommand.h"
 
 class Robot : public OverRobot {
  public:

@@ -20,22 +20,20 @@ void Shooter::setVoltage(units::volt_t voltage){
     rightMotor.SetVoltage(voltage);
 }
 
-frc2::CommandPtr Shooter::shooterCommand(){
-    return this->RunOnce([this] {this->setObjectiveVelocity(ConstantsSh::ShooterSpeaker);});
-    //return this->RunOnce([this] {this->setVoltage(Constants::SpeakerVolt);});
-};
-
-frc2::CommandPtr Shooter::stopShooterCommand(){
-    return this->RunOnce([this] {this->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);});
-    //return this->RunOnce([this] {this->setVoltage(Constants::SpeakerStopVolt);});
-};
-
 double Shooter::getVelocityVoltage(){
     return rightMotor.GetVelocity().GetValueAsDouble();
 }
 
 void Shooter::setObjectiveVelocity(double velocity){
     rightMotor.setVelocityVoltage(velocity, 0, false);
+}
+
+bool Shooter::getObjectiveVelocity(double velocity){
+    if(velocity == rightMotor.GetVelocity().GetValueAsDouble()){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
