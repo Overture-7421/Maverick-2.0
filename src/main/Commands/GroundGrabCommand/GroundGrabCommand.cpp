@@ -4,9 +4,20 @@
 
 #include "GroundGrabCommand.h"
 
-frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage){
-    return frc2::cmd::Parallel(
+frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure){
+    return frc2::cmd::Sequence(
+        frc2::cmd::Parallel(
+        superStructure->setAngle(-32_deg, 80_deg),
         intake->startIntake(),
         storage->startStorage()
+    ),
+        frc2::cmd::WaitUntil([storage]{
+            return storage->isNoteOnSensor();
+            
+        }),
+        frc2::cmd::Parallel(
+        intake->stopIntake(),
+        storage->stopStorage()
+    )
     );
-};
+}

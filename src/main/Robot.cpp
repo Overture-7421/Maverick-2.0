@@ -27,7 +27,7 @@ void Robot::RobotInit() {
   driver.Y().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
   driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage).ToPtr());
 
-  driver.X().OnTrue(GroundGrabCommand(&intake, &storage));
+  driver.X().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage).ToPtr());
   
 
