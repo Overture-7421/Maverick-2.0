@@ -26,5 +26,3 @@ class AmpCommand : public frc2::CommandHelper<frc2::Command, AmpCommand> {
   SuperStructure* superstructure;
   Shooter* shooter;
 };
-
-
