@@ -9,8 +9,6 @@
 
 #include "Subsystems/SuperStructure/SuperStructure.h"
 #include "Subsystems/Shooter/Shooter.h"
-#include "Subsystems/Storage/Storage.h"
-#include "Subsystems/Intake/Intake.h"
 
 /**
  * An example command.
@@ -19,10 +17,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ClosedCommand
-    : public frc2::CommandHelper<frc2::Command, ClosedCommand> {
+class LowPassCommand
+    : public frc2::CommandHelper<frc2::Command, LowPassCommand> {
  public:
-  ClosedCommand(SuperStructure* superStructure, Shooter* shooter, Storage* storage, Intake* intake);
+  LowPassCommand(SuperStructure* superStructure, Shooter* shooter);
 
   void Initialize() override;
 
@@ -35,8 +33,4 @@ class ClosedCommand
   private:
   SuperStructure* superStructure;
   Shooter* shooter;
-  Storage* storage;
-  Intake* intake;
-  
-  
 };

@@ -28,6 +28,9 @@
 #include "Commands/ClosedCommand/ClosedCommand.h"
 #include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
 #include "Commands/GroundGrabCommand/GroundGrabCommand.h"
+#include "Commands/LowPassCommand/LowPassCommand.h"
+#include "Commands/HighPassCommand/HighPassCommand.h"
+#include "Commands/ClosedPassCommand/ClosedPassCommand.h"
 
 class Robot : public OverRobot {
  public:
