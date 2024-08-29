@@ -45,6 +45,23 @@ void Robot::RobotInit() {
 #endif
 }
 
+AprilTags::Config Robot::shooterCameraConfig() {
+    AprilTags::Config config;
+    config.cameraName = "Arducam_OV2311_USB_Camera";
+    config.cameraToRobot = {-14.950771_in, 0_m, 14.034697_in, {-180_deg, -30_deg, 180_deg}};
+    config.doubleTagValidDistance = 5_m;
+    config.singleTagValidDistance = 9_m;
+    config.tripleTagValidDistance = 13_m;
+    return config;
+}
+
+AprilTags::Config Robot::frontRightCameraConfig() {
+    AprilTags::Config config;
+    config.cameraName = "Arducam_OV9281_USB_Camera";
+    config.cameraToRobot = {6.388283_in, -10.648092_in, 8.358231_in, {0_deg, -28.125_deg, -30_deg}};
+    return config;
+}
+
 /**
  * This function is called every 20 ms, no matter the mode. Use
  * this for items like diagnostics that you want ran during disabled,
@@ -100,7 +117,7 @@ void Robot::TeleopPeriodic() {
   frc::ChassisSpeeds speeds{
      (Utils::ApplyAxisFilter(gamepad.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),  // Forward/backward
       (Utils::ApplyAxisFilter(gamepad.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),  
-    gamepad.getTwist() * 1.5_tps // Rotation
+      gamepad.getTwist() * 1.5_tps // Rotation
   };
 chassis.setTargetSpeeds(speeds);
 }

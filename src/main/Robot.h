@@ -45,4 +45,17 @@ class Robot : public OverRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
+
+frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField
+(frc::AprilTagField::k2024Crescendo);
+
+  static AprilTags::Config shooterCameraConfig();
+  static AprilTags::Config frontRightCameraConfig();
+
+  AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
+  AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
+
+  /*AprilTags::Config Camera1{camera1Config()};
+  AprilTags::Config Camera2{camera2Config()};*/
+  
 };

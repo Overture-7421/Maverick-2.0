@@ -16,7 +16,7 @@ Chassis::Chassis()
     : SwerveChassis()
 {
     configureSwerveBase();
-
+    setAcceptingVisionMeasurements(true);
     pigeon.SetYaw(0_deg);
     resetHeading();
 }
@@ -81,6 +81,8 @@ frc::Rotation2d Chassis::getRotation2d() {
 frc::Rotation3d Chassis::getRotation3d() {    
     return pigeon.GetRotation3d();
 }
+
+
 
 ModuleConfig Chassis::FrontLeftConfig(){
     ModuleConfig config{feedForwardFrontLeft};
@@ -162,7 +164,6 @@ ModuleConfig Chassis::BackRightConfig(){
     config.DrivedId = 2;
     config.TurnId = 1;
     config.CanCoderId = 9;
-
     config.DriveStatorCurrentLimit = 110;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
