@@ -54,6 +54,7 @@ frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField
 
   AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
   AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
+  
 
   /*AprilTags::Config Camera1{camera1Config()};
   AprilTags::Config Camera2{camera2Config()};*/
