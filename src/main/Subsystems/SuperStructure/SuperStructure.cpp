@@ -3,6 +3,7 @@
 
 
 
+/*
 SuperStructure::SuperStructure() {
   auto getConfig = upperCANCoder.getConfiguration();
   getConfig.MagnetSensor.SensorDirection = ctre::phoenix6::signals::SensorDirectionValue::Clockwise_Positive;
@@ -108,3 +109,5 @@ frc2::CommandPtr SuperStructure::SysIdDynamic(frc2::sysid::Direction direction){
 
 void SuperStructure::Periodic() {
 }
+
+*/
