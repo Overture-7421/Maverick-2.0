@@ -27,14 +27,17 @@ void Robot::RobotInit() {
   driver.Y().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
   driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.A().OnTrue(GroundGrabCommand(&intake, &storage));
+  driver.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
   driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.B().OnTrue(LowPassCommand(&superStructure, &shooter).ToPtr());
-  driver.B().OnFalse(ClosedPassCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.LeftTrigger().OnTrue(LowPassCommand(&superStructure, &shooter).ToPtr());
+  driver.LeftTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter).ToPtr());
-  driver.X().OnFalse(ClosedPassCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+
+  driver.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
+  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   //driver.A().OnTrue(intake.startIntake());
   //driver.A().OnFalse(intake.stopIntake());

@@ -14,7 +14,7 @@ HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shoote
 
 // Called when the command is initially scheduled.
 void HighPassCommand::Initialize() {
-  superStructure->setToAngle(0_deg, 30_deg);
+  superStructure->setToAngle(-15_deg, 60_deg);
   shooter->setObjectiveVelocity(ConstantsSh::ShooterHighPass);
 }
 
@@ -26,7 +26,7 @@ void HighPassCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool HighPassCommand::IsFinished() {
-  if(superStructure->getTargetPosition(0_deg, 30_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterHighPass)){
+  if(superStructure->getTargetPosition(-15_deg, 60_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterHighPass)){
     return true;
   } else {
     return false;

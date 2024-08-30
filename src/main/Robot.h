@@ -31,6 +31,7 @@
 #include "Commands/LowPassCommand/LowPassCommand.h"
 #include "Commands/HighPassCommand/HighPassCommand.h"
 #include "Commands/ClosedPassCommand/ClosedPassCommand.h"
+#include "Commands/SpitNoteCommand/SpitNoteCommand.h"
 
 class Robot : public OverRobot {
  public:
@@ -47,7 +48,7 @@ class Robot : public OverRobot {
   void SimulationInit() override;
   void SimulationPeriodic() override;
 
-  Gamepad gamepad{0, 0.1, 0.1};
+  Gamepad gamepad{1, 0.1, 0.1};
   Gamepad driver{0,0.25, 0.5};
 
   Intake intake;

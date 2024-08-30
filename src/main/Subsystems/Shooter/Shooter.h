@@ -16,6 +16,7 @@ class Shooter : public frc2::SubsystemBase {
   void setVoltage(units::volt_t voltage);
   void setObjectiveVelocity(double velocity);
   bool getObjectiveVelocity(double velocity);
+  frc2::CommandPtr setObjectiveVelocityPtr();
 
 
   /**

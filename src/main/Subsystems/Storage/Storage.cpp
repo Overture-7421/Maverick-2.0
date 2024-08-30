@@ -15,6 +15,10 @@ void Storage::setVoltage(units::volt_t voltage){
     storagemotor.SetVoltage(voltage);
 }
 
+bool Storage::isNoteOnSensor(){
+    return !(sensor1.Get() || sensor2.Get());
+}
+
 frc2::CommandPtr Storage::startStorage(){
     return this->RunOnce([this] {this->setVoltage(ConstantsSt::startVoltage);});
 };
@@ -27,4 +31,6 @@ frc2::CommandPtr Storage::reverseStorage(){
     return this->RunOnce([this] {this->setVoltage(ConstantsSt::reverseVoltage);});
 };
 
-void Storage::Periodic() {}
+void Storage::Periodic() {
+    frc::SmartDashboard::PutBoolean("is note on sensor?? ", isNoteOnSensor());
+}

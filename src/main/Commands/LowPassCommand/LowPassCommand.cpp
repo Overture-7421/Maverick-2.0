@@ -14,7 +14,7 @@ LowPassCommand::LowPassCommand(SuperStructure* superStructure, Shooter* shooter)
 
 // Called when the command is initially scheduled.
 void LowPassCommand::Initialize() {
-  superStructure->setToAngle(20_deg, 80_deg);
+  superStructure->setToAngle(5_deg, 89_deg);
   shooter->setObjectiveVelocity(ConstantsSh::ShooterLowPass);
 }
 
@@ -26,7 +26,7 @@ void LowPassCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool LowPassCommand::IsFinished() {
-  if(superStructure->getTargetPosition(20_deg, 80_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterLowPass)){
+  if(superStructure->getTargetPosition(25_deg, 89_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterLowPass)){
     return true;
   } else {
     return false;

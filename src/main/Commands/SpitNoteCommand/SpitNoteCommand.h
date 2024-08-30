@@ -3,15 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-
 #include "Subsystems/Intake/Intake.h"
 #include "Subsystems/Storage/Storage.h"
-#include <frc/DigitalInput.h>
-#include "Subsystems/SuperStructure/SuperStructure.h" 
-
-#include <frc2/command/Commands.h>
-
-frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure);
+#include "Subsystems/SuperStructure/SuperStructure.h"
 
 
+frc2::CommandPtr SpitNoteCommand(Intake* intake, Storage* storage, SuperStructure* superStructure);
 
