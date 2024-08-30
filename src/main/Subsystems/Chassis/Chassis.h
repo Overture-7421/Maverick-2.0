@@ -20,6 +20,7 @@ public:
   units::meter_t getDriveBaseRadius() override;
   frc::Rotation2d getRotation2d() override;
   frc::Rotation3d getRotation3d() override;
+
   SwerveModule& getFrontLeftModule() override;
   SwerveModule& getFrontRightModule() override;
   SwerveModule& getBackLeftModule() override;

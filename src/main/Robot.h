@@ -58,15 +58,11 @@ class Robot : public OverRobot {
 
 frc::ProfiledPIDController<units::radian> headingController{
         // PID constants: 
-        2.90, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{2_rad_per_s, 2_rad_per_s / 1_s} //Constraints max velocity, max acceleration
+        3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{2_rad_per_s, 2_rad_per_s / 1_s} //Constraints max velocity, max acceleration
     };
 
   HeadingSpeedsHelper headingSpeedsHelper{headingController, &chassis};
 
-   
-   
-   frc::Rotation2d targetAngle{(chassis.getEstimatedPose().X() - 3.26_m).value(), (chassis.getEstimatedPose().Y() - 6.48_m).value()}; 
-   //x del chassis menos x del objetivo, igual con la y
 
 };
 

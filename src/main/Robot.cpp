@@ -10,6 +10,7 @@
 void Robot::RobotInit() {
 
    chassis.enableSpeedHelper(&headingSpeedsHelper);
+
     
   #ifndef __FRC_ROBORIO__
 	simMotorManager.Init({
@@ -64,6 +65,8 @@ AprilTags::Config Robot::frontRightCameraConfig() {
     return config;
 }
 
+
+
 /**
  * This function is called every 20 ms, no matter the mode. Use
  * this for items like diagnostics that you want ran during disabled,
@@ -73,7 +76,8 @@ AprilTags::Config Robot::frontRightCameraConfig() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
-      chassis.shuffleboardPeriodic();
+  //chassis.enableSpeedHelper(&headingSpeedsHelper);
+  chassis.shuffleboardPeriodic();
    frc2::CommandScheduler::GetInstance().Run();
 }
 
@@ -115,6 +119,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 
+  frc::Rotation2d targetAngle{(chassis.getEstimatedPose().X() - 3.26_m).value(), (chassis.getEstimatedPose().Y() - 6.48_m).value()}; 
   chassis.shuffleboardPeriodic();
   headingSpeedsHelper.setTargetAngle(targetAngle);
 
@@ -123,8 +128,8 @@ void Robot::TeleopPeriodic() {
   -gamepad.getTwist() * 1.5_tps,
   chassis.getEstimatedPose().Rotation());
   chassis.setTargetSpeeds(speeds);
+  //headingSpeedsHelper.alterSpeed(speeds);
 
-  //chassis.getEstimatedPose()
 }
 
 void Robot::DisabledInit() {}
