@@ -84,6 +84,8 @@ frc::Rotation3d Chassis::getRotation3d() {
 
 
 
+
+
 ModuleConfig Chassis::FrontLeftConfig(){
     ModuleConfig config{feedForwardFrontLeft};
     config.DrivedId = 6;
@@ -105,7 +107,7 @@ ModuleConfig Chassis::FrontLeftConfig(){
     config.kP = 56.0; //Original 53
     config.ModuleName = "Front Left";
     config.Offset = -0.443359375_tr;
-    config.DriveInverted = true;
+    config.DriveInverted = false;
     return config;
 }
 
@@ -128,7 +130,7 @@ ModuleConfig Chassis::FrontRightConfig(){
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;
     config.kP = 53.0;
-    config.DriveInverted = true;
+    config.DriveInverted = false;
     config.ModuleName = "Front Right";
     config.Offset = -0.13037109375_tr;
     return config;
@@ -154,7 +156,7 @@ ModuleConfig Chassis::BackLeftConfig(){
     config.WheelDiameter = 4_in;
     config.kP = 53.0; //Original 53
     config.ModuleName = "Back Left";
-    config.DriveInverted = true;
+    config.DriveInverted = false;
     config.Offset = 0.05419921875_tr;
     return config;
 }
@@ -178,38 +180,8 @@ ModuleConfig Chassis::BackRightConfig(){
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;
     config.kP = 53.0;
-    config.DriveInverted = true;
+    config.DriveInverted = false;
     config.ModuleName = "Back Right";
     config.Offset = 0.0791015625_tr;
     return config;
-}
-
- void Chassis::shuffleboardPeriodic(){
-    frc::SmartDashboard::PutNumber("Odometry/LinearX",
-			desiredSpeeds.vx.value());
-	frc::SmartDashboard::PutNumber("Odometry/LinearY",
-			desiredSpeeds.vy.value());
-	frc::SmartDashboard::PutNumber("Odometry/Angular",
-			desiredSpeeds.omega.value());
-
-	frc::SmartDashboard::PutNumber("Odometry/AccelX", currentAccels.ax.value());
-	frc::SmartDashboard::PutNumber("Odometry/AccelY", currentAccels.ay.value());
-	frc::SmartDashboard::PutNumber("Odometry/AccelOmega",
-			currentAccels.omega.value());
-
-	frc::SmartDashboard::PutNumber("Odometry/SpeedX", desiredSpeeds.vx.value());
-	frc::SmartDashboard::PutNumber("Odometry/SpeedY", desiredSpeeds.vy.value());
-	frc::SmartDashboard::PutNumber("Odometry/SpeedOmega",
-			desiredSpeeds.omega.value());
-
-	field2d.SetRobotPose(latestPose);
-	frc::SmartDashboard::PutNumber("Odometry/X", latestPose.X().value());
-	frc::SmartDashboard::PutNumber("Odometry/Y", latestPose.Y().value());
-	frc::SmartDashboard::PutNumber("Odometry/Rotation",
-			latestPose.Rotation().Degrees().value());
-
-	getFrontLeftModule().shuffleboardPeriodic();
-	getFrontRightModule().shuffleboardPeriodic();
-	getBackRightModule().shuffleboardPeriodic();
-	getBackLeftModule().shuffleboardPeriodic();
 }

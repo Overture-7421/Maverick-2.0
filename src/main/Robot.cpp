@@ -8,7 +8,9 @@
 #include <frc/MathUtil.h>
 
 void Robot::RobotInit() {
-    chassis.shuffleboardPeriodic();
+
+   chassis.enableSpeedHelper(&headingSpeedsHelper);
+    
   #ifndef __FRC_ROBORIO__
 	simMotorManager.Init({
 	  {2, "Offseason 2024/motors/back_right_drive"},
@@ -71,6 +73,7 @@ AprilTags::Config Robot::frontRightCameraConfig() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
+      chassis.shuffleboardPeriodic();
    frc2::CommandScheduler::GetInstance().Run();
 }
 
@@ -113,12 +116,15 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 
   chassis.shuffleboardPeriodic();
+  headingSpeedsHelper.setTargetAngle(targetAngle);
 
-  frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds((Utils::ApplyAxisFilter(gamepad.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
-  (Utils::ApplyAxisFilter(gamepad.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
-  gamepad.getTwist() * 1.5_tps,
+  frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds((Utils::ApplyAxisFilter(-gamepad.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
+  (Utils::ApplyAxisFilter(-gamepad.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
+  -gamepad.getTwist() * 1.5_tps,
   chassis.getEstimatedPose().Rotation());
-chassis.setTargetSpeeds(speeds);
+  chassis.setTargetSpeeds(speeds);
+
+  //chassis.getEstimatedPose()
 }
 
 void Robot::DisabledInit() {}

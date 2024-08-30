@@ -6,6 +6,7 @@
 #include "OvertureLib/Sensors/OverPigeon/OverPigeon.h"
 #include "frc/DataLogManager.h"
 #include "wpi/DataLog.h"
+#include "OvertureLib/Subsystems/Swerve/SpeedsHelper/HeadingSpeedsHelper/HeadingSpeedsHelper.h"
 
 
 
@@ -13,9 +14,8 @@ class Chassis : public SwerveChassis {
 public:
     Chassis();
  
-  void shuffleboardPeriodic();
+
   void Drive(const frc::ChassisSpeeds& speeds); 
-  //void setAcceptingVisionMeasurements(bool acceptingVisionMeasurements);
   units::meters_per_second_t getMaxModuleSpeed() override; 
   units::meter_t getDriveBaseRadius() override;
   frc::Rotation2d getRotation2d() override;

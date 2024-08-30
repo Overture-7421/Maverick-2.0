@@ -28,6 +28,12 @@
       },
       "Shuffleboard": {
         "open": true
+      },
+      "SmartDashboard": {
+        "Odometry": {
+          "open": true
+        },
+        "open": true
       }
     }
   },

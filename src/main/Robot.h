@@ -18,11 +18,13 @@
 #include "OvertureLib/Gamepad/Gamepad.h"
 #include "OvertureLib/Subsystems/Vision/AprilTags/AprilTags.h"
 #include "OvertureLib/Math/Utils.h"
+#include <frc/controller/ProfiledPIDController.h>
+#include <frc/trajectory/TrapezoidProfile.h>
+#include <OvertureLib/Subsystems/Swerve/SpeedsHelper/SpeedsHelper.h>
+#include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 
 class Robot : public OverRobot {
  public:
-
- 
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
@@ -37,7 +39,6 @@ class Robot : public OverRobot {
   void SimulationPeriodic() override;
 
  private:
-
   frc::Joystick joystick{0};
   Gamepad gamepad{0,0.2, 0.1}; 
   Chassis chassis;
@@ -46,17 +47,31 @@ class Robot : public OverRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
 
-frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField
-(frc::AprilTagField::k2024Crescendo);
+  frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField
+  (frc::AprilTagField::k2024Crescendo);
 
   static AprilTags::Config shooterCameraConfig();
   static AprilTags::Config frontRightCameraConfig();
 
   AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
   AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
-  
 
-  /*AprilTags::Config Camera1{camera1Config()};
-  AprilTags::Config Camera2{camera2Config()};*/
-  
+frc::ProfiledPIDController<units::radian> headingController{
+        // PID constants: 
+        2.90, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{2_rad_per_s, 2_rad_per_s / 1_s} //Constraints max velocity, max acceleration
+    };
+
+  HeadingSpeedsHelper headingSpeedsHelper{headingController, &chassis};
+
+   
+   
+   frc::Rotation2d targetAngle{(chassis.getEstimatedPose().X() - 3.26_m).value(), (chassis.getEstimatedPose().Y() - 6.48_m).value()}; 
+   //x del chassis menos x del objetivo, igual con la y
+
 };
+
+
+
+
+
+
