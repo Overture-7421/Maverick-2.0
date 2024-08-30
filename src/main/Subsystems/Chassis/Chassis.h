@@ -1,70 +1,76 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-// #pragma once
-// #include "OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h"
-// #include "OvertureLib/Sensors/OverPigeon/OverPigeon.h"
-
-
-// class Chassis: public SwerveChassis {
-//  public:
-//   Chassis();
-
-// 	virtual units::meters_per_second_t getMaxModuleSpeed() = 0;
-// 	virtual units::meter_t getDriveBaseRadius() = 0;
-
-// 	virtual frc::Rotation2d getRotation2d() = 0;
-// 	virtual frc::Rotation3d getRotation3d() = 0;
-  
-//   	virtual SwerveModule& getFrontLeftModule() = 0;
-// 	virtual SwerveModule& getFrontRightModule() = 0;
-// 	virtual SwerveModule& getBackLeftModule() = 0;
-// 	virtual SwerveModule& getBackRightModule() = 0;
-
-// 	virtual frc::SlewRateLimiter<units::meters_per_second>& getVxLimiter() = 0;
-// 	virtual frc::SlewRateLimiter<units::meters_per_second>& getVyLimiter() = 0;
-// 	virtual frc::SlewRateLimiter<units::radians_per_second>& getVwLimiter() = 0;
-
-// 	virtual frc::SwerveDriveKinematics<4>& getKinematics() = 0;
-
-// 	virtual wpi::log::StructLogEntry<frc::Pose2d>& getPoseLog() = 0;
-// 	virtual wpi::log::StructLogEntry<frc::Pose2d>& getVisionPoseLog() = 0;
-// 	bool configuredChassis = false;
-
-// 	void shuffleboardPeriodic();
-//   /**
-//    * Will be called periodically whenever the CommandScheduler runs.
-//    */
-//   void Periodic() override;
-
-//  private:
-// 	frc::SwerveDriveKinematics<4> kinematics {{
-// 		frc::Translation2d(1_mm, 1_m),
-// 		frc::Translation2d(1_mm, 1_m),
-// 		frc::Translation2d(1_mm, 1_m),
-// 		frc::Translation2d(1_mm, 1_m)
-// 	}};
-
-// 	frc::SlewRateLimiter<units::meters_per_second> VxLimiter {1_mps_sq};
-// 	frc::SlewRateLimiter<units::meters_per_second> VyLimiter {1_mps_sq};
-// 	frc::SlewRateLimiter<units::radians_per_second> VwLimiter {1_rad_per_s_sq};
+#pragma once
+#include "OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h"
+#include "frc/kinematics/SwerveDriveKinematics.h"
+#include "frc/kinematics/ChassisSpeeds.h"
+#include "frc/geometry/Translation2d.h"
+#include "OvertureLib/Sensors/OverPigeon/OverPigeon.h"
+#include "frc/DataLogManager.h"
+#include "wpi/DataLog.h"
+#include "OvertureLib/Subsystems/Swerve/SpeedsHelper/HeadingSpeedsHelper/HeadingSpeedsHelper.h"
 
 
-// 	frc::SimpleMotorFeedforward<units::meters> FeedForward { 0_V, 0_V / 1_mps,
-// 			0_V / 1_mps_sq };
-// 	ModuleConfig moduleConfig {FeedForward};
 
-// 	SwerveModule frontLeftModule {moduleConfig};
-// 	SwerveModule frontRighttModule {moduleConfig};
-// 	SwerveModule backLeftModule {moduleConfig};
-// SwerveModule backLeftModule {moduleConfig};
+class Chassis : public SwerveChassis {
+public:
+    Chassis();
+ 
+
+  void Drive(const frc::ChassisSpeeds& speeds); 
+  units::meters_per_second_t getMaxModuleSpeed() override; 
+  units::meter_t getDriveBaseRadius() override;
+  frc::Rotation2d getRotation2d() override;
+  frc::Rotation3d getRotation3d() override;
+
+  SwerveModule& getFrontLeftModule() override;
+  SwerveModule& getFrontRightModule() override;
+  SwerveModule& getBackLeftModule() override;
+  SwerveModule& getBackRightModule() override;
+     
+  frc::SlewRateLimiter<units::meters_per_second>& getVxLimiter() override;
+	frc::SlewRateLimiter<units::meters_per_second>& getVyLimiter() override;
+	frc::SlewRateLimiter<units::radians_per_second>& getVwLimiter() override;
+
+  frc::SwerveDriveKinematics<4>& getKinematics() override;
+
+  wpi::log::StructLogEntry<frc::Pose2d>& getPoseLog() override;
+  wpi::log::StructLogEntry<frc::Pose2d>& getVisionPoseLog() override;
+
+ 
+private:
+  OverPigeon pigeon{13, "OverCANivore"}; 
+
+  // Module configurations
+  static ModuleConfig FrontLeftConfig();
+  static ModuleConfig FrontRightConfig();
+  static ModuleConfig BackLeftConfig();
+  static ModuleConfig BackRightConfig();
+
+  // Swerve modules
+  SwerveModule frontLeftModule{Chassis::FrontLeftConfig()};
+  SwerveModule frontRightModule{Chassis::FrontRightConfig()};
+  SwerveModule backLeftModule{Chassis::BackLeftConfig()};
+  SwerveModule backRightModule{Chassis::BackRightConfig()};
+
+ //SLEW RATE LIMITERS :)
+  frc::SlewRateLimiter<units::meters_per_second> vxLimiter{18_mps_sq};
+  frc::SlewRateLimiter<units::meters_per_second> vyLimiter{18_mps_sq};
+  frc::SlewRateLimiter<units::radians_per_second> vwLimiter{12.5664_rad_per_s_sq};
+
+//POSE LOGS
+ wpi::log::DataLog& log = frc::DataLogManager::GetLog();
+ wpi::log::StructLogEntry<frc::Pose2d> poseLog = wpi::log::StructLogEntry<frc::Pose2d>(log, "/chassis/pose");
+ wpi::log::StructLogEntry<frc::Pose2d> visionPoseLog = wpi::log::StructLogEntry<frc::Pose2d>(log, "/chassis/vision_pose");
 
 
-	
-
-// 	//OverPigeon overPigeon;
-// 	//frc::Rotation2d overPigeon(13, "OverCANivore");
-//   // Components (e.g. motor controllers and sensors) should generally be
-//   // declared private and exposed only through public methods.
-// };
+  // Kinematics for chassis configuration
+  frc::Field2d field2d;
+  frc::ChassisSpeeds desiredSpeeds;
+  ChassisAccels currentAccels;
+  frc::Pose2d latestPose;
+  frc::SwerveDriveKinematics<4> kinematics {{
+                 frc::Translation2d {7.625_in, 10.375_in}, //FrontLeftModule
+                 frc::Translation2d {7.625_in, -10.375_in},  //FrontRightModule
+                 frc::Translation2d {-13.125_in, -10.375_in}, //BackRightModule
+                 frc::Translation2d {-13.125_in, 10.375_in}  //BackLeftModule
+                                               }};
+};

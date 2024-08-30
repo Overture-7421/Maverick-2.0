@@ -16,6 +16,7 @@
 
 class SuperStructure : public frc2::SubsystemBase {
  public:
+ 
   SuperStructure();
 
   frc2::CommandPtr SysIdQuasistatic(frc2::sysid::Direction direction);
@@ -55,4 +56,3 @@ class SuperStructure : public frc2::SubsystemBase {
   frc::ArmFeedforward wristFeedForward{0.7_V, 0.9_V, 0.6_V / 1_tps, 4_V / 1_tr_per_s_sq };
 };
 //
-//2.1234

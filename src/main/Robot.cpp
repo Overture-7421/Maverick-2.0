@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-
 #include <fmt/core.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/MathUtil.h>
@@ -41,6 +40,10 @@ void Robot::RobotInit() {
   //driver.Y().OnFalse(shooter.stopShooterCommand());
 
 
+
+   chassis.enableSpeedHelper(&headingSpeedsHelper);
+
+    
   #ifndef __FRC_ROBORIO__
 	simMotorManager.Init({
 	  {2, "Offseason 2024/motors/back_right_drive"},
@@ -59,6 +62,8 @@ void Robot::RobotInit() {
     {20, "Offseason 2024/motors/intake_motor"},
     {24, "Offseason 2024/motors/storage_motor"},
     {25, "Offseason 2024/motors/shooter_motor"}
+    {11, "Offseason 2024/motors/lower_arm"},
+    {12, "Offseason 2024/motors/upper_arm"}
 
 
 		});
@@ -72,6 +77,7 @@ void Robot::RobotInit() {
 	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
 
 	  {27, "Offseason 2024/cancoders/upper_cancoder"},
+	  {29, "Offseason 2024/cancoders/upper_cancoder"},
 	  {28, "Offseason 2024/cancoders/lower_cancoder"}
 
 
@@ -79,8 +85,26 @@ void Robot::RobotInit() {
 
 	simDutyCycleEncoderManager.Init({});
 #endif
-
 }
+
+AprilTags::Config Robot::shooterCameraConfig() {
+    AprilTags::Config config;
+    config.cameraName = "Arducam_OV2311_USB_Camera";
+    config.cameraToRobot = {-14.950771_in, 0_m, 14.034697_in, {-180_deg, -30_deg, 180_deg}};
+    config.doubleTagValidDistance = 5_m;
+    config.singleTagValidDistance = 9_m;
+    config.tripleTagValidDistance = 13_m;
+    return config;
+}
+
+AprilTags::Config Robot::frontRightCameraConfig() {
+    AprilTags::Config config;
+    config.cameraName = "Arducam_OV9281_USB_Camera";
+    config.cameraToRobot = {6.388283_in, -10.648092_in, 8.358231_in, {0_deg, -28.125_deg, -30_deg}};
+    return config;
+}
+
+
 
 /**
  * This function is called every 20 ms, no matter the mode. Use
@@ -99,6 +123,11 @@ void Robot::RobotPeriodic() {
   //frc::SmartDashboard::PutNumber("actualVelocity", shooter.getVelocityVoltage());
 
 }
+  //chassis.enableSpeedHelper(&headingSpeedsHelper);
+  chassis.shuffleboardPeriodic();
+   frc2::CommandScheduler::GetInstance().Run();
+}
+
 
 /**
  * This autonomous (along with the chooser code above) shows how to select
@@ -133,27 +162,20 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-   //frc::SmartDashboard::PutNumber("objectiveVelocity", 0);
-  //frc::SmartDashboard::PutNumber("intakeVoltage", 0);
-  //frc::SmartDashboard::PutNumber("storageVoltage", 0);
-
 }
 
 void Robot::TeleopPeriodic() {
-  //superStructure.setAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0))).Schedule();
-  //superStructure.setToAngle(units::degree_t(frc::SmartDashboard::GetNumber("lowerAngleTarget", 0.0)), units::degree_t(frc::SmartDashboard::GetNumber("upperAngleTarget", 0.0)));
-  //superStructure.lowerRightMotor.setVoltage(units::volt_t(frc::SmartDashboard::GetNumber("setTheVoltage", 0.0)), false);
 
-   /*
-  double objectiveVelocity = frc::SmartDashboard::GetNumber("objectiveVelocity", 0);
-  shooter.setObjectiveVelocity(objectiveVelocity);
+  frc::Rotation2d targetAngle{(chassis.getEstimatedPose().X() - 3.26_m).value(), (chassis.getEstimatedPose().Y() - 6.48_m).value()}; 
+  chassis.shuffleboardPeriodic();
+  headingSpeedsHelper.setTargetAngle(targetAngle);
 
-  units::volt_t intakeVoltage = units::volt_t(frc::SmartDashboard::GetNumber("intakeVoltage", 0));
-  intake.setVoltage(intakeVoltage);
-
-  units::volt_t storageVoltage = units::volt_t(frc::SmartDashboard::GetNumber("storageVoltage", 0));
-  storage.setVoltage(storageVoltage);
-  */
+  frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds((Utils::ApplyAxisFilter(-gamepad.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
+  (Utils::ApplyAxisFilter(-gamepad.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
+  -gamepad.getTwist() * 1.5_tps,
+  chassis.getEstimatedPose().Rotation());
+  chassis.setTargetSpeeds(speeds);
+  //headingSpeedsHelper.alterSpeed(speeds);
 
 }
 
