@@ -8,8 +8,11 @@
 #include <units/length.h>
 #include <units/time.h>
 #include <units/angle.h>
+#include <frc/geometry/Translation2d.h>
 
 namespace VisionSpeakerConstants {
+
+  static const frc::Translation2d TargetObjective = {0.69_m, 5.56_m};
 
   static const InterpolatingTable<units::meter_t, units::degree_t> DistanceToLowerAngle{
       {
@@ -43,6 +46,22 @@ namespace VisionSpeakerConstants {
       
       }
 
+  };
+
+  static const InterpolatingTable<units::meter_t, double> DistanceToShooter{
+    {
+        {0.1_m, 100},
+        {0.5_m, 100},
+        {1.0_m, 100},
+        {1.5_m, 100},
+        {2.0_m, 110},
+        {2.5_m, 120},
+        {3.0_m, 130},
+        {3.5_m, 140},
+        {4.0_m, 150},
+        {4.5_m, 160},
+    }
+    
   };
 
 };

@@ -44,7 +44,7 @@ void Robot::RobotInit() {
   //driver.RightBumper().OnTrue(storage.startStorage());
   //driver.RightBumper().OnFalse(storage.stopStorage());
 
-  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure).ToPtr());
+  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   //driver.Y().OnTrue(shooter.shooterCommand());
