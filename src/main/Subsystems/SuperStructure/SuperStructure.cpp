@@ -104,17 +104,7 @@ frc2::CommandPtr SuperStructure::SysIdDynamic(frc2::sysid::Direction direction){
   return m_sysIdRoutine.Dynamic(direction);
 }
 
-
-//Literally nothing lol
-
 void SuperStructure::Periodic() {
-  units::degree_t lowerAngle = lowerRightMotor.GetPosition().GetValue();
-  units::degree_t upperAngle = upperMotor.GetPosition().GetValue();
-  units::degree_t lowerAngleCanCoder = lowerCANCoder.GetPosition().GetValue();
-  frc::SmartDashboard::PutNumber("SuperStructure/lowerAngle", lowerAngle.value());
-  frc::SmartDashboard::PutNumber("SuperStructure/upperAngle", upperAngle.value());
-  frc::SmartDashboard::PutNumber("SuperStructure/lowerAngleCancoder", lowerAngleCanCoder.value());
-
 
 }
 
