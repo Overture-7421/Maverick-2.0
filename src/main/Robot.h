@@ -90,7 +90,11 @@ class Robot : public OverRobot {
   AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
   AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
 
-frc::ProfiledPIDController<units::radian> headingController{
+  frc::SlewRateLimiter<units::meters_per_second> xInput{12_mps_sq};
+  frc::SlewRateLimiter<units::meters_per_second> yInput {12_mps_sq};
+  frc::SlewRateLimiter<units::radians_per_second> wInput {12.5664_rad_per_s_sq};
+
+  frc::ProfiledPIDController<units::radian> headingController{
         // PID constants: 
         3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{2_rad_per_s, 2_rad_per_s / 1_s} //Constraints max velocity, max acceleration
     };

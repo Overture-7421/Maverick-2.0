@@ -72,10 +72,8 @@ void Robot::RobotInit() {
 
     {20, "Offseason 2024/motors/intake_motor"},
     {24, "Offseason 2024/motors/storage_motor"},
-    {25, "Offseason 2024/motors/shooter_motor"},
-    {11, "Offseason 2024/motors/lower_arm"},
-    {12, "Offseason 2024/motors/upper_arm"}
-
+    {25, "Offseason 2024/motors/shooter_motor"}
+  
 
 		});
 
@@ -88,8 +86,7 @@ void Robot::RobotInit() {
 	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
 
 	  {27, "Offseason 2024/cancoders/upper_cancoder"},
-	  {29, "Offseason 2024/cancoders/upper_cancoder"},
-	  {28, "Offseason 2024/cancoders/lower_cancoder"}
+    {28, "Offseason 2024/cancoders/lower_cancoder"}
 
 
 		});
@@ -180,10 +177,12 @@ void Robot::TeleopPeriodic() {
   chassis.shuffleboardPeriodic();
   // headingSpeedsHelper.setTargetAngle(targetAngle);
 
-  frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds((Utils::ApplyAxisFilter(-driver.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
-  (Utils::ApplyAxisFilter(-driver.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
-  -driver.getTwist() * 1.5_tps,
-  chassis.getEstimatedPose().Rotation());
+  auto xSpeed = xInput.Calculate(Utils::ApplyAxisFilter(-driver.GetRawAxis(1), 0.2, 0.05) * chassis.getMaxModuleSpeed());
+  auto ySpeed = yInput.Calculate(Utils::ApplyAxisFilter(-driver.GetRawAxis(0), 0.2, 0.05) * chassis.getMaxModuleSpeed());
+  auto rotationSpeed = wInput.Calculate(-driver.getTwist() * 1.5_tps);
+
+  frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, chassis.getEstimatedPose().Rotation());
+
   chassis.setTargetSpeeds(speeds);
   //headingSpeedsHelper.alterSpeed(speeds);
 
