@@ -46,6 +46,7 @@
 #include "Commands/HighPassCommand/HighPassCommand.h"
 #include "Commands/ClosedPassCommand/ClosedPassCommand.h"
 #include "Commands/SpitNoteCommand/SpitNoteCommand.h"
+#include "Commands/VisionSpeakerCommand/VisionSpeakerCommand.h"
 
 class Robot : public OverRobot {
  public:
@@ -62,18 +63,19 @@ class Robot : public OverRobot {
   void SimulationInit() override;
   void SimulationPeriodic() override;
 
-  Gamepad gamepad{1, 0.1, 0.1};
+  Gamepad oper{1, 0.1, 0.1};
   Gamepad driver{0,0.25, 0.5};
 
   Intake intake;
   Storage storage;
   Shooter shooter;
   SuperStructure superStructure;
+  Chassis chassis;
+
 
 
 
  private:
-  Chassis chassis;
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";

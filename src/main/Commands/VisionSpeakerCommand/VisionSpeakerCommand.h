@@ -21,7 +21,7 @@
 class VisionSpeakerCommand
     : public frc2::CommandHelper<frc2::Command, VisionSpeakerCommand> {
  public:
-  VisionSpeakerCommand();
+  VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure);
 
   void Initialize() override; 
 
@@ -52,13 +52,5 @@ class VisionSpeakerCommand
   SuperStructure* superstructure;
   Chassis* chassis;
   HeadingSpeedsHelper headingSpeedsHelper;
-
-
-
-
-
-
-
-
   };
 

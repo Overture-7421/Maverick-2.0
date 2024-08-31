@@ -54,7 +54,7 @@ private:
  //SLEW RATE LIMITERS :)
   frc::SlewRateLimiter<units::meters_per_second> vxLimiter{18_mps_sq};
   frc::SlewRateLimiter<units::meters_per_second> vyLimiter{18_mps_sq};
-  frc::SlewRateLimiter<units::radians_per_second> vwLimiter{12.5664_rad_per_s_sq};
+  frc::SlewRateLimiter<units::radians_per_second> vwLimiter{60_rad_per_s_sq};
 
 //POSE LOGS
  wpi::log::DataLog& log = frc::DataLogManager::GetLog();

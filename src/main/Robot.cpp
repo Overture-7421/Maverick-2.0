@@ -29,8 +29,8 @@ void Robot::RobotInit() {
   driver.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
   driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.LeftTrigger().OnTrue(LowPassCommand(&superStructure, &shooter).ToPtr());
-  driver.LeftTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  //driver.LeftTrigger().OnTrue(LowPassCommand(&superStructure, &shooter).ToPtr());
+  //driver.LeftTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter).ToPtr());
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
@@ -41,15 +41,18 @@ void Robot::RobotInit() {
   //driver.A().OnTrue(intake.startIntake());
   //driver.A().OnFalse(intake.stopIntake());
   
-  driver.RightBumper().OnTrue(storage.startStorage());
-  driver.RightBumper().OnFalse(storage.stopStorage());
+  //driver.RightBumper().OnTrue(storage.startStorage());
+  //driver.RightBumper().OnFalse(storage.stopStorage());
+
+  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure).ToPtr());
+  driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   //driver.Y().OnTrue(shooter.shooterCommand());
   //driver.Y().OnFalse(shooter.stopShooterCommand());
 
 
 
-   chassis.enableSpeedHelper(&headingSpeedsHelper);
+   //chassis.enableSpeedHelper(&headingSpeedsHelper);
 
     
   #ifndef __FRC_ROBORIO__
@@ -173,13 +176,13 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 
-  frc::Rotation2d targetAngle{(chassis.getEstimatedPose().X() - 3.26_m).value(), (chassis.getEstimatedPose().Y() - 6.48_m).value()}; 
+  // frc::Rotation2d targetAngle{(chassis.getEstimatedPose().X() - 3.26_m).value(), (chassis.getEstimatedPose().Y() - 6.48_m).value()}; 
   chassis.shuffleboardPeriodic();
-  headingSpeedsHelper.setTargetAngle(targetAngle);
+  // headingSpeedsHelper.setTargetAngle(targetAngle);
 
-  frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds((Utils::ApplyAxisFilter(-gamepad.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
-  (Utils::ApplyAxisFilter(-gamepad.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
-  -gamepad.getTwist() * 1.5_tps,
+  frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds((Utils::ApplyAxisFilter(-driver.GetRawAxis(1), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
+  (Utils::ApplyAxisFilter(-driver.GetRawAxis(0), 0.2, 0.05)) * chassis.getMaxModuleSpeed(),
+  -driver.getTwist() * 1.5_tps,
   chassis.getEstimatedPose().Rotation());
   chassis.setTargetSpeeds(speeds);
   //headingSpeedsHelper.alterSpeed(speeds);
