@@ -5,6 +5,9 @@
 #include "LowPassCommand.h"
 #include "Subsystems/Shooter/Constants.h"
 #include <OvertureLib/Subsystems/Swerve/SpeedsHelper/SpeedsHelper.h>
+#include <frc/DriverStation.h>
+#include "Commands/LowPassCommand/LowerPassConstants.h"
+#include <pathplanner/lib/util/GeometryUtil.h>
 
 LowPassCommand::LowPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad) : headingSpeedsHelper{headingController, chassis} {
   this->superStructure = superStructure;
@@ -17,6 +20,17 @@ LowPassCommand::LowPassCommand(SuperStructure* superStructure, Shooter* shooter,
 
 // Called when the command is initially scheduled.
 void LowPassCommand::Initialize() {
+
+  if(auto alliance = frc::DriverStation::GetAlliance()){
+    if(alliance.value() == frc::DriverStation::Alliance::kRed){
+      targetObjective = pathplanner::GeometryUtil::flipFieldPosition(LowerPassConstants::TargetObjective);
+    }
+    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+      targetObjective = LowerPassConstants::TargetObjective;
+    }
+  }
+
+
   chassis->enableSpeedHelper(&headingSpeedsHelper);
  
   superStructure->setToAngle(5_deg, 89_deg);
@@ -26,7 +40,7 @@ void LowPassCommand::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void LowPassCommand::Execute() {
   
-  frc::Rotation2d targetAngle{(chassis->getEstimatedPose().X() - 0.65_m).value(), (chassis->getEstimatedPose().Y() - 7.49_m).value()}; 
+  frc::Rotation2d targetAngle{(chassis->getEstimatedPose().X() - targetObjective.X()).value(), (chassis->getEstimatedPose().Y() - targetObjective.Y()).value()}; 
   headingSpeedsHelper.setTargetAngle(targetAngle);
   units::degree_t angleError = targetAngle.Degrees() - chassis->getEstimatedPose().Rotation().Degrees();
 

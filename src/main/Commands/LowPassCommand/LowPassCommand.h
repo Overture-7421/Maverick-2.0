@@ -10,12 +10,11 @@
 #include "Subsystems/SuperStructure/SuperStructure.h"
 #include "Subsystems/Shooter/Shooter.h"
 #include "Subsystems/Chassis/Chassis.h"
+
 #include <frc/controller/ProfiledPIDController.h>
 #include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
 #include <OvertureLib/Gamepad/Gamepad.h>
-
-
 
 /**
  * An example command.
@@ -49,4 +48,6 @@ class LowPassCommand
     3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{2_rad_per_s, 2_rad_per_s / 1_s} //Constraints max velocity, max acceleration
   };
   HeadingSpeedsHelper headingSpeedsHelper;
+
+  frc::Translation2d targetObjective;
 };
