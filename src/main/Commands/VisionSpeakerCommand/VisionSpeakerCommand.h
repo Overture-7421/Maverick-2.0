@@ -8,6 +8,7 @@
 #include <frc2/command/CommandHelper.h>
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
 #include "Subsystems/SuperStructure/SuperStructure.h"
+#include "Subsystems/Shooter/Shooter.h"
 #include "Subsystems/Chassis/Chassis.h"
 #include <OvertureLib/Subsystems/Swerve/SpeedsHelper/HeadingSpeedsHelper/HeadingSpeedsHelper.h>
 
@@ -21,7 +22,7 @@
 class VisionSpeakerCommand
     : public frc2::CommandHelper<frc2::Command, VisionSpeakerCommand> {
  public:
-  VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure);
+  VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter);
 
   void Initialize() override; 
 
@@ -32,6 +33,7 @@ class VisionSpeakerCommand
   bool IsFinished() override;
 
   private:
+  frc::Translation2d targetObjective;
   TargetingWhileMoving targetWhileMoving{
 
 {
@@ -50,6 +52,7 @@ class VisionSpeakerCommand
   };
 
   SuperStructure* superstructure;
+  Shooter* shooter;
   Chassis* chassis;
   HeadingSpeedsHelper headingSpeedsHelper;
   };

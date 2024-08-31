@@ -41,8 +41,11 @@ void Robot::RobotInit() {
   /*gamepad.A().OnTrue(ManualSpeakerCommand(&superStructure));
   gamepad.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/
   
-  gamepad.RightBumper().OnTrue(storage.startStorage());
-  gamepad.RightBumper().OnFalse(storage.stopStorage());
+  //driver.RightBumper().OnTrue(storage.startStorage());
+  //driver.RightBumper().OnFalse(storage.stopStorage());
+
+  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter).ToPtr());
+  driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   //driver.Y().OnTrue(shooter.shooterCommand());
   //driver.Y().OnFalse(shooter.stopShooterCommand());
