@@ -32,7 +32,7 @@ void Robot::RobotInit() {
   //driver.LeftTrigger().OnTrue(LowPassCommand(&superStructure, &shooter).ToPtr());
   //driver.LeftTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
-  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter).ToPtr());
+  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter, &chassis).ToPtr());
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
