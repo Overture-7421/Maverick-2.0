@@ -5,6 +5,5 @@
 #include "VisionSpeakerConstants.h"
 
 
-VisionSpeakerConstants::VisionSpeakerConstants() = default;
 
 

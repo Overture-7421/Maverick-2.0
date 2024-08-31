@@ -61,7 +61,7 @@ void Robot::RobotInit() {
 
     {20, "Offseason 2024/motors/intake_motor"},
     {24, "Offseason 2024/motors/storage_motor"},
-    {25, "Offseason 2024/motors/shooter_motor"}
+    {25, "Offseason 2024/motors/shooter_motor"},
     {11, "Offseason 2024/motors/lower_arm"},
     {12, "Offseason 2024/motors/upper_arm"}
 
@@ -122,10 +122,9 @@ void Robot::RobotPeriodic() {
 
   //frc::SmartDashboard::PutNumber("actualVelocity", shooter.getVelocityVoltage());
 
-}
+
   //chassis.enableSpeedHelper(&headingSpeedsHelper);
   chassis.shuffleboardPeriodic();
-   frc2::CommandScheduler::GetInstance().Run();
 }
 
 
@@ -176,6 +175,7 @@ void Robot::TeleopPeriodic() {
   chassis.getEstimatedPose().Rotation());
   chassis.setTargetSpeeds(speeds);
   //headingSpeedsHelper.alterSpeed(speeds);
+
 
 }
 

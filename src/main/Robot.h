@@ -69,7 +69,6 @@ class Robot : public OverRobot {
 
 
  private:
-  Gamepad gamepad{0,0.2, 0.1}; 
   Chassis chassis;
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";

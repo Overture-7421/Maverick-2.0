@@ -9,6 +9,7 @@
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
 #include "Subsystems/SuperStructure/SuperStructure.h"
 #include "Subsystems/Chassis/Chassis.h"
+#include <OvertureLib/Subsystems/Swerve/SpeedsHelper/HeadingSpeedsHelper/HeadingSpeedsHelper.h>
 
 /**
  * An example command.
@@ -49,7 +50,8 @@ class VisionSpeakerCommand
   };
 
   SuperStructure* superstructure;
-  
+  Chassis* chassis;
+  HeadingSpeedsHelper headingSpeedsHelper;
 
 
 

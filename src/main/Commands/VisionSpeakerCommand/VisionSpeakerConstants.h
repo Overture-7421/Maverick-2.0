@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
+#include <algorithm>
 #include "OvertureLib/Math/InterpolatingTable/InterpolatingTable.h"
 #include <units/length.h>
 #include <units/time.h>
