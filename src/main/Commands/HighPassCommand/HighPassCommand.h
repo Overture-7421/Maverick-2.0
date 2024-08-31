@@ -47,5 +47,6 @@ class HighPassCommand
     3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{2_rad_per_s, 2_rad_per_s / 1_s} //Constraints max velocity, max acceleration
   };
   HeadingSpeedsHelper headingSpeedsHelper;
+  frc::Translation2d targetObjective;
 
 };

@@ -4,6 +4,11 @@
 
 #include "HighPassCommand.h"
 #include "Subsystems/Shooter/Constants.h"
+#include "Commands/HighPassCommand/HighPassConstants.h"
+
+#include <frc/DriverStation.h>
+#include <pathplanner/lib/util/GeometryUtil.h>
+
 
 HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis) : headingSpeedsHelper{headingController, chassis}{
   this->superStructure = superStructure;
@@ -15,6 +20,16 @@ HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shoote
 
 // Called when the command is initially scheduled.
 void HighPassCommand::Initialize() {
+
+  if(auto alliance = frc::DriverStation::GetAlliance()){
+    if(alliance.value() == frc::DriverStation::Alliance::kRed){
+      targetObjective = pathplanner::GeometryUtil::flipFieldPosition(HighPassConstants::TargetObjective);
+    }
+    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+      targetObjective = HighPassConstants::TargetObjective;
+    }
+  }
+
   chassis->enableSpeedHelper(&headingSpeedsHelper);
 
   superStructure->setToAngle(-15_deg, 60_deg);
@@ -25,7 +40,7 @@ void HighPassCommand::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void HighPassCommand::Execute() {
 
-  frc::Rotation2d targetAngle{(chassis->getEstimatedPose().X() - 0.65_m).value(), (chassis->getEstimatedPose().Y() - 7.49_m).value()}; 
+  frc::Rotation2d targetAngle{(chassis->getEstimatedPose().X() - targetObjective.X()).value(), (chassis->getEstimatedPose().Y() - targetObjective.Y()).value()}; 
   headingSpeedsHelper.setTargetAngle(targetAngle);
 
 }
