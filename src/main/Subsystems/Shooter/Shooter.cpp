@@ -28,6 +28,10 @@ void Shooter::setObjectiveVelocity(double velocity){
     rightMotor.setVelocityVoltage(velocity, 0, false);
 }
 
+frc2::CommandPtr Shooter::setObjectiveVelocityPtr(){
+    return this->RunOnce([this] {this->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);});
+}
+
 bool Shooter::getObjectiveVelocity(double velocity){
     if(velocity == rightMotor.GetVelocity().GetValueAsDouble()){
         return true;

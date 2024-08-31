@@ -20,21 +20,29 @@ void Robot::RobotInit() {
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
 
-  driver.A().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
-  driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage).ToPtr());
+  driver.LeftBumper().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
+  driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.Y().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
-  driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage).ToPtr());
+  driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.X().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
-  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage).ToPtr());
+  driver.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
+  driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+
+  driver.LeftTrigger().OnTrue(LowPassCommand(&superStructure, &shooter).ToPtr());
+  driver.LeftTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
+  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter).ToPtr());
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+
+  driver.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
+  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   //driver.A().OnTrue(intake.startIntake());
   //driver.A().OnFalse(intake.stopIntake());
   
-  driver.B().OnTrue(storage.startStorage());
-  driver.B().OnFalse(storage.stopStorage());
+  driver.RightBumper().OnTrue(storage.startStorage());
+  driver.RightBumper().OnFalse(storage.stopStorage());
 
   //driver.Y().OnTrue(shooter.shooterCommand());
   //driver.Y().OnFalse(shooter.stopShooterCommand());

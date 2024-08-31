@@ -4,21 +4,25 @@
 
 #include "ClosedCommand.h"
 #include "Subsystems/Shooter/Constants.h"
+#include "Subsystems/Storage/Constants.h"
+#include "Subsystems/Intake/Constants.h"
 
-ClosedCommand::ClosedCommand(SuperStructure* superStructure, Shooter* shooter, Storage* storage) {
+ClosedCommand::ClosedCommand(SuperStructure* superStructure, Shooter* shooter, Storage* storage, Intake* intake) {
   this->superStructure = superStructure;
   this->shooter = shooter;
   this->storage = storage;
+  this->intake = intake;
 
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({superStructure, shooter, storage});
+  AddRequirements({superStructure, shooter, storage, intake});
 }
 
 // Called when the command is initially scheduled.
 void ClosedCommand::Initialize() {
-  superStructure->setToAngle(-25_deg, 85_deg);
+  superStructure->setToAngle(-31_deg, 89_deg);
   shooter->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);
-  storage->stopStorage();
+  storage->setVoltage(ConstantsSt::stopVoltage);
+  intake->setVoltage(ConstantsIn::stopVolts);
 
 }
 
@@ -30,7 +34,7 @@ void ClosedCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool ClosedCommand::IsFinished() {
-  if(superStructure->getTargetPosition(-25_deg, 85_deg) && shooter->getObjectiveVelocity(ConstantsSh::StopShooterSpeaker)){
+  if(superStructure->getTargetPosition(-31_deg, 89_deg) && shooter->getObjectiveVelocity(ConstantsSh::StopShooterSpeaker)){
     return true;
   } else {
     return false;

@@ -48,8 +48,8 @@ SuperStructure::SuperStructure() {
    lowerRightMotor.setPIDValues(100, 10, 0.0, 0.0, 0.0);
    upperMotor.setPIDValues(100, 60, 0.0, 0.0, 0.0); 
 
-   lowerRightMotor.configureMotionMagic(ConstantsSS::CruiseVelocity, ConstantsSS::CruiseAcceleration, 0.0);
-   upperMotor.configureMotionMagic(0.5, 2, 0.0);
+   lowerRightMotor.configureMotionMagic(ConstantsSS::LowerCruiseVelocity, ConstantsSS::LowerCruiseAcceleration, 0.0);
+   upperMotor.configureMotionMagic(ConstantsSS::UpperCruiseVelocity, ConstantsSS::UpperCruiseAcceleration, 0.0);
 
   
 }
@@ -86,7 +86,10 @@ void SuperStructure::getCurrentAngle(double lowerAngle, double upperAngle){
 };
 
 bool SuperStructure::getTargetPosition(units::degree_t lowerAngle, units::degree_t upperAngle){
-   if(lowerAngle == lowerRightMotor.GetPosition().GetValue() && upperAngle == upperMotor.GetPosition().GetValue()){
+  units::degree_t lowerError = lowerAngle - lowerRightMotor.GetPosition().GetValue();
+  units::degree_t upperError = upperAngle - upperMotor.GetPosition().GetValue();
+
+   if(units::math::abs(lowerError) < 1_deg && units::math::abs(upperError) < 1_deg ){
     return true;
    } else {
     return false;
