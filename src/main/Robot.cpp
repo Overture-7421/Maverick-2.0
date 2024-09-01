@@ -32,7 +32,7 @@ void Robot::RobotInit() {
   //operator.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
   //operator.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.upDpad().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis).ToPtr());
+  driver.upDpad().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.upDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
   gamepad.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
