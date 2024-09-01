@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.398039698600769,
+      "y": 5.510945796966553
+    },
+    "rotation": 4.212711799810507e-27
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro4"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "GallitoOro",
+  "choreoAuto": true
+}

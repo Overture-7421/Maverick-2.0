@@ -7,9 +7,12 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/MathUtil.h>
 
+#include <pathplanner/lib/path/PathPlannerTrajectory.h>
+
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
+
   //frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   //frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
   //frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
@@ -29,8 +32,8 @@ void Robot::RobotInit() {
   driver.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
   driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  //driver.LeftTrigger().OnTrue(LowPassCommand(&superStructure, &shooter).ToPtr());
-  //driver.LeftTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.upDpad().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis).ToPtr());
+  driver.upDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter, &chassis).ToPtr());
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
@@ -41,8 +44,8 @@ void Robot::RobotInit() {
   //driver.A().OnTrue(intake.startIntake());
   //driver.A().OnFalse(intake.stopIntake());
   
-  //driver.RightBumper().OnTrue(storage.startStorage());
-  //driver.RightBumper().OnFalse(storage.stopStorage());
+  driver.rightDpad().OnTrue(storage.startStorage());
+  driver.rightDpad().OnFalse(storage.stopStorage());
 
   driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
