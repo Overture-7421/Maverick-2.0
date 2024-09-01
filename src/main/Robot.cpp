@@ -148,7 +148,7 @@ void Robot::RobotPeriodic() {
  * if-else structure below with additional strings. If using the SendableChooser
  * make sure to add them to the chooser code above as well.
  */
-/*void Robot::AutonomousInit() {
+void Robot::AutonomousInit() {
   m_autoSelected = m_chooser.GetSelected();
   // m_autoSelected = SmartDashboard::GetString("Auto Selector",
   //     kAutoNameDefault);
@@ -159,15 +159,15 @@ void Robot::RobotPeriodic() {
   } else {
     // Default Auto goes here
   }
-}*/
+}
 
-/*void Robot::AutonomousPeriodic() {
+void Robot::AutonomousPeriodic() {
   if (m_autoSelected == kAutoNameCustom) {
     // Custom Auto goes here
   } else {
     // Default Auto goes here
   }
-}*/
+}
 
 void Robot::TeleopInit() {
 }

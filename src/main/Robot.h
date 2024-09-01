@@ -47,6 +47,7 @@
 #include "Commands/ClosedPassCommand/ClosedPassCommand.h"
 #include "Commands/SpitNoteCommand/SpitNoteCommand.h"
 #include "SpeedsHelpers/SpeedHelperNoteTracking.h"
+#include "Commands/VisionSpeakerCommand/VisionSpeakerCommand.h"
 
 class Robot : public OverRobot {
  public:
