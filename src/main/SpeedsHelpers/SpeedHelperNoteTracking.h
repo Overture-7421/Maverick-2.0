@@ -21,7 +21,7 @@ class SpeedHelperNoteTracking : public SpeedsHelper  {
 private:
 	frc::ProfiledPIDController<units::meters> wYPIDController{
 
-        3, 0.0, 0.0, {2_mps, 2_mps_sq} //Constraints max velocity, max acceleration
+        3, 0.0, 0.0, {3_mps, 4_mps_sq} //Constraints max velocity, max acceleration
     };
 
 	SwerveChassis *chassis;
