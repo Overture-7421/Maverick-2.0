@@ -45,7 +45,7 @@ class LowPassCommand
 
   frc::ProfiledPIDController<units::radian> headingController{
     // PID constants: 
-    3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{2_rad_per_s, 2_rad_per_s / 1_s} //Constraints max velocity, max acceleration
+    3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{500_deg_per_s, 750_deg_per_s / 1_s} //Constraints max velocity, max acceleration
   };
   HeadingSpeedsHelper headingSpeedsHelper;
 

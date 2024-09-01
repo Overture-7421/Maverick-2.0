@@ -8,11 +8,25 @@
 #include <frc/MathUtil.h>
 
 #include <pathplanner/lib/path/PathPlannerTrajectory.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
 
 void Robot::RobotInit() {
-  m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-  m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
+  pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
+    frc2::cmd::Sequence(
+      ManualSpeakerCommand(&superStructure, &shooter).ToPtr(),
+      storage.startStorage(),
+      frc2::cmd::Wait(0.5_s),
+      ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr()
+    )));
+  
+  gallitoOro = pathplanner::AutoBuilder::buildAuto("GallitoOro");
+  
+  autoChooser.SetDefaultOption("None", &defaultAuto);
+  autoChooser.AddOption("GallitoOro", &gallitoOro);
 
+
+
+  frc::SmartDashboard::PutData("AutoChooser", &autoChooser);  
   //frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   //frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
   //frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
@@ -29,14 +43,14 @@ void Robot::RobotInit() {
   gamepad.Y().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
   gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  //operator.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
-  //operator.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
+  driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.upDpad().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.upDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
-  gamepad.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
-  gamepad.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   gamepad.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
   gamepad.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
@@ -44,8 +58,8 @@ void Robot::RobotInit() {
   /*gamepad.A().OnTrue(ManualSpeakerCommand(&superStructure));
   gamepad.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/
   
-  driver.rightDpad().OnTrue(storage.startStorage());
-  driver.rightDpad().OnFalse(storage.stopStorage());
+  gamepad.rightDpad().OnTrue(storage.startStorage());
+  gamepad.rightDpad().OnFalse(storage.stopStorage());
 
   driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
@@ -55,7 +69,7 @@ void Robot::RobotInit() {
 
 
 
- chassis.enableSpeedHelper(&speedHelperNoteTracking);
+ //chassis.enableSpeedHelper(&speedHelperNoteTracking);
 
     
   #ifndef __FRC_ROBORIO__
@@ -128,6 +142,7 @@ AprilTags::Config Robot::frontRightCameraConfig() {
  */
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();
+  chassis.shuffleboardPeriodic();
   //superStructure.getCurrentAngle(superStructure.lowerCANCoder.GetAbsolutePosition().GetValueAsDouble(), superStructure.upperCANCoder.GetAbsolutePosition().GetValueAsDouble());
   //frc::SmartDashboard::PutNumber("upperMotor position", superStructure.upperMotor.GetPosition().GetValueAsDouble());
   //frc::SmartDashboard::PutNumber("lowerMotor position:", superStructure.lowerRightMotor.GetPosition().GetValueAsDouble());
@@ -152,33 +167,22 @@ void Robot::RobotPeriodic() {
  * make sure to add them to the chooser code above as well.
  */
 void Robot::AutonomousInit() {
-  m_autoSelected = m_chooser.GetSelected();
-  // m_autoSelected = SmartDashboard::GetString("Auto Selector",
-  //     kAutoNameDefault);
-  fmt::print("Auto selected: {}\n", m_autoSelected);
-
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
+  autonomo = autoChooser.GetSelected();
+  autonomo->Schedule();
 }
 
 void Robot::AutonomousPeriodic() {
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
+
 }
 
 void Robot::TeleopInit() {
+  if(autonomo != nullptr){
+    autonomo->Cancel();
+  }
 }
 
 void Robot::TeleopPeriodic() {
 
-
-  chassis.shuffleboardPeriodic();
   auto xSpeed = xInput.Calculate(Utils::ApplyAxisFilter(-driver.GetRawAxis(1), 0.2, 0.05) * chassis.getMaxModuleSpeed());
   auto ySpeed = yInput.Calculate(Utils::ApplyAxisFilter(-driver.GetRawAxis(0), 0.2, 0.05) * chassis.getMaxModuleSpeed());
   auto rotationSpeed = wInput.Calculate(-driver.getTwist() * 1.5_tps);

@@ -79,10 +79,6 @@ class Robot : public OverRobot {
   //Gamepad operator{1,0.2, 0.1}; 
 
   Chassis chassis;
-  frc::SendableChooser<std::string> m_chooser;
-  const std::string kAutoNameDefault = "Default";
-  const std::string kAutoNameCustom = "My Auto";
-  std::string m_autoSelected;
 
   frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField
   (frc::AprilTagField::k2024Crescendo);
@@ -93,14 +89,20 @@ class Robot : public OverRobot {
   AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
   AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
   photon::PhotonCamera noteTrackingCamera{ "PSEye" };
-  frc::SlewRateLimiter<units::meters_per_second> xInput{20_mps_sq};
-  frc::SlewRateLimiter<units::meters_per_second> yInput{20_mps_sq};
+  frc::SlewRateLimiter<units::meters_per_second> xInput{10_mps_sq};
+  frc::SlewRateLimiter<units::meters_per_second> yInput{10_mps_sq};
   frc::SlewRateLimiter<units::radians_per_second> wInput{12.5664_rad_per_s_sq};
 
 
-    SpeedHelperNoteTracking speedHelperNoteTracking{&chassis, &noteTrackingCamera};
+  SpeedHelperNoteTracking speedHelperNoteTracking{&chassis, &noteTrackingCamera};
+
+  frc::SendableChooser<frc2::CommandPtr*> autoChooser;
 
 
+  frc2::CommandPtr gallitoOro = frc2::cmd::None();
+  frc2::CommandPtr defaultAuto = frc2::cmd::None();
+
+  frc2::CommandPtr* autonomo = nullptr;
 };
 
 

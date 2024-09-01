@@ -9,7 +9,7 @@ class ConstantsSh {
  public:
   constexpr static const double ShooterSpeaker = 100.0;
   constexpr static const double ShooterAmp = 70.0;
-  constexpr static const double ShooterLowPass = 80.0;
+  constexpr static const double ShooterLowPass = 150.0;
   constexpr static const double ShooterHighPass = 70.0;
   constexpr static const double StopShooterSpeaker = 0.0;
   constexpr static const units::volt_t SpeakerVolt = 12_V;
