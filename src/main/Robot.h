@@ -46,6 +46,7 @@
 #include "Commands/HighPassCommand/HighPassCommand.h"
 #include "Commands/ClosedPassCommand/ClosedPassCommand.h"
 #include "Commands/SpitNoteCommand/SpitNoteCommand.h"
+#include "SpeedsHelpers/SpeedHelperNoteTracking.h"
 #include "Commands/VisionSpeakerCommand/VisionSpeakerCommand.h"
 
 class Robot : public OverRobot {
@@ -62,20 +63,22 @@ class Robot : public OverRobot {
   void TestPeriodic() override;
   void SimulationInit() override;
   void SimulationPeriodic() override;
+  void AlignToNote();
 
-  Gamepad oper{1, 0.1, 0.1};
+  Gamepad gamepad{1, 0.1, 0.1};
   Gamepad driver{0,0.25, 0.5};
 
   Intake intake;
   Storage storage;
   Shooter shooter;
   SuperStructure superStructure;
-  Chassis chassis;
-
 
 
 
  private:
+  //Gamepad operator{1,0.2, 0.1}; 
+
+  Chassis chassis;
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
@@ -89,17 +92,13 @@ class Robot : public OverRobot {
 
   AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
   AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
+  photon::PhotonCamera noteTrackingCamera{ "PSEye" };
+  frc::SlewRateLimiter<units::meters_per_second> xInput{20_mps_sq};
+  frc::SlewRateLimiter<units::meters_per_second> yInput{20_mps_sq};
+  frc::SlewRateLimiter<units::radians_per_second> wInput{12.5664_rad_per_s_sq};
 
-  frc::SlewRateLimiter<units::meters_per_second> xInput{12_mps_sq};
-  frc::SlewRateLimiter<units::meters_per_second> yInput {12_mps_sq};
-  frc::SlewRateLimiter<units::radians_per_second> wInput {12.5664_rad_per_s_sq};
 
-  frc::ProfiledPIDController<units::radian> headingController{
-        // PID constants: 
-        3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{2_rad_per_s, 2_rad_per_s / 1_s} //Constraints max velocity, max acceleration
-    };
-
-  HeadingSpeedsHelper headingSpeedsHelper{headingController, &chassis};
+    SpeedHelperNoteTracking speedHelperNoteTracking{&chassis, &noteTrackingCamera};
 
 
 };

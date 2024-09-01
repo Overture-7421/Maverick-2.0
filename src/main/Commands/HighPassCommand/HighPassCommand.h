@@ -14,6 +14,8 @@
 #include <frc/controller/ProfiledPIDController.h>
 #include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
+#include <OvertureLib/Gamepad/Gamepad.h>
+
 
 /**
  * An example command.
@@ -25,7 +27,7 @@
 class HighPassCommand
     : public frc2::CommandHelper<frc2::Command, HighPassCommand> {
  public:
-  HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis);
+  HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad);
 
   void Initialize() override;
 
@@ -38,7 +40,7 @@ class HighPassCommand
   private:
   SuperStructure* superStructure;
   Shooter* shooter;
-  
+  Gamepad* gamePad;
   Chassis* chassis;
   
 

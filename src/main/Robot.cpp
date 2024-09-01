@@ -23,26 +23,26 @@ void Robot::RobotInit() {
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
 
-  driver.LeftBumper().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
-  driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  gamepad.LeftBumper().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
+  gamepad.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.Y().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
-  driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  gamepad.Y().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
+  gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
-  driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  //operator.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
+  //operator.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.upDpad().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis).ToPtr());
   driver.upDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
-  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter, &chassis).ToPtr());
-  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  gamepad.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
+  gamepad.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
-  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  gamepad.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
+  gamepad.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  //driver.A().OnTrue(intake.startIntake());
-  //driver.A().OnFalse(intake.stopIntake());
+  /*gamepad.A().OnTrue(ManualSpeakerCommand(&superStructure));
+  gamepad.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/
   
   driver.rightDpad().OnTrue(storage.startStorage());
   driver.rightDpad().OnFalse(storage.stopStorage());
@@ -55,7 +55,7 @@ void Robot::RobotInit() {
 
 
 
-   //chassis.enableSpeedHelper(&headingSpeedsHelper);
+ chassis.enableSpeedHelper(&speedHelperNoteTracking);
 
     
   #ifndef __FRC_ROBORIO__
@@ -76,7 +76,7 @@ void Robot::RobotInit() {
     {20, "Offseason 2024/motors/intake_motor"},
     {24, "Offseason 2024/motors/storage_motor"},
     {25, "Offseason 2024/motors/shooter_motor"}
-  
+
 
 		});
 
@@ -89,7 +89,8 @@ void Robot::RobotInit() {
 	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
 
 	  {27, "Offseason 2024/cancoders/upper_cancoder"},
-    {28, "Offseason 2024/cancoders/lower_cancoder"}
+	  {29, "Offseason 2024/cancoders/upper_cancoder"},
+	  {28, "Offseason 2024/cancoders/lower_cancoder"}
 
 
 		});
@@ -133,10 +134,10 @@ void Robot::RobotPeriodic() {
 
   //frc::SmartDashboard::PutNumber("actualVelocity", shooter.getVelocityVoltage());
 
-
-  //chassis.enableSpeedHelper(&headingSpeedsHelper);
-  chassis.shuffleboardPeriodic();
 }
+  //chassis.enableSpeedHelper(&headingSpeedsHelper);
+
+
 
 
 /**
@@ -176,21 +177,16 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 
-  // frc::Rotation2d targetAngle{(chassis.getEstimatedPose().X() - 3.26_m).value(), (chassis.getEstimatedPose().Y() - 6.48_m).value()}; 
-  chassis.shuffleboardPeriodic();
-  // headingSpeedsHelper.setTargetAngle(targetAngle);
 
+  chassis.shuffleboardPeriodic();
   auto xSpeed = xInput.Calculate(Utils::ApplyAxisFilter(-driver.GetRawAxis(1), 0.2, 0.05) * chassis.getMaxModuleSpeed());
   auto ySpeed = yInput.Calculate(Utils::ApplyAxisFilter(-driver.GetRawAxis(0), 0.2, 0.05) * chassis.getMaxModuleSpeed());
   auto rotationSpeed = wInput.Calculate(-driver.getTwist() * 1.5_tps);
-
   frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, chassis.getEstimatedPose().Rotation());
-
   chassis.setTargetSpeeds(speeds);
-  //headingSpeedsHelper.alterSpeed(speeds);
-
 
 }
+
 
 void Robot::DisabledInit() {}
 
