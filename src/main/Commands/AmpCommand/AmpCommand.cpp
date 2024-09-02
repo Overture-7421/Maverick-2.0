@@ -15,7 +15,7 @@ AmpCommand::AmpCommand(SuperStructure* superstructure, Shooter* shooter){
 
 // Inicializa el comando, moviendo las partes superior e inferior a las posiciones deseadas.
 void AmpCommand::Initialize() {
-  superstructure->setToAngle(70_deg, 65_deg);
+  superstructure->setToAngle(65_deg, 65_deg);
   shooter->setObjectiveVelocity(ConstantsSh::ShooterAmp);
 
 }
@@ -29,7 +29,7 @@ void AmpCommand::End(bool interrupted) {}
 
 // Retorna true cuando el comando debe finalizar.
 bool AmpCommand::IsFinished() {
-  if(superstructure->getTargetPosition(70_deg, 65_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterAmp)){
+  if(superstructure->getTargetPosition(65_deg, 65_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterAmp)){
     return true;
   } else {
     return false;

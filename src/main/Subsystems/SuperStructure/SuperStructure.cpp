@@ -104,9 +104,7 @@ frc2::CommandPtr SuperStructure::SysIdDynamic(frc2::sysid::Direction direction){
   return m_sysIdRoutine.Dynamic(direction);
 }
 
-
-//Literally nothing lol
-
 void SuperStructure::Periodic() {
+
 }
 

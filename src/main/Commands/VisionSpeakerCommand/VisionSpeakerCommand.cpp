@@ -5,16 +5,27 @@
 #include "VisionSpeakerCommand.h"
 #include "VisionSpeakerConstants.h"
 
-  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure) : headingSpeedsHelper({7, 0, 0.5,{1000_deg_per_s, 1000_deg_per_s_sq}}, chassis){
+  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter) : headingSpeedsHelper({7, 0, 0.5,{1000_deg_per_s, 1000_deg_per_s_sq}}, chassis){
     this->chassis = chassis;
     this->superstructure = superstructure;
-    AddRequirements({chassis, superstructure});
+    this->shooter = shooter;
+    AddRequirements({chassis, superstructure, shooter});
   }
 
 
 // Called when the command is initially scheduled.
 void VisionSpeakerCommand::Initialize() {
-  targetWhileMoving.setTargetLocation({0.69_m, 5.56_m});
+
+  if(auto alliance = frc::DriverStation::GetAlliance()){
+    if(alliance.value() == frc::DriverStation::Alliance::kRed){
+      targetObjective = pathplanner::GeometryUtil::flipFieldPosition(VisionSpeakerConstants::TargetObjective);
+    }
+    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+      targetObjective = VisionSpeakerConstants::TargetObjective;
+    }
+  }
+
+  targetWhileMoving.setTargetLocation(targetObjective);
   chassis->enableSpeedHelper(&headingSpeedsHelper);
   
 }
@@ -33,7 +44,7 @@ void VisionSpeakerCommand::Execute() {
   
   superstructure->setToAngle(VisionSpeakerConstants::DistanceToLowerAngle[distance], VisionSpeakerConstants::DistanceToUpperAngle[distance]);
 
-
+  shooter->setObjectiveVelocity(VisionSpeakerConstants::DistanceToShooter[distance]);
 
 }
 

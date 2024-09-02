@@ -31,7 +31,7 @@ class SuperStructure : public frc2::SubsystemBase {
   OverTalonFX lowerLeftMotor{22, ControllerNeutralMode::Brake, true, "rio"};
   OverTalonFX lowerRightMotor{21, ControllerNeutralMode::Brake, false, "rio"};
   OverCANCoder lowerCANCoder{ConstantsSS::LowerCANCoderID, -112.148438_deg, "rio"};
-  OverTalonFX upperMotor{23, ControllerNeutralMode::Coast, true, "rio"};
+  OverTalonFX upperMotor{23, ControllerNeutralMode::Brake, true, "rio"};
   OverCANCoder upperCANCoder{ConstantsSS::UpperCANCoderID, 183.779297_deg, "rio"};
 
   void getCurrentAngle(double currentLowerAngle, double currentUpperAngle);

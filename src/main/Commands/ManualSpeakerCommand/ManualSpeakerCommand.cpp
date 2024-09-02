@@ -22,6 +22,7 @@ void ManualSpeakerCommand::End(bool interrupted) {}
 
 // Retorna true cuando el comando debe finalizar.
 bool ManualSpeakerCommand::IsFinished() {
+
   if(superstructure->getTargetPosition(-15_deg, 60_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterSpeaker)){
     return true;
   } else {

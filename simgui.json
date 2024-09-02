@@ -14,37 +14,6 @@
     }
   },
   "NetworkTables": {
-    "Persistent Values": {
-      "open": false
-    },
-    "transitory": {
-      "PathPlanner": {
-        "open": true
-      },
-      "Sample Robot": {
-        "cancoders": {
-          "back_left_cancoder": {
-            "open": true
-          },
-          "open": true
-        },
-        "motors": {
-          "open": true
-        },
-        "open": true
-      },
-      "Shuffleboard": {
-        "open": true
-      },
-      "SmartDashboard": {
-        "Odometry": {
-          "open": true
-        },
-        "open": true
-      }
-    }
-  },
-  "NetworkTables": {
     "transitory": {
       "LiveWindow": {
         "open": true
@@ -57,7 +26,6 @@
           "lower_cancoder": {
             "open": true
           },
-          "open": true,
           "shooter_motor": {
             "open": true
           },
@@ -84,6 +52,9 @@
       },
       "SmartDashboard": {
         "Auto Modes": {
+          "open": true
+        },
+        "SuperStructure": {
           "open": true
         },
         "open": true
@@ -119,7 +90,10 @@
             }
           ]
         }
-      ]
+      ],
+      "window": {
+        "visible": false
+      }
     }
   }
 }

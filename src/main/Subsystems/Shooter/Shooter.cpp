@@ -33,7 +33,9 @@ frc2::CommandPtr Shooter::setObjectiveVelocityPtr(){
 }
 
 bool Shooter::getObjectiveVelocity(double velocity){
-    if(velocity == rightMotor.GetVelocity().GetValueAsDouble()){
+    double shooterError = velocity - rightMotor.GetVelocity().GetValueAsDouble();
+
+    if(std::abs(shooterError < 5)){
         return true;
     } else {
         return false;

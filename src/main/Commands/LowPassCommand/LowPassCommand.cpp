@@ -4,29 +4,65 @@
 
 #include "LowPassCommand.h"
 #include "Subsystems/Shooter/Constants.h"
+#include <OvertureLib/Subsystems/Swerve/SpeedsHelper/SpeedsHelper.h>
+#include <frc/DriverStation.h>
+#include "Commands/LowPassCommand/LowerPassConstants.h"
+#include <pathplanner/lib/util/GeometryUtil.h>
 
-LowPassCommand::LowPassCommand(SuperStructure* superStructure, Shooter* shooter) {
+LowPassCommand::LowPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad) : headingSpeedsHelper{headingController, chassis} {
   this->superStructure = superStructure;
   this->shooter = shooter;
+  this->chassis = chassis;
+  this->gamePad = gamePad;
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({superStructure, shooter});
+  AddRequirements({superStructure, shooter, chassis});
 }
 
 // Called when the command is initially scheduled.
 void LowPassCommand::Initialize() {
+
+  if(auto alliance = frc::DriverStation::GetAlliance()){
+    if(alliance.value() == frc::DriverStation::Alliance::kRed){
+      targetObjective = pathplanner::GeometryUtil::flipFieldPosition(LowerPassConstants::TargetObjective);
+    }
+    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+      targetObjective = LowerPassConstants::TargetObjective;
+    }
+  }
+
+
+  chassis->enableSpeedHelper(&headingSpeedsHelper);
+ 
   superStructure->setToAngle(5_deg, 89_deg);
   shooter->setObjectiveVelocity(ConstantsSh::ShooterLowPass);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void LowPassCommand::Execute() {}
+void LowPassCommand::Execute() {
+  
+  frc::Rotation2d targetAngle{(chassis->getEstimatedPose().X() - targetObjective.X()).value(), (chassis->getEstimatedPose().Y() - targetObjective.Y()).value()}; 
+  headingSpeedsHelper.setTargetAngle(targetAngle);
+  units::degree_t angleError = targetAngle.Degrees() - chassis->getEstimatedPose().Rotation().Degrees();
+
+  if (angleError <= 0.2_deg){
+   gamePad->rumbleCommand(1);
+  } else {
+    gamePad->rumbleCommand(0);
+  }
+
+}
 
 // Called once the command ends or is interrupted.
-void LowPassCommand::End(bool interrupted) {}
+void LowPassCommand::End(bool interrupted) {
+  chassis->disableSpeedHelper();
+  gamePad->rumbleCommand(0);
+}
+
+//Sacar el error
 
 // Returns true when the command should end.
 bool LowPassCommand::IsFinished() {
-  if(superStructure->getTargetPosition(25_deg, 89_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterLowPass)){
+  if(superStructure->getTargetPosition(5_deg, 89_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterLowPass)){
     return true;
   } else {
     return false;

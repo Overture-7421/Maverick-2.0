@@ -9,6 +9,12 @@
 
 #include "Subsystems/SuperStructure/SuperStructure.h"
 #include "Subsystems/Shooter/Shooter.h"
+#include "Subsystems/Chassis/Chassis.h"
+
+#include <frc/controller/ProfiledPIDController.h>
+#include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
+#include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
+#include <OvertureLib/Gamepad/Gamepad.h>
 
 /**
  * An example command.
@@ -20,7 +26,7 @@
 class LowPassCommand
     : public frc2::CommandHelper<frc2::Command, LowPassCommand> {
  public:
-  LowPassCommand(SuperStructure* superStructure, Shooter* shooter);
+  LowPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad);
 
   void Initialize() override;
 
@@ -33,4 +39,15 @@ class LowPassCommand
   private:
   SuperStructure* superStructure;
   Shooter* shooter;
+  Gamepad* gamePad;
+  Chassis* chassis;
+  
+
+  frc::ProfiledPIDController<units::radian> headingController{
+    // PID constants: 
+    3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{500_deg_per_s, 750_deg_per_s / 1_s} //Constraints max velocity, max acceleration
+  };
+  HeadingSpeedsHelper headingSpeedsHelper;
+
+  frc::Translation2d targetObjective;
 };

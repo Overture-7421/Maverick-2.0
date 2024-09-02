@@ -26,11 +26,11 @@ void Chassis::Drive(const frc::ChassisSpeeds& speeds){
 }
 
 units::meters_per_second_t Chassis::getMaxModuleSpeed() {
-    return 5_mps;
+    return 4.325_mps;
 }
 
 units::meter_t Chassis::getDriveBaseRadius() {
-   return 1_m; 
+   return 0.5270_m; 
 }
 
 SwerveModule& Chassis::getBackLeftModule(){
@@ -91,10 +91,10 @@ ModuleConfig Chassis::FrontLeftConfig(){
     config.DrivedId = 6;
     config.TurnId = 5;
     config.CanCoderId = 11;
-    config.DriveStatorCurrentLimit = 110;
+    config.DriveStatorCurrentLimit = 180;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
-    config.DriveRampRate = 0.25;
+    config.DriveRampRate = 0.1;
     config.TurnStatorCurrentLimit = 80;
     config.TurnCurrentLimit = 60;
     config.TurnTriggerThresholdTime = 0.2;
@@ -116,10 +116,10 @@ ModuleConfig Chassis::FrontRightConfig(){
     config.DrivedId = 8;
     config.TurnId = 7;
     config.CanCoderId = 12;
-    config.DriveStatorCurrentLimit = 110;
+   config.DriveStatorCurrentLimit = 180;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
-    config.DriveRampRate = 0.25;
+    config.DriveRampRate = 0.1;
     config.TurnStatorCurrentLimit = 80;
     config.TurnCurrentLimit = 60;
     config.TurnTriggerThresholdTime = 0.2;
@@ -141,10 +141,10 @@ ModuleConfig Chassis::BackLeftConfig(){
     config.DrivedId = 4;
     config.TurnId = 3;
     config.CanCoderId = 10;
-    config.DriveStatorCurrentLimit = 110;
+   config.DriveStatorCurrentLimit = 180;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
-    config.DriveRampRate = 0.25;
+    config.DriveRampRate = 0.1;
     config.TurnStatorCurrentLimit = 80;
     config.TurnCurrentLimit = 60;
     config.TurnTriggerThresholdTime = 0.2;
@@ -166,10 +166,10 @@ ModuleConfig Chassis::BackRightConfig(){
     config.DrivedId = 2;
     config.TurnId = 1;
     config.CanCoderId = 9;
-    config.DriveStatorCurrentLimit = 110;
+    config.DriveStatorCurrentLimit = 180;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
-    config.DriveRampRate = 0.25;
+    config.DriveRampRate = 0.1;
     config.TurnStatorCurrentLimit = 80;
     config.TurnCurrentLimit = 60;
     config.TurnTriggerThresholdTime = 0.2;

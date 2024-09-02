@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.398039698600769,
+      "y": 5.510945796966553
+    },
+    "rotation": 1.6406027331390996e-27
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "autoSpeaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GallitoOro8"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "GallitoOro",
+  "choreoAuto": true
+}
