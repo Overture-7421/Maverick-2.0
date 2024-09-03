@@ -5,11 +5,11 @@
 #include "VisionSpeakerCommand.h"
 #include "VisionSpeakerConstants.h"
 
-  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter) : headingSpeedsHelper({7, 0, 0.5,{1000_deg_per_s, 1000_deg_per_s_sq}}, chassis){
+  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter) : headingSpeedsHelper({7, 0, 0.5,{1200_deg_per_s, 1200_deg_per_s_sq}}, chassis){
     this->chassis = chassis;
     this->superstructure = superstructure;
     this->shooter = shooter;
-    AddRequirements({chassis, superstructure, shooter});
+    AddRequirements({superstructure, shooter});
   }
 
 
@@ -39,6 +39,8 @@ void VisionSpeakerCommand::Execute() {
 
   frc::Rotation2d targetAngle((chassis->getEstimatedPose().X() - movingGoalLocation.X()).value(), (chassis->getEstimatedPose().Y() - movingGoalLocation.Y()).value());
   headingSpeedsHelper.setTargetAngle(targetAngle);
+
+  frc::SmartDashboard::PutNumber("target angle:", targetAngle.Degrees().value());
 
   units::meter_t distance = chassis->getEstimatedPose().Translation().Distance(movingGoalLocation);
   

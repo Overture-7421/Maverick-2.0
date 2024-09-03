@@ -30,6 +30,10 @@
 #include "Subsystems/Storage/Storage.h"
 #include "Subsystems/Shooter/Shooter.h"
 
+#include <OvertureLib/Subsystems/LedsManager/LedsManager.h>
+#include <OvertureLib/Subsystems/LedsManager/Effects/BlinkEffect/BlinkEffect.h>
+#include <OvertureLib/Subsystems/LedsManager/Effects/StaticEffect/StaticEffect.h>
+
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <OvertureLib/Robots/OverRobot/OverRobot.h>
 #include "Subsystems/SuperStructure/SuperStructure.h"
@@ -48,6 +52,9 @@
 #include "Commands/SpitNoteCommand/SpitNoteCommand.h"
 #include "SpeedsHelpers/SpeedHelperNoteTracking.h"
 #include "Commands/VisionSpeakerCommand/VisionSpeakerCommand.h"
+#include "Commands/NearShoot/NearShoot.h"
+#include "Commands/ManualClimeCommand/ManualClimbCommand.h"
+#include "Commands/DriveCommand/DriveCommand.h"
 
 class Robot : public OverRobot {
  public:
@@ -73,7 +80,16 @@ class Robot : public OverRobot {
   Shooter shooter;
   SuperStructure superStructure;
 
+  LedsManager leds{8, 240, {
+    {"all", {0, 239}}
+  }};
 
+  frc2::Trigger intakeLeds{[this] {
+     return intake.getVoltage() > 0.0;
+      }};
+
+  frc2::Trigger isNoteOnSensorLeds{[this] {return storage.isNoteOnSensor();
+  }};
 
  private:
   //Gamepad operator{1,0.2, 0.1}; 
@@ -89,20 +105,20 @@ class Robot : public OverRobot {
   AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
   AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
   photon::PhotonCamera noteTrackingCamera{ "PSEye" };
-  frc::SlewRateLimiter<units::meters_per_second> xInput{10_mps_sq};
-  frc::SlewRateLimiter<units::meters_per_second> yInput{10_mps_sq};
-  frc::SlewRateLimiter<units::radians_per_second> wInput{12.5664_rad_per_s_sq};
+
 
 
   SpeedHelperNoteTracking speedHelperNoteTracking{&chassis, &noteTrackingCamera};
 
-  frc::SendableChooser<frc2::CommandPtr*> autoChooser;
 
+  frc::SendableChooser<frc2::CommandPtr*> autoChooser;
 
   frc2::CommandPtr gallitoOro = frc2::cmd::None();
   frc2::CommandPtr defaultAuto = frc2::cmd::None();
 
   frc2::CommandPtr* autonomo = nullptr;
+
+  int allianceMulti;
 };
 
 

@@ -15,7 +15,7 @@ LowPassCommand::LowPassCommand(SuperStructure* superStructure, Shooter* shooter,
   this->chassis = chassis;
   this->gamePad = gamePad;
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({superStructure, shooter, chassis});
+  AddRequirements({superStructure, shooter});
 }
 
 // Called when the command is initially scheduled.

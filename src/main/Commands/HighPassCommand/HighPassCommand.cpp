@@ -16,7 +16,7 @@ HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shoote
   this->chassis = chassis;
   this->gamePad = gamePad;
 
-  AddRequirements({superStructure, shooter, chassis});
+  AddRequirements({superStructure, shooter});
 }
 
 // Called when the command is initially scheduled.
