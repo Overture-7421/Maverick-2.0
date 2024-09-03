@@ -10,6 +10,10 @@ void Intake::setVoltage(units::volt_t voltage){
     intakeMotor.SetVoltage(voltage);
 }
 
+double Intake::getVoltage(){
+    return intakeMotor.GetMotorVoltage().GetValueAsDouble();
+}
+
 //frc2::CommandPtr intakeCommand = frc2::CommandPtr::
 
 frc2::CommandPtr Intake::startIntake(){return this->RunOnce([this] {this->setVoltage(ConstantsIn::GroundGrabVolts);});};

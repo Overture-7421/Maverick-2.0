@@ -16,6 +16,14 @@ void SupportArms::setServoAngle(units::degree_t angle) { //Conditional that allo
     rightServo.Set(angleToServo);
     leftServo.Set(invertedAngle);
 }
+
+  double SupportArms::getRightServoAngle(){
+    return rightServo.GetAngle();
+  }
+  
+  double SupportArms::getLeftServoAngle(){
+    return leftServo.GetAngle();
+  }
                 
 void SupportArms::Periodic() { 
 }

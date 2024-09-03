@@ -18,6 +18,8 @@ class Intake : public frc2::SubsystemBase {
   Intake();
 
   void setVoltage(units::volt_t voltage);
+  double getVoltage();
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
