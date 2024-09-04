@@ -2,7 +2,9 @@
   "robotWidth": 0.82,
   "robotLength": 0.96,
   "holonomicMode": true,
-  "pathFolders": [],
+  "pathFolders": [
+    "GallitoOro"
+  ],
   "autoFolders": [
     "GallitoOro"
   ],
