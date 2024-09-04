@@ -46,7 +46,7 @@ class HighPassCommand
 
   frc::ProfiledPIDController<units::radian> headingController{
     // PID constants: 
-    3, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{500_deg_per_s, 750_deg_per_s / 1_s} //Constraints max velocity, max acceleration
+    7, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{500_deg_per_s, 750_deg_per_s / 1_s} //Constraints max velocity, max acceleration
   };
   HeadingSpeedsHelper headingSpeedsHelper;
   frc::Translation2d targetObjective;

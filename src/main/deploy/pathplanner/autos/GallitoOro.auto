@@ -5,7 +5,7 @@
       "x": 1.398039698600769,
       "y": 5.510945796966553
     },
-    "rotation": 1.6406027331390996e-27
+    "rotation": 1.8907906800146553e-28
   },
   "command": {
     "type": "sequential",
@@ -34,7 +34,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "GroundGrab"
+                        "name": "GroundGrabLarge"
                       }
                     }
                   ]
@@ -75,7 +75,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "GroundGrab"
+                  "name": "GroundGrabSmall"
                 }
               }
             ]
@@ -113,7 +113,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "GroundGrab"
+                  "name": "GroundGrabSmall"
                 }
               }
             ]
@@ -151,7 +151,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "GroundGrab"
+                  "name": "GroundGrabSmall"
                 }
               }
             ]

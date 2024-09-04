@@ -19,7 +19,7 @@ ClosedCommand::ClosedCommand(SuperStructure* superStructure, Shooter* shooter, S
 
 // Called when the command is initially scheduled.
 void ClosedCommand::Initialize() {
-  superStructure->setToAngle(-31_deg, 89_deg);
+  superStructure->setToAngle(-31_deg, 70_deg);
   shooter->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);
   storage->setVoltage(ConstantsSt::stopVoltage);
   intake->setVoltage(ConstantsIn::stopVolts);
@@ -34,9 +34,6 @@ void ClosedCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool ClosedCommand::IsFinished() {
-  if(superStructure->getTargetPosition(-31_deg, 89_deg) && shooter->getObjectiveVelocity(ConstantsSh::StopShooterSpeaker)){
     return true;
-  } else {
-    return false;
-  }
+
 }

@@ -19,8 +19,8 @@ struct ConstantsSS {
   constexpr static const double TriggerThresholdTime = 1;
   constexpr static const double LowerCruiseVelocity = 1.25;
   constexpr static const double LowerCruiseAcceleration = 5;
-  constexpr static const double UpperCruiseVelocity = 1.0;
-  constexpr static const double UpperCruiseAcceleration = 5.2;
+  constexpr static const double UpperCruiseVelocity = 5.0; //2.0
+  constexpr static const double UpperCruiseAcceleration = 15; //5.2
 
 
 

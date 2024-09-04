@@ -14,7 +14,7 @@ NearShoot::NearShoot(SuperStructure* superStructure, Shooter* shooter) {
 
 // Called when the command is initially scheduled.
 void NearShoot::Initialize() {
-  superStructure->setToAngle(-31_deg, 50_deg);
+  superStructure->setToAngle(-31_deg, 70_deg);
   shooter->setObjectiveVelocity(ConstantsSh::ShooterNearShoot);
 }
 
@@ -26,7 +26,7 @@ void NearShoot::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool NearShoot::IsFinished() {
-  if(superStructure->getTargetPosition(-31_deg, 50_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterNearShoot)){
+  if(superStructure->getTargetPosition(-31_deg, 70_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterNearShoot)){
     return true;
   } else {
     return false;
