@@ -22,6 +22,9 @@
 #include <frc/trajectory/TrapezoidProfile.h>
 #include <OvertureLib/Subsystems/Swerve/SpeedsHelper/SpeedsHelper.h>
 #include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
+#include <OvertureLib/Subsystems/LedsManager/LedsManager.h>
+#include <OvertureLib/Subsystems/LedsManager/Effects/StaticEffect/StaticEffect.h>
+#include <OvertureLib/Subsystems/LedsManager/Effects/BlinkEffect/BlinkEffect.h>
 
 #include <OvertureLib/Robots/OverRobot/OverRobot.h>
 #include <OvertureLib/Gamepad/Gamepad.h>
@@ -29,6 +32,7 @@
 #include "Subsystems/Intake/Intake.h"
 #include "Subsystems/Storage/Storage.h"
 #include "Subsystems/Shooter/Shooter.h"
+#include "Subsystems/SupportArms/SupportArms.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <OvertureLib/Robots/OverRobot/OverRobot.h>
@@ -36,6 +40,7 @@
 #include <frc2/command/CommandScheduler.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <OvertureLib/Gamepad/Gamepad.h>
+#include <frc2/command/button/Trigger.h>
 
 #include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
 #include "Commands/AmpCommand/AmpCommand.h"
@@ -72,7 +77,19 @@ class Robot : public OverRobot {
   Storage storage;
   Shooter shooter;
   SuperStructure superStructure;
+  SupportArms supportArms;
+  LedsManager leds{8, 240, {
+    {"all", {0, 239}}
+  }};
 
+  frc2::Trigger intakeLeds{[this] {
+     return intake.getVoltage() > 0.0;
+      }};
+
+  frc2::Trigger isNoteOnSensorLeds{[this] {return storage.isNoteOnSensor();
+  }};
+
+  
 
 
  private:

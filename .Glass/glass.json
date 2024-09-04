@@ -9,6 +9,7 @@
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Auto Chooser": "String Chooser",
       "/SmartDashboard/Auto Modes": "String Chooser",
+      "/SmartDashboard/AutoChooser": "String Chooser",
       "/SmartDashboard/Chassis/Odometry": "Field2d"
     }
   },
