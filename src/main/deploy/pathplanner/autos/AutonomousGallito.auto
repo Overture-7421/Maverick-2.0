@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.2684790566753754,
+      "y": 5.532155868999238
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TrajectoryOne"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TrajectoryTwo"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "GallitoOro",
+  "choreoAuto": false
+}

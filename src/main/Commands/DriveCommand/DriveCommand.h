@@ -7,15 +7,13 @@
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "Subsystems/SuperStructure/SuperStructure.h"
-#include "Subsystems/Shooter/Shooter.h"
 #include "Subsystems/Chassis/Chassis.h"
 
 #include <frc/controller/ProfiledPIDController.h>
 #include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
-#include <OvertureLib/Gamepad/Gamepad.h>
 
+#include <OvertureLib/Gamepad/Gamepad.h>
 
 /**
  * An example command.
@@ -24,10 +22,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class HighPassCommand
-    : public frc2::CommandHelper<frc2::Command, HighPassCommand> {
+class DriveCommand
+    : public frc2::CommandHelper<frc2::Command, DriveCommand> {
  public:
-  HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad);
+  DriveCommand(Chassis* chassis, Gamepad* gamepad);
 
   void Initialize() override;
 
@@ -38,17 +36,22 @@ class HighPassCommand
   bool IsFinished() override;
 
   private:
-  SuperStructure* superStructure;
-  Shooter* shooter;
-  Gamepad* gamePad;
-  Chassis* chassis;
-  
 
-  frc::ProfiledPIDController<units::radian> headingController{
+  Chassis* chassis;
+  Gamepad* gamepad;
+
+    frc::ProfiledPIDController<units::radian> headingController{
     // PID constants: 
-    7, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{500_deg_per_s, 750_deg_per_s / 1_s} //Constraints max velocity, max acceleration
+    5, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{1000_deg_per_s, 850_deg_per_s / 1_s} //Constraints max velocity, max acceleration
   };
   HeadingSpeedsHelper headingSpeedsHelper;
+
   frc::Translation2d targetObjective;
 
+  frc::SlewRateLimiter<units::meters_per_second> xInput{9_mps_sq};
+  frc::SlewRateLimiter<units::meters_per_second> yInput{9_mps_sq};
+
+  int allianceMulti;
+
+  bool speedHelperMoved = false;
 };

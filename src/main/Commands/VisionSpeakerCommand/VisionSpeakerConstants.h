@@ -12,8 +12,6 @@
 
 namespace VisionSpeakerConstants {
 
-  static const frc::Translation2d TargetObjective = {0.69_m, 5.56_m};
-
   static const InterpolatingTable<units::meter_t, units::degree_t> DistanceToLowerAngle{
       {
         {1.66_m, -12.0_deg},

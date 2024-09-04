@@ -2,38 +2,34 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "ClosedCommand.h"
+#include "NearShoot.h"
 #include "Subsystems/Shooter/Constants.h"
-#include "Subsystems/Storage/Constants.h"
-#include "Subsystems/Intake/Constants.h"
 
-ClosedCommand::ClosedCommand(SuperStructure* superStructure, Shooter* shooter, Storage* storage, Intake* intake) {
+NearShoot::NearShoot(SuperStructure* superStructure, Shooter* shooter) {
   this->superStructure = superStructure;
   this->shooter = shooter;
-  this->storage = storage;
-  this->intake = intake;
-
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({superStructure, shooter, storage, intake});
+  AddRequirements({superStructure, shooter});
 }
 
 // Called when the command is initially scheduled.
-void ClosedCommand::Initialize() {
+void NearShoot::Initialize() {
   superStructure->setToAngle(-31_deg, 70_deg);
-  shooter->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);
-  storage->setVoltage(ConstantsSt::stopVoltage);
-  intake->setVoltage(ConstantsIn::stopVolts);
-
+  shooter->setObjectiveVelocity(ConstantsSh::ShooterNearShoot);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ClosedCommand::Execute() {}
+void NearShoot::Execute() {}
 
 // Called once the command ends or is interrupted.
-void ClosedCommand::End(bool interrupted) {}
+void NearShoot::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ClosedCommand::IsFinished() {
+bool NearShoot::IsFinished() {
+  if(superStructure->getTargetPosition(-31_deg, 70_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterNearShoot)){
     return true;
+  } else {
+    return false;
+  }
 
 }

@@ -17,7 +17,6 @@ Chassis::Chassis()
 {
     configureSwerveBase();
     setAcceptingVisionMeasurements(true);
-    pigeon.SetYaw(0_deg);
     resetHeading();
 }
 
@@ -26,7 +25,7 @@ void Chassis::Drive(const frc::ChassisSpeeds& speeds){
 }
 
 units::meters_per_second_t Chassis::getMaxModuleSpeed() {
-    return 4.325_mps;
+    return 5_mps;
 }
 
 units::meter_t Chassis::getDriveBaseRadius() {
@@ -91,10 +90,10 @@ ModuleConfig Chassis::FrontLeftConfig(){
     config.DrivedId = 6;
     config.TurnId = 5;
     config.CanCoderId = 11;
-    config.DriveStatorCurrentLimit = 180;
+    config.DriveStatorCurrentLimit = 500;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
-    config.DriveRampRate = 0.1;
+    config.DriveRampRate = 0.01;
     config.TurnStatorCurrentLimit = 80;
     config.TurnCurrentLimit = 60;
     config.TurnTriggerThresholdTime = 0.2;
@@ -103,7 +102,7 @@ ModuleConfig Chassis::FrontLeftConfig(){
     config.TurnNeutralMode = ControllerNeutralMode::Coast;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
-    config.WheelDiameter = 4_in;
+    config.WheelDiameter = 4_in * 0.97;
     config.kP = 56.0; //Original 53
     config.ModuleName = "Front Left";
     config.Offset = -0.443359375_tr;
@@ -116,10 +115,10 @@ ModuleConfig Chassis::FrontRightConfig(){
     config.DrivedId = 8;
     config.TurnId = 7;
     config.CanCoderId = 12;
-   config.DriveStatorCurrentLimit = 180;
+   config.DriveStatorCurrentLimit = 500;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
-    config.DriveRampRate = 0.1;
+    config.DriveRampRate = 0.01;
     config.TurnStatorCurrentLimit = 80;
     config.TurnCurrentLimit = 60;
     config.TurnTriggerThresholdTime = 0.2;
@@ -128,7 +127,7 @@ ModuleConfig Chassis::FrontRightConfig(){
     config.TurnNeutralMode = ControllerNeutralMode::Coast;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
-    config.WheelDiameter = 4_in;
+    config.WheelDiameter = 4_in * 0.97;
     config.kP = 53.0;
     config.DriveInverted = false;
     config.ModuleName = "Front Right";
@@ -141,10 +140,10 @@ ModuleConfig Chassis::BackLeftConfig(){
     config.DrivedId = 4;
     config.TurnId = 3;
     config.CanCoderId = 10;
-   config.DriveStatorCurrentLimit = 180;
+   config.DriveStatorCurrentLimit = 500;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
-    config.DriveRampRate = 0.1;
+    config.DriveRampRate = 0.01;
     config.TurnStatorCurrentLimit = 80;
     config.TurnCurrentLimit = 60;
     config.TurnTriggerThresholdTime = 0.2;
@@ -153,7 +152,7 @@ ModuleConfig Chassis::BackLeftConfig(){
     config.TurnNeutralMode = ControllerNeutralMode::Coast;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
-    config.WheelDiameter = 4_in;
+    config.WheelDiameter = 4_in * 0.97;
     config.kP = 53.0; //Original 53
     config.ModuleName = "Back Left";
     config.DriveInverted = false;
@@ -166,10 +165,10 @@ ModuleConfig Chassis::BackRightConfig(){
     config.DrivedId = 2;
     config.TurnId = 1;
     config.CanCoderId = 9;
-    config.DriveStatorCurrentLimit = 180;
+    config.DriveStatorCurrentLimit =  500;
     config.DriveCurrentLimit = 60;
     config.DriveTriggerThresholdTime = 0.5;
-    config.DriveRampRate = 0.1;
+    config.DriveRampRate = 0.01;
     config.TurnStatorCurrentLimit = 80;
     config.TurnCurrentLimit = 60;
     config.TurnTriggerThresholdTime = 0.2;
@@ -178,7 +177,7 @@ ModuleConfig Chassis::BackRightConfig(){
     config.TurnNeutralMode = ControllerNeutralMode::Coast;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
-    config.WheelDiameter = 4_in;
+    config.WheelDiameter = 4_in * 0.97;
     config.kP = 53.0;
     config.DriveInverted = false;
     config.ModuleName = "Back Right";

@@ -13,16 +13,39 @@
 void Robot::RobotInit() {
   pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
     frc2::cmd::Sequence(
-      ManualSpeakerCommand(&superStructure, &shooter).ToPtr(),
+      NearShoot(&superStructure, &shooter).ToPtr(),
       storage.startStorage(),
-      frc2::cmd::Wait(0.5_s),
+      frc2::cmd::Wait(0.3_s),
       ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr()
     )));
+
+  pathplanner::NamedCommands::registerCommand("GroundGrabLarge", std::move(
+    GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(2.8_s)
+  ));
+
+  pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
+    GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(0.75_s)
+  ));
+
+  
+
+
+  /*
+  pathplanner::NamedCommands::registerCommand("AllignToNote", std::move(
+    frc2::cmd::Sequence(
+      chassis.enableSpeedHelper(&speedHelperNoteTracking),
+      speedHelperNoteTracking(&chassis, &noteTrackingCamera),
+      frc2::cmd::Wait(0.5_s),
+      chassis.disableSpeedHelper()
+  )));
+  */
   
   gallitoOro = pathplanner::AutoBuilder::buildAuto("GallitoOro");
+  autonomousGallito = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
   
   autoChooser.SetDefaultOption("None", &defaultAuto);
   autoChooser.AddOption("GallitoOro", &gallitoOro);
+  autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
 
 
 
@@ -36,42 +59,71 @@ void Robot::RobotInit() {
   // gamepad.X().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kForward));
   // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
+  leds.SetDefaultCommand(BlinkEffect(&leds, "all", {112, 21, 133}, 4_s).ToPtr().IgnoringDisable(true));
 
-  gamepad.LeftBumper().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
-  gamepad.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  intakeLeds.WhileTrue(BlinkEffect(&leds, "all", {112, 21, 133}, 0.2_s).ToPtr().IgnoringDisable(true));
 
-  gamepad.Y().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
-  gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  driver.A().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure));
-  driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  driver.upDpad().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
-  driver.upDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  isNoteOnSensorLeds.WhileTrue(StaticEffect(&leds, "all", {14, 227, 49}). ToPtr().IgnoringDisable(true));
   
+  //Driver
+  driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
+  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  gamepad.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
-  gamepad.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  /*gamepad.A().OnTrue(ManualSpeakerCommand(&superStructure));
-  gamepad.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/
-  
-  gamepad.rightDpad().OnTrue(storage.startStorage());
-  gamepad.rightDpad().OnFalse(storage.stopStorage());
-
-  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter).ToPtr());
+  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShoot, &tagLayout).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  //driver.Y().OnTrue(shooter.shooterCommand());
-  //driver.Y().OnFalse(shooter.stopShooterCommand());
+  gamepad.upDpad().OnTrue(frc2::cmd::RunOnce([&]{
+    offsetUpperShoot += -1.5_deg;
+  }).AlongWith(BlinkEffect(&leds, "all", {255, 0, 0}, 0.3_s).ToPtr()).WithTimeout(2_s));
+
+   gamepad.downDpad().OnTrue(frc2::cmd::RunOnce([&]{
+    offsetUpperShoot += 1.0_deg;
+  }).AlongWith(BlinkEffect(&leds, "all", {0, 0, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));
+
+gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
+    offsetUpperShoot = 0.0_deg;
+  }).AlongWith(BlinkEffect(&leds, "all", {255, 255, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));
 
 
+  chassis.SetDefaultCommand(DriveCommand(&chassis, &driver).ToPtr());
 
- //chassis.enableSpeedHelper(&speedHelperNoteTracking);
+  //Operator
+  gamepad.LeftBumper().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
+  gamepad.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
+  gamepad.RightBumper().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
+  gamepad.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+
+  gamepad.RightTrigger().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure).Unless([&]{
+      return driver.GetRightBumper() || storage.isNoteOnSensor() || driver.GetBButton() || driver.GetXButton();
     
+  }));
+
+
+   gamepad.RightTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr().Unless([&]{
+       return driver.GetRightBumper() || driver.GetBButton() || driver.GetXButton();
+    
+   }));
+
+
+  gamepad.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
+  gamepad.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  
+  gamepad.LeftTrigger().OnTrue(storage.startStorage());
+  gamepad.LeftTrigger().OnFalse(storage.stopStorage());
+
+  //Intake sin sensor A()
+
+  //Escalada manual Y() No esta probada
+  gamepad.Y().OnTrue(ManualClimbCommand(&superStructure).ToPtr());
+  gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+ 
+
+   supportArms.setServoAngle(-110_deg);  
+
   #ifndef __FRC_ROBORIO__
 	simMotorManager.Init({
 	  {2, "Offseason 2024/motors/back_right_drive"},
@@ -115,18 +167,16 @@ void Robot::RobotInit() {
 
 AprilTags::Config Robot::shooterCameraConfig() {
     AprilTags::Config config;
-    config.cameraName = "Arducam_OV2311_USB_Camera";
-    config.cameraToRobot = {-14.950771_in, 0_m, 14.034697_in, {-180_deg, -30_deg, 180_deg}};
-    config.doubleTagValidDistance = 5_m;
-    config.singleTagValidDistance = 9_m;
-    config.tripleTagValidDistance = 13_m;
+    config.cameraName = "Arducam_OV9281_USB_Camera";
+    config.cameraToRobot = { -14.950771_in, 0_m, 14.034697_in,{0_deg, -30_deg, 180_deg}};
     return config;
 }
 
+
 AprilTags::Config Robot::frontRightCameraConfig() {
     AprilTags::Config config;
-    config.cameraName = "Arducam_OV9281_USB_Camera";
-    config.cameraToRobot = {6.388283_in, -10.648092_in, 8.358231_in, {0_deg, -28.125_deg, -30_deg}};
+    config.cameraName = "Arducam_OV2311_USB_Camera";
+    config.cameraToRobot = {6.388283_in, -10.648092_in, 8.358231_in, {180_deg, -28.125_deg, -30_deg}};
     return config;
 }
 
@@ -179,15 +229,11 @@ void Robot::TeleopInit() {
   if(autonomo != nullptr){
     autonomo->Cancel();
   }
+  
 }
 
 void Robot::TeleopPeriodic() {
 
-  auto xSpeed = xInput.Calculate(Utils::ApplyAxisFilter(-driver.GetRawAxis(1), 0.2, 0.05) * chassis.getMaxModuleSpeed());
-  auto ySpeed = yInput.Calculate(Utils::ApplyAxisFilter(-driver.GetRawAxis(0), 0.2, 0.05) * chassis.getMaxModuleSpeed());
-  auto rotationSpeed = wInput.Calculate(-driver.getTwist() * 1.5_tps);
-  frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, chassis.getEstimatedPose().Rotation());
-  chassis.setTargetSpeeds(speeds);
 
 }
 

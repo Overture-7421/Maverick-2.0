@@ -5,64 +5,175 @@
       "x": 1.398039698600769,
       "y": 5.510945796966553
     },
-    "rotation": 1.6406027331390996e-27
+    "rotation": 1.8907906800146553e-28
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "sequential",
           "data": {
-            "name": "autoSpeaker"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "GallitoOro1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabLarge"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "GallitoOro1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GallitoOro2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "GallitoOro2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GallitoOro3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GroundGrabSmall"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "GallitoOro3"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GallitoOro4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "GallitoOro4"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GallitoOro5"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GroundGrabSmall"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "GallitoOro5"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GallitoOro6"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "GallitoOro6"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GallitoOro7"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GroundGrabSmall"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "GallitoOro7"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "GallitoOro8"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GallitoOro8"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              }
+            ]
           }
         }
       ]

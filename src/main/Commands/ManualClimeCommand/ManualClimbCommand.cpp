@@ -5,7 +5,7 @@
 #include "ManualClimbCommand.h"
 
 ManualClimbCommand::ManualClimbCommand(SuperStructure* superstructure){
-    this->superstructure = superstructure;
+  this->superstructure = superstructure;
 
   AddRequirements({superstructure});
 }
@@ -14,7 +14,6 @@ ManualClimbCommand::ManualClimbCommand(SuperStructure* superstructure){
 void ManualClimbCommand::Initialize() {
   superstructure->setToAngle(85_deg, 89_deg);
 }
-
 
 void ManualClimbCommand::Execute() {}
 

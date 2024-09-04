@@ -8,9 +8,9 @@
 frc2::CommandPtr SpitNoteCommand(Intake* intake, Storage* storage, SuperStructure* superStructure){
 
     return frc2::cmd::Sequence(
-        superStructure->setAngle(-32_deg, 70_deg),
+        superStructure->setAngle(-31_deg, 72_deg),
         frc2::cmd::WaitUntil([superStructure]{
-            return superStructure->getTargetPosition(-32_deg, 70_deg);
+            return superStructure->getTargetPosition(-31_deg, 72_deg);
         }),
         frc2::cmd::Parallel(
             intake->reverseIntake(),

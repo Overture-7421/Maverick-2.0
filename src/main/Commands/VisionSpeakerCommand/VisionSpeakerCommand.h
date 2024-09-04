@@ -11,6 +11,9 @@
 #include "Subsystems/Shooter/Shooter.h"
 #include "Subsystems/Chassis/Chassis.h"
 #include <OvertureLib/Subsystems/Swerve/SpeedsHelper/HeadingSpeedsHelper/HeadingSpeedsHelper.h>
+#include <OvertureLib/Gamepad/Gamepad.h>
+#include "frc/apriltag/AprilTag.h"
+#include "frc/apriltag/AprilTagFieldLayout.h"
 
 /**
  * An example command.
@@ -22,7 +25,7 @@
 class VisionSpeakerCommand
     : public frc2::CommandHelper<frc2::Command, VisionSpeakerCommand> {
  public:
-  VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter);
+  VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, Gamepad* gamePad, units::degree_t* offsetVisionShoot, frc::AprilTagFieldLayout* tagLayout);
 
   void Initialize() override; 
 
@@ -35,7 +38,6 @@ class VisionSpeakerCommand
   private:
   frc::Translation2d targetObjective;
   TargetingWhileMoving targetWhileMoving{
-
 {
 
   {1.66_m, 0.22_s},
@@ -61,5 +63,8 @@ class VisionSpeakerCommand
   Shooter* shooter;
   Chassis* chassis;
   HeadingSpeedsHelper headingSpeedsHelper;
+  Gamepad* gamePad;
+  units::degree_t* offsetVisionShoot;
+  frc::AprilTagFieldLayout* tagLayout;
   };
 

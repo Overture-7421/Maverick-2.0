@@ -32,6 +32,10 @@
 #include "Subsystems/Intake/Intake.h"
 #include "Subsystems/Storage/Storage.h"
 #include "Subsystems/Shooter/Shooter.h"
+
+#include <OvertureLib/Subsystems/LedsManager/LedsManager.h>
+#include <OvertureLib/Subsystems/LedsManager/Effects/BlinkEffect/BlinkEffect.h>
+#include <OvertureLib/Subsystems/LedsManager/Effects/StaticEffect/StaticEffect.h>
 #include "Subsystems/SupportArms/SupportArms.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
@@ -53,6 +57,11 @@
 #include "Commands/SpitNoteCommand/SpitNoteCommand.h"
 #include "SpeedsHelpers/SpeedHelperNoteTracking.h"
 #include "Commands/VisionSpeakerCommand/VisionSpeakerCommand.h"
+#include "Commands/NearShoot/NearShoot.h"
+#include "Commands/ManualClimeCommand/ManualClimbCommand.h"
+#include "Commands/DriveCommand/DriveCommand.h"
+#include "Subsystems/SupportArms/SupportArms.h"
+
 
 class Robot : public OverRobot {
  public:
@@ -77,19 +86,7 @@ class Robot : public OverRobot {
   Storage storage;
   Shooter shooter;
   SuperStructure superStructure;
-  SupportArms supportArms;
-  LedsManager leds{8, 240, {
-    {"all", {0, 239}}
-  }};
 
-  frc2::Trigger intakeLeds{[this] {
-     return intake.getVoltage() > 0.0;
-      }};
-
-  frc2::Trigger isNoteOnSensorLeds{[this] {return storage.isNoteOnSensor();
-  }};
-
-  
 
 
  private:
@@ -103,23 +100,26 @@ class Robot : public OverRobot {
   static AprilTags::Config shooterCameraConfig();
   static AprilTags::Config frontRightCameraConfig();
 
-  AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
-  AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
+  //AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
+  //AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
   photon::PhotonCamera noteTrackingCamera{ "PSEye" };
-  frc::SlewRateLimiter<units::meters_per_second> xInput{10_mps_sq};
-  frc::SlewRateLimiter<units::meters_per_second> yInput{10_mps_sq};
-  frc::SlewRateLimiter<units::radians_per_second> wInput{12.5664_rad_per_s_sq};
 
+
+
+  
 
   SpeedHelperNoteTracking speedHelperNoteTracking{&chassis, &noteTrackingCamera};
 
+
   frc::SendableChooser<frc2::CommandPtr*> autoChooser;
 
-
   frc2::CommandPtr gallitoOro = frc2::cmd::None();
+  frc2::CommandPtr autonomousGallito = frc2::cmd::None();
   frc2::CommandPtr defaultAuto = frc2::cmd::None();
 
   frc2::CommandPtr* autonomo = nullptr;
+
+  int allianceMulti;
 };
 
 
