@@ -86,7 +86,18 @@ class Robot : public OverRobot {
   Storage storage;
   Shooter shooter;
   SuperStructure superStructure;
+  SupportArms supportArms;
+  units::degree_t offsetUpperShoot = 0_deg;
 
+  LedsManager leds{8, 240, {{"all", {0, 239}
+    }}};
+  
+  frc2::Trigger intakeLeds{[this] {
+    return intake.getVoltage() > 0.0;
+  }};
+
+  frc2::Trigger isNoteOnSensorLeds{[this] {return storage.isNoteOnSensor();
+  }};
 
 
  private:

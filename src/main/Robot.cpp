@@ -122,7 +122,7 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
   gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
  
 
-   supportArms.setServoAngle(-110_deg);  
+  supportArms.setServoAngle(-110_deg);  
 
   #ifndef __FRC_ROBORIO__
 	simMotorManager.Init({
