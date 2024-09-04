@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 4.105418573560362,
-        "y": 4.991804751094621
+        "x": 4.046720289311114,
+        "y": 4.6745167281257185
       },
       "prevControl": {
-        "x": 5.02483273102707,
-        "y": 4.4192921654072475
+        "x": 5.126868140870775,
+        "y": 4.5946814446245945
       },
       "nextControl": {
-        "x": 2.880899679804378,
-        "y": 5.754303862505864
+        "x": 2.6125303515487985,
+        "y": 4.780519772163056
       },
       "isLocked": false,
       "linkedName": null
@@ -59,7 +59,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "GallitoOro",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

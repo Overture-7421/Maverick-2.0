@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3727855984357804,
-        "y": 5.584700688560603
+        "x": 1.4283249167316787,
+        "y": 4.520199371499934
       },
       "isLocked": false,
       "linkedName": null
@@ -20,12 +20,12 @@
         "y": 4.298386199078946
       },
       "prevControl": {
-        "x": 3.8922106369138336,
-        "y": 5.012620768359097
+        "x": 4.070113255528177,
+        "y": 5.255907796617696
       },
       "nextControl": {
-        "x": 6.418476949563595,
-        "y": 3.5480999861272586
+        "x": 5.864463747293377,
+        "y": 3.6260149603989005
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 4.115512920385959
       },
       "prevControl": {
-        "x": 6.752321794264125,
-        "y": 4.401889398086832
+        "x": 7.207197441738634,
+        "y": 4.050901541163201
       },
       "nextControl": null,
       "isLocked": false,
@@ -59,7 +59,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "GallitoOro",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
