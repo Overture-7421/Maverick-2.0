@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.4194171612308972,
+        "y": 5.574358195791997
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.7348262887424777,
+        "y": 5.536568320639416
+      },
+      "isLocked": false,
+      "linkedName": "GallitoOroV2.Speaker"
+    },
+    {
+      "anchor": {
+        "x": 2.63,
+        "y": 5.54
+      },
+      "prevControl": {
+        "x": 2.337723284661471,
+        "y": 5.545747295712128
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "GallitoOroV2.1-2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "GallitoOroV2",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

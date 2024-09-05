@@ -3,48 +3,54 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2684790566753754,
-        "y": 5.532155868999238
+        "x": 0.763798804383323,
+        "y": 6.719918775589039
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3051114011454215,
-        "y": 4.349104208811096
+        "x": 0.6987547596746979,
+        "y": 7.487659643288037
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.574702489620754,
-        "y": 4.237572661343239
+        "x": 3.7282304177703596,
+        "y": 7.647890094887334
       },
       "prevControl": {
-        "x": 4.2963202007133185,
-        "y": 5.39206839946418
+        "x": 2.3156024753818807,
+        "y": 7.714840049206173
       },
       "nextControl": {
-        "x": 6.306175951402848,
-        "y": 3.5769854477189544
+        "x": 5.4161065520791745,
+        "y": 7.567895053944871
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.265689515940045,
-        "y": 4.115512920385959
+        "x": 8.234922192500635,
+        "y": 7.457373059277368
       },
       "prevControl": {
-        "x": 7.166835412374529,
-        "y": 4.146989270830394
+        "x": 6.354846434581263,
+        "y": 7.338774642207023
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndOne"
+      "linkedName": "AmpAuto 1 to 2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.45,
+      "rotationDegrees": 4.8,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -59,7 +65,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "GallitoOro",
-  "previewStartingState": null,
-  "useDefaultConstraints": true
+  "folder": "AmpAuto",
+  "previewStartingState": {
+    "rotation": 60.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
 }

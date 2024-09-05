@@ -63,6 +63,7 @@
 #include "Commands/DriveCommand/DriveCommand.h"
 #include "Subsystems/SupportArms/SupportArms.h"
 #include "Commands/Climbing/Cllimbing.h"
+#include "Commands/FarSpeakerCommand/FarSpeakerCommand.h"
 
 
 class Robot : public OverRobot {
@@ -106,8 +107,7 @@ class Robot : public OverRobot {
 
   Chassis chassis;
 
-  frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField
-  (frc::AprilTagField::k2024Crescendo);
+  frc::AprilTagFieldLayout tagLayout {"/home/lvuser/deploy/tag_layout/7421-field.json"};
 
   static AprilTags::Config shooterCameraConfig();
   static AprilTags::Config frontRightCameraConfig();
@@ -126,6 +126,8 @@ class Robot : public OverRobot {
   frc::SendableChooser<frc2::CommandPtr*> autoChooser;
 
   frc2::CommandPtr gallitoOro = frc2::cmd::None();
+  frc2::CommandPtr gallitoOroV2 = frc2::cmd::None();
+  frc2::CommandPtr sourceAuto = frc2::cmd::None();
   frc2::CommandPtr autonomousGallito = frc2::cmd::None();
   frc2::CommandPtr defaultAuto = frc2::cmd::None();
 

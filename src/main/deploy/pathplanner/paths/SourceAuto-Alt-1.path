@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.2,
+        "y": 0.9
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.1226030377880996,
+        "y": 1.8017344140251765
+      },
+      "isLocked": false,
+      "linkedName": "SourceAuto1-2"
+    },
+    {
+      "anchor": {
+        "x": 7.95406395377698,
+        "y": 2.389010655339427
+      },
+      "prevControl": {
+        "x": 6.548763568283198,
+        "y": 2.3538781457020828
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "SourceAuto-Alt-1-2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.7,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SourceAuto",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

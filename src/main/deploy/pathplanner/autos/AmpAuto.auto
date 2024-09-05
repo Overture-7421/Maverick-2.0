@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2684790566753754,
-      "y": 5.532155868999238
+      "x": 0.742213604032863,
+      "y": 6.681315399461155
     },
-    "rotation": 0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -28,7 +28,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "TrajectoryOne"
+                        "pathName": "AmpAuto 1"
                       }
                     },
                     {
@@ -41,15 +41,22 @@
                 }
               },
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "TrajectoryTwo"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoSpeaker"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "AmpAuto2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "VisionSpeaker"
+                      }
+                    }
+                  ]
                 }
               },
               {
@@ -59,90 +66,35 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "TrajectoryThree"
+                        "pathName": "AmpAuto 3"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "GroundGrabSmall"
+                        "name": "GroundGrabLarge"
                       }
                     }
                   ]
                 }
               },
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Trajectory Four"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoSpeaker"
-                }
-              },
-              {
-                "type": "parallel",
+                "type": "sequential",
                 "data": {
                   "commands": [
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Trajectory Five"
+                        "pathName": "AmpAuto 4"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "GroundGrabSmall"
+                        "name": "VisionSpeaker"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Trajectory Six"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoSpeaker"
-                }
-              },
-              {
-                "type": "parallel",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Trajectory Seven"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "GroundGrabSmall"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Trajectory Eight"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoSpeaker"
                 }
               }
             ]
@@ -151,6 +103,6 @@
       ]
     }
   },
-  "folder": "GallitoOro",
+  "folder": "AmpAuto",
   "choreoAuto": false
 }

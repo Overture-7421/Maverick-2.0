@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.265689515940045,
-        "y": 4.115512920385959
+        "x": 2.8674658275314155,
+        "y": 7.00907875427253
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.7434598486381425,
-        "y": 4.103224262350693
+        "x": 2.566268262166154,
+        "y": 6.705862120057573
       },
       "isLocked": false,
-      "linkedName": "EndOne"
+      "linkedName": "EndSeven"
     },
     {
       "anchor": {
-        "x": 5.621000667927262,
-        "y": 4.306792632103783
+        "x": 1.527597608766646,
+        "y": 5.506436309561607
       },
       "prevControl": {
-        "x": 6.793949639595069,
-        "y": 3.4826001519763428
-      },
-      "nextControl": {
-        "x": 4.143931988144412,
-        "y": 5.344679980926637
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.62,
-        "y": 5.489081616184067
-      },
-      "prevControl": {
-        "x": 2.52024618582819,
-        "y": 4.344030057606569
+        "x": 1.8679888636232298,
+        "y": 5.847243255064386
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "EndEight"
     }
   ],
   "rotationTargets": [],

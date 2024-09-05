@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.265689515940045,
-        "y": 4.115512920385959
+        "x": 1.5,
+        "y": 5.469538753892324
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.7434598486381425,
-        "y": 4.103224262350693
+        "x": 1.8473601733083096,
+        "y": 5.503359577217667
       },
       "isLocked": false,
-      "linkedName": "EndOne"
+      "linkedName": "FourtoFive"
     },
     {
       "anchor": {
-        "x": 5.621000667927262,
-        "y": 4.306792632103783
+        "x": 2.7630979406304053,
+        "y": 5.579412554844455
       },
       "prevControl": {
-        "x": 6.793949639595069,
-        "y": 3.4826001519763428
-      },
-      "nextControl": {
-        "x": 4.143931988144412,
-        "y": 5.344679980926637
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.62,
-        "y": 5.489081616184067
-      },
-      "prevControl": {
-        "x": 2.52024618582819,
-        "y": 4.344030057606569
+        "x": 2.4878513484705547,
+        "y": 5.608095209431986
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Trajectory5-6"
     }
   ],
   "rotationTargets": [],

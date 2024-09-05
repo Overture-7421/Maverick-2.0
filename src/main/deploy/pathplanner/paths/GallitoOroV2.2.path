@@ -3,53 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.415729543698671,
-        "y": 5.4753324685220806
+        "x": 2.63,
+        "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4157295436986708,
-        "y": 4.9753324685220806
+        "x": 4.136802398912929,
+        "y": 5.481494470203146
       },
       "isLocked": false,
-      "linkedName": "EndTwo"
+      "linkedName": "GallitoOroV2.1-2"
     },
     {
       "anchor": {
-        "x": 1.8771432474040546,
-        "y": 3.9597533454739526
+        "x": 5.190306528972544,
+        "y": 4.286166175756032
       },
       "prevControl": {
-        "x": 0.8771432474040546,
-        "y": 4.959753345473953
+        "x": 4.360013159537973,
+        "y": 4.627849788440976
       },
       "nextControl": {
-        "x": 2.8771432474040535,
-        "y": 2.9597533454739526
+        "x": 6.381912213482566,
+        "y": 3.7957947598592976
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.636759618757333,
-        "y": 4.153635557085102
+        "x": 7.895509771048071,
+        "y": 3.7
       },
       "prevControl": {
-        "x": 2.4726832517281108,
-        "y": 3.5118964936590586
+        "x": 6.57214615206145,
+        "y": 3.7150343933456034
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "GallitoOroV2.2-3"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -59,7 +59,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "GallitoOro",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "GallitoOroV2",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }
