@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4283249167316787,
-        "y": 4.520199371499934
+        "x": 1.3051114011454215,
+        "y": 4.349104208811096
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.124249644890659,
-        "y": 4.298386199078946
+        "x": 5.574702489620754,
+        "y": 4.237572661343239
       },
       "prevControl": {
-        "x": 4.070113255528177,
-        "y": 5.255907796617696
+        "x": 4.2963202007133185,
+        "y": 5.39206839946418
       },
       "nextControl": {
-        "x": 5.864463747293377,
-        "y": 3.6260149603989005
+        "x": 6.306175951402848,
+        "y": 3.5769854477189544
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 4.115512920385959
       },
       "prevControl": {
-        "x": 7.207197441738634,
-        "y": 4.050901541163201
+        "x": 7.166835412374529,
+        "y": 4.146989270830394
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +49,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 4.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -61,5 +61,5 @@
   "reversed": false,
   "folder": "GallitoOro",
   "previewStartingState": null,
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

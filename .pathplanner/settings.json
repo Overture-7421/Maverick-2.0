@@ -3,10 +3,12 @@
   "robotLength": 0.96,
   "holonomicMode": true,
   "pathFolders": [
+    "4NoteAuto",
     "GallitoOro",
+    "4NoteAuto",
     "GallitoOroV2",
     "AmpAuto",
-    "SourceAuto"
+    "New Folder"
   ],
   "autoFolders": [
     "GallitoOro",
@@ -14,7 +16,7 @@
     "SourceAuto"
   ],
   "defaultMaxVel": 5.0,
-  "defaultMaxAccel": 4.7,
+  "defaultMaxAccel": 3.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 5.0

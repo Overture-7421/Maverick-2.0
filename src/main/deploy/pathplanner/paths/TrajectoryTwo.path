@@ -8,36 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.642074328977528,
-        "y": 3.888651983963194
+        "x": 7.7434598486381425,
+        "y": 4.103224262350693
       },
       "isLocked": false,
       "linkedName": "EndOne"
     },
     {
       "anchor": {
-        "x": 4.046720289311114,
-        "y": 4.6745167281257185
+        "x": 5.621000667927262,
+        "y": 4.306792632103783
       },
       "prevControl": {
-        "x": 5.126868140870775,
-        "y": 4.5946814446245945
+        "x": 6.793949639595069,
+        "y": 3.4826001519763428
       },
       "nextControl": {
-        "x": 2.6125303515487985,
-        "y": 4.780519772163056
+        "x": 4.143931988144412,
+        "y": 5.344679980926637
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.27,
-        "y": 5.4753324685220806
+        "x": 1.62,
+        "y": 5.489081616184067
       },
       "prevControl": {
-        "x": 2.869756597020635,
-        "y": 5.048820447343275
+        "x": 2.52024618582819,
+        "y": 4.344030057606569
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +49,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 4.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -61,5 +61,5 @@
   "reversed": false,
   "folder": "GallitoOro",
   "previewStartingState": null,
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

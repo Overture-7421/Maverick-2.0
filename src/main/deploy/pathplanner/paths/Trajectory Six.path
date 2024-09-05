@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.65,
-        "y": 4.17
+        "x": 2.7630979406304053,
+        "y": 5.579412554844455
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.365451772745943,
-        "y": 4.527980027835749
+        "x": 2.393361245985885,
+        "y": 5.517733686137016
       },
       "isLocked": false,
-      "linkedName": "GallitoOroV2.6-7"
+      "linkedName": "Trajectory5-6"
     },
     {
       "anchor": {
-        "x": 1.51,
-        "y": 5.564105245857552
+        "x": 1.5162521582483641,
+        "y": 5.476726612865429
       },
       "prevControl": {
-        "x": 1.877159002908461,
-        "y": 5.187767267876379
+        "x": 1.8860538334295915,
+        "y": 5.5144414255635725
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "EndSix"
     }
   ],
   "rotationTargets": [],
@@ -43,10 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "GallitoOroV2",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
+  "folder": "GallitoOro",
+  "previewStartingState": null,
   "useDefaultConstraints": true
 }

@@ -55,18 +55,6 @@ void Robot::RobotInit() {
   ));
 
   
-
-
-  /*
-  pathplanner::NamedCommands::registerCommand("AllignToNote", std::move(
-    frc2::cmd::Sequence(
-      chassis.enableSpeedHelper(&speedHelperNoteTracking),
-      speedHelperNoteTracking(&chassis, &noteTrackingCamera),
-      frc2::cmd::Wait(0.5_s),
-      chassis.disableSpeedHelper()
-  )));
-  */
-  
   gallitoOro = pathplanner::AutoBuilder::buildAuto("GallitoOro");
   gallitoOroV2 = pathplanner::AutoBuilder::buildAuto("GallitoOroV2");
   sourceAuto = pathplanner::AutoBuilder::buildAuto("SourceAuto");
@@ -81,14 +69,6 @@ void Robot::RobotInit() {
 
 
   frc::SmartDashboard::PutData("AutoChooser", &autoChooser);  
-  //frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  //frc::SmartDashboard::PutNumber("lowerAngleTarget", 0.0);
-  //frc::SmartDashboard::PutNumber("upperAngleTarget", 90.0);
-  //frc::SmartDashboard::PutNumber("setTheVoltage", 0.0);
-  // gamepad.B().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kForward));
-  // gamepad.A().WhileTrue(superStructure.SysIdQuasistatic(frc2::sysid::kReverse));
-  // gamepad.X().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kForward));
-  // gamepad.Y().WhileTrue(superStructure.SysIdDynamic(frc2::sysid::kReverse));
 
   leds.SetDefaultCommand(BlinkEffect(&leds, "all", {112, 21, 133}, 4_s).ToPtr().IgnoringDisable(true));
 
@@ -250,7 +230,7 @@ void Robot::RobotPeriodic() {
 void Robot::AutonomousInit() {
   autonomo = autoChooser.GetSelected();
   autonomo->Schedule();
-  chassis.setAcceptingVisionMeasurements(true);
+    chassis.setAcceptingVisionMeasurements(true);
 }
 
 void Robot::AutonomousPeriodic() {
@@ -261,7 +241,8 @@ void Robot::TeleopInit() {
   if(autonomo != nullptr){
     autonomo->Cancel();
   }
-   chassis.setAcceptingVisionMeasurements(true);
+  chassis.setAcceptingVisionMeasurements(true);
+  
 }
 
 void Robot::TeleopPeriodic() {
