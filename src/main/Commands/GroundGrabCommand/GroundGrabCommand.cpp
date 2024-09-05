@@ -6,9 +6,9 @@
 
 frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure){
     return frc2::cmd::Sequence(
-        superStructure->setAngle(-31_deg, 72_deg),
+        superStructure->setAngle(-31_deg, 68_deg),
         frc2::cmd::WaitUntil([superStructure]{
-            return superStructure->getTargetPosition(-31_deg, 72_deg);
+            return superStructure->getTargetPosition(-31_deg, 68_deg);
         }),
         frc2::cmd::Parallel(
             intake->startIntake(),

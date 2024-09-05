@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.265689515940045,
-        "y": 4.115512920385959
+        "x": 2.63,
+        "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.7434598486381425,
-        "y": 4.103224262350693
+        "x": 4.136802398912929,
+        "y": 5.481494470203146
       },
       "isLocked": false,
-      "linkedName": "EndOne"
+      "linkedName": "GallitoOroV2.1-2"
     },
     {
       "anchor": {
-        "x": 5.621000667927262,
-        "y": 4.306792632103783
+        "x": 5.190306528972544,
+        "y": 4.286166175756032
       },
       "prevControl": {
-        "x": 6.793949639595069,
-        "y": 3.4826001519763428
+        "x": 4.360013159537973,
+        "y": 4.627849788440976
       },
       "nextControl": {
-        "x": 4.143931988144412,
-        "y": 5.344679980926637
+        "x": 6.381912213482566,
+        "y": 3.7957947598592976
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.62,
-        "y": 5.489081616184067
+        "x": 7.895509771048071,
+        "y": 3.7
       },
       "prevControl": {
-        "x": 2.52024618582819,
-        "y": 4.344030057606569
+        "x": 6.57214615206145,
+        "y": 3.7150343933456034
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "GallitoOroV2.2-3"
     }
   ],
   "rotationTargets": [],
@@ -59,7 +59,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "GallitoOro",
-  "previewStartingState": null,
+  "folder": "GallitoOroV2",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

@@ -45,6 +45,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <OvertureLib/Gamepad/Gamepad.h>
 #include <frc2/command/button/Trigger.h>
+#include "Commands/AligntToNote/AlignToNote.h"
 
 #include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
 #include "Commands/AmpCommand/AmpCommand.h"
@@ -61,6 +62,7 @@
 #include "Commands/ManualClimeCommand/ManualClimbCommand.h"
 #include "Commands/DriveCommand/DriveCommand.h"
 #include "Subsystems/SupportArms/SupportArms.h"
+#include "Commands/FarSpeakerCommand/FarSpeakerCommand.h"
 
 
 class Robot : public OverRobot {
@@ -77,7 +79,6 @@ class Robot : public OverRobot {
   void TestPeriodic() override;
   void SimulationInit() override;
   void SimulationPeriodic() override;
-  void AlignToNote();
 
   Gamepad gamepad{1, 0.1, 0.1};
   Gamepad driver{0,0.25, 0.5};
@@ -105,14 +106,13 @@ class Robot : public OverRobot {
 
   Chassis chassis;
 
-  frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField
-  (frc::AprilTagField::k2024Crescendo);
+  frc::AprilTagFieldLayout tagLayout {"/home/lvuser/deploy/tag_layout/7421-field.json"};
 
   static AprilTags::Config shooterCameraConfig();
   static AprilTags::Config frontRightCameraConfig();
 
-  //AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
-  //AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
+  AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
+  AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
   photon::PhotonCamera noteTrackingCamera{ "PSEye" };
 
 
@@ -125,6 +125,7 @@ class Robot : public OverRobot {
   frc::SendableChooser<frc2::CommandPtr*> autoChooser;
 
   frc2::CommandPtr gallitoOro = frc2::cmd::None();
+  frc2::CommandPtr gallitoOroV2 = frc2::cmd::None();
   frc2::CommandPtr autonomousGallito = frc2::cmd::None();
   frc2::CommandPtr defaultAuto = frc2::cmd::None();
 

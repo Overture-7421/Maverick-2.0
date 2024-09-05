@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.4389746140603394,
-        "y": 5.50433799941674
+        "x": 1.527597608766646,
+        "y": 5.506436309561607
       },
       "prevControl": {
-        "x": 1.7793658689169232,
-        "y": 5.845144944919519
+        "x": 1.8679888636232298,
+        "y": 5.847243255064386
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 4.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -45,5 +45,5 @@
   "reversed": false,
   "folder": "GallitoOro",
   "previewStartingState": null,
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

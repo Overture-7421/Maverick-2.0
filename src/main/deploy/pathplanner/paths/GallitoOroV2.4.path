@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5162521582483641,
-        "y": 5.476726612865429
+        "x": 2.531946633080141,
+        "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6069365211027047,
-        "y": 5.817884152984741
+        "x": 1.826616039469593,
+        "y": 5.536568320639416
       },
       "isLocked": false,
-      "linkedName": "EndSix"
+      "linkedName": "GallitoOroV2.3-4"
     },
     {
       "anchor": {
-        "x": 2.8674658275314155,
-        "y": 7.00907875427253
+        "x": 2.6710817461590532,
+        "y": 6.950130481836991
       },
       "prevControl": {
-        "x": 1.2923718062837912,
-        "y": 7.058455481308284
+        "x": 1.2666985600341902,
+        "y": 6.968488431982414
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndSeven"
+      "linkedName": "GallitoOroV2.5"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
-    "rotateFast": false
+    "rotation": 0.0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "GallitoOro",
-  "previewStartingState": null,
+  "folder": "GallitoOroV2",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

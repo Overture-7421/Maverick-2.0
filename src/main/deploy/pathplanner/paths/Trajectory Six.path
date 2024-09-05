@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.632244306155279,
-        "y": 5.54
+        "x": 2.7630979406304053,
+        "y": 5.579412554844455
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2346658952577165,
-        "y": 5.5490544360718355
+        "x": 2.393361245985885,
+        "y": 5.517733686137016
       },
       "isLocked": false,
       "linkedName": "Trajectory5-6"
     },
     {
       "anchor": {
-        "x": 1.4304232636243053,
-        "y": 5.469538753892324
+        "x": 1.5162521582483641,
+        "y": 5.476726612865429
       },
       "prevControl": {
-        "x": 1.8486674380756172,
-        "y": 5.490026364311987
+        "x": 1.8860538334295915,
+        "y": 5.5144414255635725
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 4.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -45,5 +45,5 @@
   "reversed": false,
   "folder": "GallitoOro",
   "previewStartingState": null,
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
