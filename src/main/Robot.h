@@ -126,6 +126,7 @@ class Robot : public OverRobot {
 
   frc2::CommandPtr gallitoOro = frc2::cmd::None();
   frc2::CommandPtr gallitoOroV2 = frc2::cmd::None();
+  frc2::CommandPtr sourceAuto = frc2::cmd::None();
   frc2::CommandPtr autonomousGallito = frc2::cmd::None();
   frc2::CommandPtr defaultAuto = frc2::cmd::None();
 

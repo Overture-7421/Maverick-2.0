@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.531946633080141,
-        "y": 5.54
+        "x": 8.2,
+        "y": 0.9
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.826616039469593,
-        "y": 5.536568320639416
+        "x": 7.1226030377880996,
+        "y": 1.8017344140251765
       },
       "isLocked": false,
-      "linkedName": "GallitoOroV2.3-4"
+      "linkedName": "SourceAuto1-2"
     },
     {
       "anchor": {
-        "x": 2.6710817461590532,
-        "y": 6.950130481836991
+        "x": 7.95406395377698,
+        "y": 2.389010655339427
       },
       "prevControl": {
-        "x": 0.9626945359454185,
-        "y": 6.956236908194216
+        "x": 6.548763568283198,
+        "y": 2.3538781457020828
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "GallitoOroV2.5"
+      "linkedName": "SourceAuto-Alt-1-2"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "GallitoOroV2",
+  "folder": "SourceAuto",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

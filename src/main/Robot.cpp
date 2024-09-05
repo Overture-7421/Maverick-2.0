@@ -15,7 +15,15 @@ void Robot::RobotInit() {
     frc2::cmd::Sequence(
       NearShoot(&superStructure, &shooter).ToPtr(),
       storage.startStorage(),
-      frc2::cmd::Wait(0.06_s),
+      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
+      ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr()
+    )));
+
+    pathplanner::NamedCommands::registerCommand("autoSpeakerSource", std::move(
+    frc2::cmd::Sequence(
+      NearShoot(&superStructure, &shooter).ToPtr(),
+      storage.startStorage(),
+      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
       ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr()
     )));
 
@@ -23,12 +31,20 @@ void Robot::RobotInit() {
       frc2::cmd::Sequence(
         FarSpeakerCommand(&superStructure, &shooter).ToPtr(),
         storage.startStorage(),
-        frc2::cmd::Wait(0.12_s),
+        frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
         ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr()
       )));
 
+    pathplanner::NamedCommands::registerCommand("VisionSpeaker", std::move(
+      frc2::cmd::Sequence(
+        VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShoot, &tagLayout).ToPtr().WithTimeout(1_s),
+        storage.startStorage(),
+        frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
+        ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr()
+    )));
+
   pathplanner::NamedCommands::registerCommand("GroundGrabLarge", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(4.0_s)
+    GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(4.5_s)
   ));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
@@ -53,11 +69,13 @@ void Robot::RobotInit() {
   
   gallitoOro = pathplanner::AutoBuilder::buildAuto("GallitoOro");
   gallitoOroV2 = pathplanner::AutoBuilder::buildAuto("GallitoOroV2");
+  sourceAuto = pathplanner::AutoBuilder::buildAuto("SourceAuto");
   autonomousGallito = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
   
   autoChooser.SetDefaultOption("None", &defaultAuto);
   autoChooser.AddOption("GallitoOro", &gallitoOro);
   autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
+  autoChooser.AddOption("SourceAuto", &sourceAuto);
   autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
 
 
