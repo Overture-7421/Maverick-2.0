@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.63,
+        "y": 5.54
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.136802398912929,
+        "y": 5.481494470203146
+      },
+      "isLocked": false,
+      "linkedName": "GallitoOroV2.1-2"
+    },
+    {
+      "anchor": {
+        "x": 5.190306528972544,
+        "y": 4.286166175756032
+      },
+      "prevControl": {
+        "x": 4.360013159537973,
+        "y": 4.627849788440976
+      },
+      "nextControl": {
+        "x": 6.381912213482566,
+        "y": 3.7957947598592976
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.895509771048071,
+        "y": 3.7
+      },
+      "prevControl": {
+        "x": 6.57214615206145,
+        "y": 3.7150343933456034
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "GallitoOroV2.2-3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.7,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "GallitoOroV2",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

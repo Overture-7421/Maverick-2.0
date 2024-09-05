@@ -20,7 +20,7 @@ ClosedCommand::ClosedCommand(SuperStructure* superStructure, Shooter* shooter, S
 // Called when the command is initially scheduled.
 void ClosedCommand::Initialize() {
   superStructure->setToAngle(-31_deg, 70_deg);
-  shooter->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);
+  //shooter->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);
   storage->setVoltage(ConstantsSt::stopVoltage);
   intake->setVoltage(ConstantsIn::stopVolts);
 

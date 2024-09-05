@@ -15,16 +15,24 @@ void Robot::RobotInit() {
     frc2::cmd::Sequence(
       NearShoot(&superStructure, &shooter).ToPtr(),
       storage.startStorage(),
-      frc2::cmd::Wait(0.3_s),
+      frc2::cmd::Wait(0.06_s),
       ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr()
     )));
 
+    pathplanner::NamedCommands::registerCommand("FarSpeaker", std::move(
+      frc2::cmd::Sequence(
+        FarSpeakerCommand(&superStructure, &shooter).ToPtr(),
+        storage.startStorage(),
+        frc2::cmd::Wait(0.12_s),
+        ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr()
+      )));
+
   pathplanner::NamedCommands::registerCommand("GroundGrabLarge", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(2.8_s)
+    GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(4.0_s)
   ));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(0.75_s)
+    GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(2.6_s)
   ));
 
   
@@ -41,10 +49,12 @@ void Robot::RobotInit() {
   */
   
   gallitoOro = pathplanner::AutoBuilder::buildAuto("GallitoOro");
+  gallitoOroV2 = pathplanner::AutoBuilder::buildAuto("GallitoOroV2");
   autonomousGallito = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
   
   autoChooser.SetDefaultOption("None", &defaultAuto);
   autoChooser.AddOption("GallitoOro", &gallitoOro);
+  autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
   autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
 
 
@@ -219,6 +229,7 @@ void Robot::RobotPeriodic() {
 void Robot::AutonomousInit() {
   autonomo = autoChooser.GetSelected();
   autonomo->Schedule();
+  chassis.setAcceptingVisionMeasurements(true);
 }
 
 void Robot::AutonomousPeriodic() {
@@ -229,7 +240,7 @@ void Robot::TeleopInit() {
   if(autonomo != nullptr){
     autonomo->Cancel();
   }
-  
+   chassis.setAcceptingVisionMeasurements(true);
 }
 
 void Robot::TeleopPeriodic() {
