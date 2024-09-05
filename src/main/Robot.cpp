@@ -34,6 +34,9 @@ void Robot::RobotInit() {
   pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
     GroundGrabCommand(&intake, &storage, &superStructure).WithTimeout(2.6_s)
   ));
+  pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
+    AlignToNote(&chassis, &noteTrackingCamera).ToPtr()
+  ));
 
   
 

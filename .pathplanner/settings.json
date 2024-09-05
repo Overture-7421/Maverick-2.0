@@ -4,10 +4,12 @@
   "holonomicMode": true,
   "pathFolders": [
     "GallitoOro",
+    "4NoteAuto",
     "GallitoOroV2"
   ],
   "autoFolders": [
     "GallitoOro",
+    "4NoteAuto",
     "GallitoOroV2"
   ],
   "defaultMaxVel": 5.0,
