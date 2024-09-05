@@ -5,15 +5,14 @@
   "pathFolders": [
     "4NoteAuto",
     "GallitoOro",
-    "4NoteAuto",
     "GallitoOroV2",
-    "AmpAuto",
-    "New Folder"
+    "AmpAuto"
   ],
   "autoFolders": [
+    "4NoteAuto",
     "GallitoOro",
     "GallitoOroV2",
-    "SourceAuto"
+    "AmpAuto"
   ],
   "defaultMaxVel": 5.0,
   "defaultMaxAccel": 3.5,
