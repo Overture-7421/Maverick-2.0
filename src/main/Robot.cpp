@@ -219,6 +219,7 @@ void Robot::RobotPeriodic() {
 void Robot::AutonomousInit() {
   autonomo = autoChooser.GetSelected();
   autonomo->Schedule();
+  chassis.setAcceptingVisionMeasurements(false);
 }
 
 void Robot::AutonomousPeriodic() {
@@ -229,6 +230,8 @@ void Robot::TeleopInit() {
   if(autonomo != nullptr){
     autonomo->Cancel();
   }
+
+   chassis.setAcceptingVisionMeasurements(true);
   
 }
 

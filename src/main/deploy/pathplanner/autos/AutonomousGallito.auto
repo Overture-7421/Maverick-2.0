@@ -12,15 +12,140 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "TrajectoryOne"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "TrajectoryTwo"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "TrajectoryOne"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabLarge"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TrajectoryTwo"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "TrajectoryThree"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabSmall"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Trajectory Four"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Trajectory Five"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabSmall"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Trajectory Six"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Trajectory Seven"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabSmall"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Trajectory Eight"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              }
+            ]
           }
         }
       ]
