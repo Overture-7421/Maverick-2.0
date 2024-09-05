@@ -1,0 +1,108 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7636103146671328,
+      "y": 4.2978770123018135
+    },
+    "rotation": -59.74356283647073
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoSpeaker"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "SourceAuto1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabLarge"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceAuto2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "VisionSpeaker"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceAuto3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GroundGrabLarge"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceAuto4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "VisionSpeaker"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "SourceAuto",
+  "choreoAuto": false
+}
