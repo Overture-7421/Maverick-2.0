@@ -62,6 +62,7 @@
 #include "Commands/ManualClimeCommand/ManualClimbCommand.h"
 #include "Commands/DriveCommand/DriveCommand.h"
 #include "Subsystems/SupportArms/SupportArms.h"
+#include "Commands/Climbing/Cllimbing.h"
 
 
 class Robot : public OverRobot {
@@ -111,8 +112,8 @@ class Robot : public OverRobot {
   static AprilTags::Config shooterCameraConfig();
   static AprilTags::Config frontRightCameraConfig();
 
-  //AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
-  //AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
+  AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
+  AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
   photon::PhotonCamera noteTrackingCamera{ "PSEye" };
 
 

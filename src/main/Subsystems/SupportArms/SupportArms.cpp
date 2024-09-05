@@ -17,6 +17,12 @@ void SupportArms::setServoAngle(units::degree_t angle) { //Conditional that allo
     leftServo.Set(invertedAngle);
 }
 
+frc2::CommandPtr SupportArms::servoAngleCommand(units::degree_t angle){
+  return this->RunOnce([this, angle] {
+    this->setServoAngle(angle);
+    });
+}
+
   double SupportArms::getRightServoAngle(){
     return rightServo.GetAngle();
   }

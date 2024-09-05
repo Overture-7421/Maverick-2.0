@@ -5,6 +5,9 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <frc2/command/Command.h>
+#include <frc2/command/CommandPtr.h>
+
 #include <frc/Servo.h>
 
 
@@ -16,6 +19,8 @@ class SupportArms : public frc2::SubsystemBase { //Class that extends to the Sub
   void Periodic() override; //Method that activates the susbystem
 
   void setServoAngle(units::degree_t angle);
+  frc2::CommandPtr servoAngleCommand(units::degree_t angle);
+
   
   double getRightServoAngle();
   double getLeftServoAngle(); //Method to set the angle of the right servo

@@ -78,6 +78,8 @@ void Robot::RobotInit() {
   driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShoot, &tagLayout).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
+  driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
+
   gamepad.upDpad().OnTrue(frc2::cmd::RunOnce([&]{
     offsetUpperShoot += -1.5_deg;
   }).AlongWith(BlinkEffect(&leds, "all", {255, 0, 0}, 0.3_s).ToPtr()).WithTimeout(2_s));
