@@ -45,6 +45,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <OvertureLib/Gamepad/Gamepad.h>
 #include <frc2/command/button/Trigger.h>
+#include "Commands/AligntToNote/AlignToNote.h"
 
 #include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
 #include "Commands/AmpCommand/AmpCommand.h"
@@ -77,7 +78,6 @@ class Robot : public OverRobot {
   void TestPeriodic() override;
   void SimulationInit() override;
   void SimulationPeriodic() override;
-  void AlignToNote();
 
   Gamepad gamepad{1, 0.1, 0.1};
   Gamepad driver{0,0.25, 0.5};
