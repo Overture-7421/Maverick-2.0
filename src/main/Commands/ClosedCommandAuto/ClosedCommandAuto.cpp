@@ -2,12 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "ClosedCommand.h"
+#include "ClosedCommandAuto.h"
 #include "Subsystems/Shooter/Constants.h"
 #include "Subsystems/Storage/Constants.h"
 #include "Subsystems/Intake/Constants.h"
 
-ClosedCommand::ClosedCommand(SuperStructure* superStructure, Shooter* shooter, Storage* storage, Intake* intake) {
+ClosedCommandAuto::ClosedCommandAuto(SuperStructure* superStructure, Shooter* shooter, Storage* storage, Intake* intake) {
   this->superStructure = superStructure;
   this->shooter = shooter;
   this->storage = storage;
@@ -18,22 +18,22 @@ ClosedCommand::ClosedCommand(SuperStructure* superStructure, Shooter* shooter, S
 }
 
 // Called when the command is initially scheduled.
-void ClosedCommand::Initialize() {
+void ClosedCommandAuto::Initialize() {
   superStructure->setToAngle(-31_deg, 70_deg);
-  shooter->setObjectiveVelocity(ConstantsSh::ShooterClosedCommand);
+  //shooter->setObjectiveVelocity(ConstantsSh::ShooterClosedCommand);
   storage->setVoltage(ConstantsSt::stopVoltage);
   intake->setVoltage(ConstantsIn::stopVolts);
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ClosedCommand::Execute() {}
+void ClosedCommandAuto::Execute() {}
 
 // Called once the command ends or is interrupted.
-void ClosedCommand::End(bool interrupted) {}
+void ClosedCommandAuto::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ClosedCommand::IsFinished() {
+bool ClosedCommandAuto::IsFinished() {
     return true;
 
 }

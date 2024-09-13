@@ -14,7 +14,7 @@ FarSpeakerCommand::FarSpeakerCommand(SuperStructure* superStructure, Shooter* sh
 
 // Called when the command is initially scheduled.
 void FarSpeakerCommand::Initialize() {
-  superStructure->setToAngle(-12_deg, 72.5_deg);
+  superStructure->setToAngle(-12_deg, 75.5_deg);
   shooter->setObjectiveVelocity(ConstantsSh::ShooterFarSpeaker);
 }
 
@@ -26,7 +26,7 @@ void FarSpeakerCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool FarSpeakerCommand::IsFinished() {
-  if(superStructure->getTargetPosition(-12_deg, 72.5_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterFarSpeaker)){
+  if(superStructure->getTargetPosition(-12_deg, 75.5_deg) && shooter->getObjectiveVelocity(ConstantsSh::ShooterFarSpeaker)){
     return true;
   } else {
     return false;

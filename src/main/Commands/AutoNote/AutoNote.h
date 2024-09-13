@@ -3,18 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-
+#include "SpeedsHelpers/SpeedHelperNoteTracking.h"
+#include "Subsystems/Chassis/Chassis.h"
 #include "Subsystems/Intake/Intake.h"
 #include "Subsystems/Storage/Storage.h"
-#include <frc/DigitalInput.h>
 #include "Subsystems/SuperStructure/SuperStructure.h" 
 #include "OvertureLib/Gamepad/Gamepad.h"
-
-#include <frc2/command/Commands.h>
-
-frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure, Gamepad* gamepad);
+#include "Commands/AligntToNote/AlignToNote.h"
 
 
-
-
-
+frc2::CommandPtr AutoNote(Intake* intake, Storage* storage, SuperStructure* superStructure, Gamepad* gamepad, AlignToNote* alignToNote);

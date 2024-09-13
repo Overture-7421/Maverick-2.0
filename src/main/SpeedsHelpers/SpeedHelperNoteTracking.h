@@ -13,7 +13,7 @@ class SpeedHelperNoteTracking : public SpeedsHelper  {
  
  
  public:
- SpeedHelperNoteTracking(SwerveChassis *chassis, photon::PhotonCamera *noteTrackingCamera);
+ SpeedHelperNoteTracking(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera);
   void alterSpeed(frc::ChassisSpeeds &inputSpeed) override;
   void initialize() override;
 
@@ -21,10 +21,10 @@ class SpeedHelperNoteTracking : public SpeedsHelper  {
 private:
 	frc::ProfiledPIDController<units::meters> wYPIDController{
 
-        3, 0.0, 0.0, {3_mps, 4_mps_sq} //Constraints max velocity, max acceleration
+        10, 0.0, 0.0, {4.5_mps, 15_mps_sq} //Constraints max velocity, max acceleration
     };
 
-	SwerveChassis *chassis;
+	Chassis *chassis;
   photon::PhotonCamera *noteTrackingCamera;
 };
 

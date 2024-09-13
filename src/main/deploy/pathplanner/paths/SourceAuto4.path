@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.942353117231199,
-        "y": 2.4241431649767726
+        "x": 8.35,
+        "y": 2.82
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.17401679881819,
-        "y": 1.3116136931275284
+        "x": 6.581663681586991,
+        "y": 1.7074705281507556
       },
       "isLocked": false,
       "linkedName": "SourceAuto3-4"
@@ -30,10 +30,28 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "YesVision",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "YesVision"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 4.7,
+    "maxAcceleration": 4.8,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -43,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SourceAuto",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

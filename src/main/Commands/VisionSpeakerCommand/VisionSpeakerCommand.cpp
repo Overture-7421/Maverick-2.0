@@ -5,13 +5,14 @@
 #include "VisionSpeakerCommand.h"
 #include "VisionSpeakerConstants.h"
 
-  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, Gamepad* gamePad, units::degree_t* offsetVisionShoot, frc::AprilTagFieldLayout* tagLayout) : headingSpeedsHelper({7, 0, 0.5,{1200_deg_per_s, 1200_deg_per_s_sq}}, chassis){
+  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, Gamepad* gamePad, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout) : headingSpeedsHelper({7, 0, 0.5,{1200_deg_per_s, 1200_deg_per_s_sq}}, chassis){
     this->chassis = chassis;
     this->superstructure = superstructure;
     this->shooter = shooter;
     this->gamePad = gamePad;
     this->tagLayout = tagLayout;
-    this->offsetVisionShoot = offsetVisionShoot;
+    this->offsetVisionShootRed = offsetVisionShootRed;
+    this->offsetVisionShootBlue = offsetVisionShootBlue;
     AddRequirements({superstructure, shooter});
   }
 
@@ -44,10 +45,22 @@ void VisionSpeakerCommand::Execute() {
   frc::SmartDashboard::PutNumber("target angle:", targetAngle.Degrees().value());
   units::meter_t distance = chassis->getEstimatedPose().Translation().Distance(movingGoalLocation);
   units::degree_t targetLower = VisionSpeakerConstants::DistanceToLowerAngle[distance];
-  units::degree_t targetUpper = VisionSpeakerConstants::DistanceToUpperAngle[distance] + *offsetVisionShoot;
+  units::degree_t targetUpper = VisionSpeakerConstants::DistanceToUpperAngle[distance];
+
+   if(auto alliance = frc::DriverStation::GetAlliance()){
+    if(alliance.value() == frc::DriverStation::Alliance::kRed){
+   offsetUpdated = targetUpper + *offsetVisionShootRed;
+
+    }
+    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+   offsetUpdated = targetUpper + *offsetVisionShootBlue;
+
+    }
+  }
+
   double targetVelocity = VisionSpeakerConstants::DistanceToShooter[distance];
 
-  superstructure->setToAngle(targetLower, targetUpper);
+  superstructure->setToAngle(targetLower, offsetUpdated);
   shooter->setObjectiveVelocity(targetVelocity);
 
 

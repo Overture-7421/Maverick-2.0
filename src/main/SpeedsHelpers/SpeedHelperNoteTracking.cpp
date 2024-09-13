@@ -5,7 +5,7 @@
 #include "SpeedHelperNoteTracking.h"
 
 SpeedHelperNoteTracking::SpeedHelperNoteTracking(
-		SwerveChassis *chassis, photon::PhotonCamera *noteTrackingCamera) {
+		Chassis *chassis, photon::PhotonCamera *noteTrackingCamera) {
 	this->chassis = chassis;
     this->noteTrackingCamera = noteTrackingCamera;
 	this->wYPIDController.SetIZone(3);

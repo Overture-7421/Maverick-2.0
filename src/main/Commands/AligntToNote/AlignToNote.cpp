@@ -4,10 +4,10 @@
 
 #include "AlignToNote.h"
 
-AlignToNote::AlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera) : noteTracking(chassis, camera) {
+AlignToNote::AlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera) : noteTracking(chassis, noteTrackingCamera) {
   // Use addRequirements() here to declare subsystem dependencies.
   this->chassis = chassis;
-  this->camera = camera;
+  this->camera = noteTrackingCamera;
   
 }
 
@@ -16,7 +16,7 @@ void AlignToNote::Initialize() {
   chassis->enableSpeedHelper(&noteTracking);
 }
 
-// Called repeatedly when this Command is scheduled to run
+// Called repeatedly when this Command is scheduled to run   
 void AlignToNote::Execute() {}
 
 // Called once the command ends or is interrupted.

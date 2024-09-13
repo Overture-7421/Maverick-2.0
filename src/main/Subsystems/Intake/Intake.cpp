@@ -17,11 +17,12 @@ double Intake::getVoltage(){
 //frc2::CommandPtr intakeCommand = frc2::CommandPtr::
 
 frc2::CommandPtr Intake::startIntake(){return this->RunOnce([this] {this->setVoltage(ConstantsIn::GroundGrabVolts);});};
+frc2::CommandPtr Intake::startIntakeAuto(){return this->RunOnce([this] {this->setVoltage(ConstantsIn::GroundGrabVoltsAuto);});};
 frc2::CommandPtr Intake::stopIntake(){return this->RunOnce([this] {this->setVoltage(ConstantsIn::stopVolts);});};
 frc2::CommandPtr Intake::reverseIntake(){return this->RunOnce([this] {this->setVoltage(ConstantsIn::reverseVolts);});};
 
 
 // This method will be called once per scheduler run
 void Intake::Periodic() {
-    
+  frc::SmartDashboard::PutBoolean("INTAKE ACTIVATED?", getVoltage() > 0.0);
 }

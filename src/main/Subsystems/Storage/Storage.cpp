@@ -23,6 +23,10 @@ frc2::CommandPtr Storage::startStorage(){
     return this->RunOnce([this] {this->setVoltage(ConstantsSt::startVoltage);});
 };
 
+frc2::CommandPtr Storage::startStorageAuto(){
+    return this->RunOnce([this] {this->setVoltage(ConstantsSt::startVoltageAuto);});
+};
+
 frc2::CommandPtr Storage::stopStorage(){
     return this->RunOnce([this] {this->setVoltage(ConstantsSt::stopVoltage);});
 };

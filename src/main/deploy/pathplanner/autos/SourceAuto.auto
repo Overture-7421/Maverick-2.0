@@ -75,7 +75,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "GroundGrabLarge"
+                  "name": "GroundGrabLargeAuto"
                 }
               }
             ]
@@ -103,6 +103,6 @@
       ]
     }
   },
-  "folder": "SourceAuto",
+  "folder": null,
   "choreoAuto": false
 }

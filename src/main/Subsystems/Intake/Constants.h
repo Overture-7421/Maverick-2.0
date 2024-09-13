@@ -9,6 +9,7 @@ class ConstantsIn {
  public:
 
   constexpr static const units::volt_t GroundGrabVolts = 6.0_V;
+  constexpr static const units::volt_t GroundGrabVoltsAuto = 4.0_V;
   constexpr static const units::volt_t stopVolts = 0.0_V;
   constexpr static const units::volt_t reverseVolts = -6.0_V;
 };

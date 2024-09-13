@@ -12,7 +12,7 @@
 
 #include <frc2/command/Commands.h>
 
-frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure, Gamepad* gamepad);
+frc2::CommandPtr GroundGrabCommandAuto(Intake* intake, Storage* storage, SuperStructure* superStructure, Gamepad* gamepad);
 
 
 

@@ -17,6 +17,7 @@ class Storage : public frc2::SubsystemBase {
   void setVoltage(units::volt_t voltage);
   bool isNoteOnSensor();
   frc2::CommandPtr startStorage();
+  frc2::CommandPtr startStorageAuto();
   frc2::CommandPtr stopStorage();
   frc2::CommandPtr reverseStorage();
 

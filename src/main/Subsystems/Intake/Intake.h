@@ -11,6 +11,7 @@
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/CommandBase.h>
 #include "Constants.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 
 class Intake : public frc2::SubsystemBase {
@@ -25,6 +26,8 @@ class Intake : public frc2::SubsystemBase {
    */
   void Periodic() override;
   frc2::CommandPtr startIntake();
+  frc2::CommandPtr startIntakeAuto();
+  
   frc2::CommandPtr stopIntake();
   frc2::CommandPtr reverseIntake();
 
