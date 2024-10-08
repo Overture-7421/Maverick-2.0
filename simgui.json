@@ -10,6 +10,7 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Auto Modes": "String Chooser",
+      "/SmartDashboard/AutoChooser": "String Chooser",
       "/SmartDashboard/Chassis/Odometry": "Field2d"
     }
   },
@@ -53,6 +54,12 @@
       "SmartDashboard": {
         "Auto Modes": {
           "open": true
+        },
+        "AutoChooser": {
+          "open": true,
+          "string[]##v_/SmartDashboard/AutoChooser/options": {
+            "open": true
+          }
         },
         "SuperStructure": {
           "open": true
