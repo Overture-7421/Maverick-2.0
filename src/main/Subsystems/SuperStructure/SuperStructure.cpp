@@ -50,8 +50,6 @@ SuperStructure::SuperStructure() {
 
    lowerRightMotor.configureMotionMagic(ConstantsSS::LowerCruiseVelocity, ConstantsSS::LowerCruiseAcceleration, 0.0);
    upperMotor.configureMotionMagic(ConstantsSS::UpperCruiseVelocity, ConstantsSS::UpperCruiseAcceleration, 0.0);
-
-  
 }
 
 //Command that moves to the designated lower position.
@@ -89,7 +87,7 @@ bool SuperStructure::getTargetPosition(units::degree_t lowerAngle, units::degree
   units::degree_t lowerError = lowerAngle - lowerRightMotor.GetPosition().GetValue();
   units::degree_t upperError = upperAngle - upperMotor.GetPosition().GetValue();
 
-   if(units::math::abs(lowerError) <= 2.5_deg && units::math::abs(upperError) <= 2.5_deg ){
+   if(units::math::abs(lowerError) < 2.3_deg && units::math::abs(upperError) < 2.3_deg ){
     return true;
    } else {
     return false;

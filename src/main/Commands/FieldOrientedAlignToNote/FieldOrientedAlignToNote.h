@@ -6,8 +6,7 @@
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
 #include "Subsystems/Chassis/Chassis.h"
-#include "SpeedsHelpers/SpeedHelperNoteTracking/SpeedHelperNoteTracking/SpeedHelperNoteTracking.h"
-
+#include "SpeedsHelpers/SpeedHelperNoteTracking/FieldOrientedNoteTracking/FieldOrientedNoteTracking.h"
 
 /**
  * An example command.
@@ -16,10 +15,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AlignToNote
-    : public frc2::CommandHelper<frc2::Command, AlignToNote> {
+class FieldOrientedAlignToNote
+    : public frc2::CommandHelper<frc2::Command, FieldOrientedAlignToNote> {
  public:
-  AlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera);
+  FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera);
 
   void Initialize() override;
 
@@ -30,7 +29,7 @@ class AlignToNote
   bool IsFinished() override;
 
   private:
-  SpeedHelperNoteTracking noteTracking;
+  FieldOrientedNoteTracking noteTracking;
   Chassis* chassis;
   photon::PhotonCamera* camera;
 };

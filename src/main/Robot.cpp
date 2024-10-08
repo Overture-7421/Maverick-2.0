@@ -12,7 +12,7 @@
 
 void Robot::RobotInit() {
 
-  pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
+ /* pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
     frc2::cmd::Sequence(
       NearShoot(&superStructure, &shooter).ToPtr(),
       storage.startStorage(), 
@@ -79,7 +79,7 @@ void Robot::RobotInit() {
   autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
   autoChooser.AddOption("SourceAuto", &sourceAuto);
   autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
-  autoChooser.AddOption("AmpAuto", &ampAuto);
+  autoChooser.AddOption("AmpAuto", &ampAuto);*/
 
 
 
@@ -94,21 +94,23 @@ void Robot::RobotInit() {
   isNoteOnSensorLeds.OnTrue(driver.rumbleCommand(1.0).AndThen(frc2::cmd::Wait(1.0_s)).AndThen(driver.rumbleCommand(0.0)));
   
   //Driver
-  driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
-  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  /*driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
+  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/
+
+  driver.B().WhileTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera).ToPtr());
 
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
+  /*driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
-  driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
+  driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));*/
 
   driver.A().WhileTrue(AlignToNote(&chassis, &noteTrackingCamera).ToPtr());
 
-  gamepad.upDpad().OnTrue(frc2::cmd::RunOnce([&]{
+  /*gamepad.upDpad().OnTrue(frc2::cmd::RunOnce([&]{
     offsetUpperShootRed += -1.0_deg;
     offsetUpperShootBlue += -1.0_deg;
 
@@ -122,7 +124,7 @@ void Robot::RobotInit() {
 gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
     offsetUpperShootRed = 0.0_deg;
     offsetUpperShootBlue = 0.0_deg;
-  }).AlongWith(BlinkEffect(&leds, "all", {255, 255, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));
+  }).AlongWith(BlinkEffect(&leds, "all", {255, 255, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));*/
 
 
   chassis.SetDefaultCommand(DriveCommand(&chassis, &driver).ToPtr());

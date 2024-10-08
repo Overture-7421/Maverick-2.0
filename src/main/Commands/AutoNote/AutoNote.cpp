@@ -10,4 +10,4 @@ frc2::CommandPtr AutoNote(Intake* intake, Storage* storage, SuperStructure* supe
         frc2::cmd::WaitUntil([superStructure]{
             return superStructure->getTargetPosition(-31_deg, 68_deg);
         })
-);
+);}

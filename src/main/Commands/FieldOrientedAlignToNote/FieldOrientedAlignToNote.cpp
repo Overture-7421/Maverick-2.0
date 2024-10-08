@@ -1,0 +1,30 @@
+
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+#include "FieldOrientedAlignToNote.h"
+
+FieldOrientedAlignToNote::FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera) : noteTracking(chassis, noteTrackingCamera) {
+  // Use addRequirements() here to declare subsystem dependencies.
+  this->chassis = chassis;
+  this->camera = noteTrackingCamera;
+  
+}
+
+// Called when the command is initially scheduled.
+void FieldOrientedAlignToNote::Initialize() {
+  chassis->enableSpeedHelper(&noteTracking);
+}
+
+// Called repeatedly when this Command is scheduled to run   
+void FieldOrientedAlignToNote::Execute() {}
+
+// Called once the command ends or is interrupted.
+void FieldOrientedAlignToNote::End(bool interrupted) {
+  chassis->disableSpeedHelper();
+}
+
+// Returns true when the command should end.
+bool FieldOrientedAlignToNote::IsFinished() {
+  return false;
+}

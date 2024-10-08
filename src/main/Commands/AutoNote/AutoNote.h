@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-#include "SpeedsHelpers/SpeedHelperNoteTracking.h"
+#include "SpeedsHelpers/SpeedHelperNoteTracking/SpeedHelperNoteTracking/SpeedHelperNoteTracking.h"
 #include "Subsystems/Chassis/Chassis.h"
 #include "Subsystems/Intake/Intake.h"
 #include "Subsystems/Storage/Storage.h"
