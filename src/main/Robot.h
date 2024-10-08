@@ -68,6 +68,9 @@
 #include "Commands/GroundGrabCommandAuto/GroundGrabCommandAuto.h"
 #include "SpeedsHelpers/ClimbingSpeedHelper/ClimbingSpeedHelper.h"
 
+#include "Autos/SourceAutoRace/SourceAutoRace.h"
+#include "Autos/AmpAutoRace/AmpAutoRace.h"
+
 
 class Robot : public OverRobot {
  public:
@@ -112,7 +115,11 @@ class Robot : public OverRobot {
 
   Chassis chassis;
 
-  frc::AprilTagFieldLayout tagLayout {"/home/lvuser/deploy/tag_layout/7421-field.json"};
+  #ifndef __FRC_ROBORIO__
+    frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2024Crescendo);
+  #else
+    frc::AprilTagFieldLayout tagLayout {"/home/lvuser/deploy/tag_layout/7421-field.json"};
+  #endif 
 
   static AprilTags::Config shooterCameraConfig();
   static AprilTags::Config frontRightCameraConfig();

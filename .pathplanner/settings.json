@@ -4,15 +4,17 @@
   "holonomicMode": true,
   "pathFolders": [
     "4NoteAuto",
+    "AmpAuto",
     "GallitoOro",
     "GallitoOroV2",
-    "AmpAuto"
+    "SourceAuto"
   ],
   "autoFolders": [
     "4NoteAuto",
+    "AmpAuto",
     "GallitoOro",
     "GallitoOroV2",
-    "AmpAuto"
+    "SourceAuto"
   ],
   "defaultMaxVel": 5.0,
   "defaultMaxAccel": 4.8,
