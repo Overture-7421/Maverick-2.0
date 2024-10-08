@@ -66,6 +66,7 @@
 #include "Commands/Climbing/Cllimbing.h"
 #include "Commands/FarSpeakerCommand/FarSpeakerCommand.h"
 #include "Commands/GroundGrabCommandAuto/GroundGrabCommandAuto.h"
+#include "SpeedsHelpers/ClimbingSpeedHelper/ClimbingSpeedHelper.h"
 
 
 class Robot : public OverRobot {
@@ -125,6 +126,7 @@ class Robot : public OverRobot {
   
 
   SpeedHelperNoteTracking speedHelperNoteTracking{&chassis, &noteTrackingCamera};
+  ClimbingSpeedHelper climbingSpeedHelper{&chassis};
 
 
   frc::SendableChooser<frc2::CommandPtr*> autoChooser;
