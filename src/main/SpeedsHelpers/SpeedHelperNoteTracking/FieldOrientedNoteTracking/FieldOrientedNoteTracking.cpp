@@ -13,7 +13,7 @@ FieldOrientedNoteTracking::FieldOrientedNoteTracking(
         this->wYPIDController.SetTolerance(0.05_m);
 
         this->wXPIDController.SetIZone(3);
-        this->wXPIDController.SetTolerance(0.01_m);
+        this->wXPIDController.SetTolerance(0.0_m);
     }
 
 void FieldOrientedNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
@@ -27,7 +27,7 @@ void FieldOrientedNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
     frc::Translation2d targetTranslation = photon::PhotonUtils::EstimateCameraToTargetTranslation(distanceToTarget, {units::degree_t(trackedTarget.GetYaw())});
 
     double outY = wYPIDController.Calculate(targetTranslation.Y(), 0_m);
-    double outX = wXPIDController.Calculate(targetTranslation.X(), 0_m);
+    double outX = wXPIDController.Calculate(-targetTranslation.X(), 0_m);
 
 
     if (wYPIDController.AtSetpoint() && wXPIDController.AtSetpoint()){

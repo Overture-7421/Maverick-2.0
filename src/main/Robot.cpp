@@ -97,10 +97,11 @@ void Robot::RobotInit() {
   /*driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/
 
-  driver.B().WhileTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera).ToPtr());
+  driver.B().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
-  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  /*driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/ 
 
   /*driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
@@ -136,20 +137,20 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
   gamepad.RightBumper().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
   gamepad.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  gamepad.RightTrigger().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).Unless([&]{
+  driver.LeftBumper().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).Unless([&]{
       return driver.GetRightBumper() || storage.isNoteOnSensor() || driver.GetBButton() || driver.GetXButton();
     
   }));
 
 
-   gamepad.RightTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr().Unless([&]{
+   driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr().Unless([&]{
        return driver.GetRightBumper() || driver.GetBButton() || driver.GetXButton();
     
    }));
 
 
-  gamepad.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
-  gamepad.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.X().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
   gamepad.LeftTrigger().OnTrue(storage.startStorage());
   gamepad.LeftTrigger().OnFalse(storage.stopStorage());
