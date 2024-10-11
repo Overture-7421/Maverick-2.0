@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "FieldOrientedAlignToNote.h"
+#include "Subsystems/Intake/Constants.h"
+#include "Subsystems/Storage/Constants.h"
 
 FieldOrientedAlignToNote::FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera, Intake *intake, Storage *storage, SuperStructure *superStructure) : noteTracking(chassis, noteTrackingCamera) {
   // Use addRequirements() here to declare subsystem dependencies.
@@ -19,15 +21,15 @@ FieldOrientedAlignToNote::FieldOrientedAlignToNote(Chassis *chassis, photon::Pho
 void FieldOrientedAlignToNote::Initialize() {
   chassis->enableSpeedHelper(&noteTracking);
   superStructure->getTargetPosition(-31_deg, 68_deg);
-  intake->startIntake();
-  storage->startStorage();
+  intake->setVoltage(ConstantsIn::NoteTrackingIn);
+  storage->setVoltage(ConstantsSt::NoteTrackingSt);
 }
 
 // Called repeatedly when this Command is scheduled to run   
 void FieldOrientedAlignToNote::Execute() {
   if(storage->isNoteOnSensor()){
-    storage->stopStorage();
-    intake->stopIntake();
+    storage->setVoltage(ConstantsSt::stopVoltage);
+    intake->setVoltage(ConstantsIn::stopVolts);
   }
 }
 
@@ -38,5 +40,9 @@ void FieldOrientedAlignToNote::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool FieldOrientedAlignToNote::IsFinished() {
+  if(storage->isNoteOnSensor()){
+    return true;
+  }
   return false;
 }
+

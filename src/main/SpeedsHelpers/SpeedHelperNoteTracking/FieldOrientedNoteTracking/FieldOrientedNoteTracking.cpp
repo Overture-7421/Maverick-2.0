@@ -14,6 +14,9 @@ FieldOrientedNoteTracking::FieldOrientedNoteTracking(
 
         this->wXPIDController.SetIZone(3);
         this->wXPIDController.SetTolerance(0.0_m);
+
+        this->headingController.SetIZone(3);
+        this->headingController.SetTolerance(0.0_deg);
     }
 
 void FieldOrientedNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
@@ -28,15 +31,19 @@ void FieldOrientedNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
 
     double outY = wYPIDController.Calculate(targetTranslation.Y(), 0_m);
     double outX = wXPIDController.Calculate(-targetTranslation.X(), 0_m);
+    double outHeading = headingController.Calculate(targetTranslation.Angle().Degrees(), 0_deg);
 
 
-    if (wYPIDController.AtSetpoint() && wXPIDController.AtSetpoint()){
+    if (wYPIDController.AtSetpoint() && wXPIDController.AtSetpoint() && headingController.AtSetpoint()){
         outY = 0;
         outX = 0;
+        outHeading = 0;
     }
 
     inputSpeed.vy = units::meters_per_second_t(outY);
     inputSpeed.vx = units::meters_per_second_t(outX);
+    inputSpeed.omega = units::radians_per_second_t(outHeading);
+
 }
 
 void FieldOrientedNoteTracking::initialize() {}

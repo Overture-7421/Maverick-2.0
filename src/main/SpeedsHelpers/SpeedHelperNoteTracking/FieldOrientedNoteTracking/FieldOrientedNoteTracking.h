@@ -17,12 +17,17 @@ class FieldOrientedNoteTracking : public SpeedsHelper  {
 
   private: 
     frc::ProfiledPIDController<units::meters> wYPIDController{
-      8, 0.0, 0.0, {2.5_mps, 15_mps_sq} //Before PID 10, Before mps 4.5
+      3, 0.0, 0.0, {2.0_mps, 1_mps_sq} //Before PID 10, Before mps 4.5
     };
 
     frc::ProfiledPIDController<units::meters> wXPIDController{
-      10, 0.0, 0.0, {4.5_mps, 15_mps_sq} //Before PID 7, Before mps 4.5
+      4, 0.0, 0.0, {2.0_mps, 1_mps_sq} //Before PID 7, Before mps 4.5
     };
+
+    frc::ProfiledPIDController<units::radian> headingController{
+    // PID constants: 
+    1, 0.0, 0.0, frc::TrapezoidProfile<units::radian>::Constraints{360_deg_per_s, 540_deg_per_s / 1_s} //Constraints max velocity, max acceleration
+  };
 
     Chassis *chassis;
     photon::PhotonCamera *noteTrackingCamera;
