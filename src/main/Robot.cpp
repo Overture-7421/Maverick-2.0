@@ -12,7 +12,7 @@
 
 void Robot::RobotInit() {
 
-  pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
+ /* pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
     frc2::cmd::Sequence(
       NearShoot(&superStructure, &shooter).ToPtr().WithTimeout(0.10_s),
       storage.startStorage(), 
@@ -66,12 +66,12 @@ void Robot::RobotInit() {
   ampAuto = AmpAutoRace(&storage);
 
   
-  // autoChooser.SetDefaultOption("None", &defaultAuto);
-  // autoChooser.AddOption("GallitoOro", &gallitoOro);
-  // autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
-  // autoChooser.AddOption("SourceAuto", &sourceAuto);
-  // autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
-  // autoChooser.AddOption("AmpAuto", &ampAuto);
+  autoChooser.SetDefaultOption("None", &defaultAuto);
+  autoChooser.AddOption("GallitoOro", &gallitoOro);
+  autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
+  autoChooser.AddOption("SourceAuto", &sourceAuto);
+  autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
+  autoChooser.AddOption("AmpAuto", &ampAuto);*/
 
 
 
@@ -86,20 +86,24 @@ void Robot::RobotInit() {
   isNoteOnSensorLeds.OnTrue(driver.rumbleCommand(1.0).AndThen(frc2::cmd::Wait(1.0_s)).AndThen(driver.rumbleCommand(0.0)));
   
   //Driver
-  driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
+  /*driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
+  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/
+
+  driver.B().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
   driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
-  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  /*driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/ 
 
-  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
+  /*driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
-  driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
+  driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));*/
 
   driver.A().WhileTrue(AlignToNote(&chassis, &noteTrackingCamera).ToPtr());
 
+  /*
   driver.LeftBumper().OnTrue(frc2::cmd::RunOnce([&]{chassis.enableSpeedHelper(&climbingSpeedHelper);}));
   driver.LeftBumper().OnFalse(frc2::cmd::RunOnce([&]{chassis.disableSpeedHelper();}));
 
@@ -118,7 +122,7 @@ void Robot::RobotInit() {
 gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
     offsetUpperShootRed = 0.0_deg;
     offsetUpperShootBlue = 0.0_deg;
-  }).AlongWith(BlinkEffect(&leds, "all", {255, 255, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));
+  }).AlongWith(BlinkEffect(&leds, "all", {255, 255, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));*/
 
 
   chassis.SetDefaultCommand(DriveCommand(&chassis, &driver).ToPtr());
@@ -130,20 +134,20 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
   gamepad.RightBumper().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
   gamepad.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  gamepad.RightTrigger().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).Unless([&]{
+  driver.LeftBumper().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).Unless([&]{
       return driver.GetRightBumper() || storage.isNoteOnSensor() || driver.GetBButton() || driver.GetXButton();
     
   }));
 
 
-   gamepad.RightTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr().Unless([&]{
+   driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr().Unless([&]{
        return driver.GetRightBumper() || driver.GetBButton() || driver.GetXButton();
     
    }));
 
 
-  gamepad.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
-  gamepad.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.X().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
   gamepad.LeftTrigger().OnTrue(storage.startStorage());
   gamepad.LeftTrigger().OnFalse(storage.stopStorage());

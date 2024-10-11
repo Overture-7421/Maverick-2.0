@@ -13,6 +13,7 @@ class ConstantsSt {
   constexpr static const units::volt_t startVoltageAuto = 2_V;
   constexpr static const units::volt_t stopVoltage = 0_V;
   constexpr static const units::volt_t reverseVoltage = -4_V;
+  constexpr static const units::volt_t NoteTrackingSt = 5.0_V;
 
 
 };

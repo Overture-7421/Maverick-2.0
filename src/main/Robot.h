@@ -50,22 +50,21 @@
 #include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
 #include "Commands/AmpCommand/AmpCommand.h"
 #include "Commands/ClosedCommand/ClosedCommand.h"
-#include "Commands/ClosedCommandAuto/ClosedCommandAuto.h"
 #include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
 #include "Commands/GroundGrabCommand/GroundGrabCommand.h"
 #include "Commands/LowPassCommand/LowPassCommand.h"
 #include "Commands/HighPassCommand/HighPassCommand.h"
 #include "Commands/ClosedPassCommand/ClosedPassCommand.h"
 #include "Commands/SpitNoteCommand/SpitNoteCommand.h"
-#include "SpeedsHelpers/SpeedHelperNoteTracking.h"
+#include "SpeedsHelpers/SpeedHelperNoteTracking/SpeedHelperNoteTracking/SpeedHelperNoteTracking.h"
+#include "SpeedsHelpers/SpeedHelperNoteTracking/FieldOrientedNoteTracking/FieldOrientedNoteTracking.h"
 #include "Commands/VisionSpeakerCommand/VisionSpeakerCommand.h"
 #include "Commands/NearShoot/NearShoot.h"
 #include "Commands/ManualClimeCommand/ManualClimbCommand.h"
 #include "Commands/DriveCommand/DriveCommand.h"
 #include "Subsystems/SupportArms/SupportArms.h"
-#include "Commands/Climbing/Cllimbing.h"
 #include "Commands/FarSpeakerCommand/FarSpeakerCommand.h"
-#include "Commands/GroundGrabCommandAuto/GroundGrabCommandAuto.h"
+#include "Commands/FieldOrientedAlignToNote/FieldOrientedAlignToNote.h"
 #include "SpeedsHelpers/ClimbingSpeedHelper/ClimbingSpeedHelper.h"
 
 #include "Autos/SourceAutoRace/SourceAutoRace.h"
@@ -95,11 +94,9 @@ class Robot : public OverRobot {
   Shooter shooter;
   SuperStructure superStructure;
   SupportArms supportArms;
-  units::degree_t offsetUpperShootRed = -1.5_deg;
-  units::degree_t offsetUpperShootBlue = 0.0_deg;
+  units::degree_t offsetUpperShoot = 0_deg;
 
-
-  LedsManager leds{2, 240, {{"all", {0, 239}
+  LedsManager leds{8, 240, {{"all", {0, 239}
     }}};
   
   frc2::Trigger intakeLeds{[this] {
@@ -111,8 +108,6 @@ class Robot : public OverRobot {
 
 
  private:
-  //Gamepad operator{1,0.2, 0.1}; 
-
   Chassis chassis;
 
   #ifndef __FRC_ROBORIO__
@@ -126,7 +121,7 @@ class Robot : public OverRobot {
 
   AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
   AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
-  photon::PhotonCamera noteTrackingCamera{ "PSEye" };
+  photon::PhotonCamera noteTrackingCamera{ "C270_HD_WEBCAM" };
 
 
 
@@ -142,7 +137,6 @@ class Robot : public OverRobot {
   frc2::CommandPtr gallitoOroV2 = frc2::cmd::None();
   frc2::CommandPtr sourceAuto = frc2::cmd::None();
   frc2::CommandPtr autonomousGallito = frc2::cmd::None();
-  frc2::CommandPtr ampAuto = frc2::cmd::None();
   frc2::CommandPtr defaultAuto = frc2::cmd::None();
 
   frc2::CommandPtr* autonomo = nullptr;
