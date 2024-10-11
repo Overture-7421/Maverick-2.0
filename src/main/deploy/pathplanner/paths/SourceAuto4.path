@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "SourceAuto",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

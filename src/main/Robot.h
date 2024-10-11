@@ -65,6 +65,10 @@
 #include "Subsystems/SupportArms/SupportArms.h"
 #include "Commands/FarSpeakerCommand/FarSpeakerCommand.h"
 #include "Commands/FieldOrientedAlignToNote/FieldOrientedAlignToNote.h"
+#include "SpeedsHelpers/ClimbingSpeedHelper/ClimbingSpeedHelper.h"
+
+#include "Autos/SourceAutoRace/SourceAutoRace.h"
+#include "Autos/AmpAutoRace/AmpAutoRace.h"
 
 
 class Robot : public OverRobot {
@@ -106,7 +110,11 @@ class Robot : public OverRobot {
  private:
   Chassis chassis;
 
-  frc::AprilTagFieldLayout tagLayout {"/home/lvuser/deploy/tag_layout/7421-field.json"};
+  #ifndef __FRC_ROBORIO__
+    frc::AprilTagFieldLayout tagLayout = frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2024Crescendo);
+  #else
+    frc::AprilTagFieldLayout tagLayout {"/home/lvuser/deploy/tag_layout/7421-field.json"};
+  #endif 
 
   static AprilTags::Config shooterCameraConfig();
   static AprilTags::Config frontRightCameraConfig();
@@ -120,6 +128,7 @@ class Robot : public OverRobot {
   
 
   SpeedHelperNoteTracking speedHelperNoteTracking{&chassis, &noteTrackingCamera};
+  ClimbingSpeedHelper climbingSpeedHelper{&chassis};
 
 
   frc::SendableChooser<frc2::CommandPtr*> autoChooser;
