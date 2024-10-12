@@ -17,11 +17,11 @@ class FieldOrientedNoteTracking : public SpeedsHelper  {
 
   private: 
     frc::ProfiledPIDController<units::meters> wYPIDController{
-      3, 0.0, 0.0, {2.0_mps, 1_mps_sq} //Before PID 10, Before mps 4.5
+      3, 0.0, 0.0, {3_mps, 2.5_mps_sq} //Before PID 10, Before mps 4.5
     };
 
     frc::ProfiledPIDController<units::meters> wXPIDController{
-      4, 0.0, 0.0, {2.0_mps, 1_mps_sq} //Before PID 7, Before mps 4.5
+      4, 0.0, 0.0, {4.8_mps, 3.2_mps_sq} //Before PID 7, Before mps 4.5
     };
 
     frc::ProfiledPIDController<units::radian> headingController{

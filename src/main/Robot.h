@@ -127,7 +127,7 @@ class Robot : public OverRobot {
 
   AprilTags shooterCamera{ &tagLayout, &chassis, shooterCameraConfig()};
   AprilTags frontRightSwerveModuleCamera{ &tagLayout, &chassis, frontRightCameraConfig()};
-  photon::PhotonCamera noteTrackingCamera{ "C270_HD_WEBCAM" };
+  photon::PhotonCamera noteTrackingCamera{ "PSEye" };
 
 
 
