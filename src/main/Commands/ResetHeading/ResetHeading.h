@@ -5,12 +5,7 @@
 #pragma once
 
 #include "Subsystems/Chassis/Chassis.h"
+#include <frc2/command/Commands.h>
 #include "OvertureLib/Gamepad/Gamepad.h"
 
-#include <frc2/command/Commands.h>
-#include "Commands/WaitForButton/WaitForButton.h"
-/*
-frc2::CommandPtr FieldOriented(Chassis* chassis, Gamepad* gamepad);
-*/
-
-//ResetHeading
+frc2::CommandPtr ResetHeading(Chassis* chassis);
