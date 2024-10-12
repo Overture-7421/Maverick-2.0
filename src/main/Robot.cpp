@@ -86,11 +86,11 @@ void Robot::RobotInit() {
   isNoteOnSensorLeds.OnTrue(driver.rumbleCommand(1.0).AndThen(frc2::cmd::Wait(1.0_s)).AndThen(driver.rumbleCommand(0.0)));
   
   //Driver
-  driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
-  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  driver.A().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  driver.A().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+
+  driver.rightDpad().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  driver.rightDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
@@ -101,14 +101,15 @@ void Robot::RobotInit() {
   driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
   driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
 
-  driver.Back().OnTrue(ResetHeading(&chassis));
+  driver.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
+  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  //driver.A().OnTrue(AlignToNote(&chassis, &noteTrackingCamera).ToPtr());
-  //driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.Back().OnTrue(ResetHeading(&chassis));
 
   //driver.LeftBumper().OnTrue(frc2::cmd::RunOnce([&]{chassis.enableSpeedHelper(&climbingSpeedHelper);}));
   //driver.LeftBumper().OnFalse(frc2::cmd::RunOnce([&]{chassis.disableSpeedHelper();}));
 
+//OPERATOR BUTTONS
 
   gamepad.upDpad().OnTrue(frc2::cmd::RunOnce([&]{
     offsetUpperShootRed += -1.0_deg;
@@ -129,27 +130,23 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
 
   chassis.SetDefaultCommand(DriveCommand(&chassis, &driver).ToPtr());
 
-  //Operator
   gamepad.LeftBumper().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
   gamepad.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   gamepad.RightBumper().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
   gamepad.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.LeftBumper().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).Unless([&]{
+  gamepad.RightTrigger().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).Unless([&]{
       return driver.GetRightBumper() || storage.isNoteOnSensor() || driver.GetBButton() || driver.GetXButton();
     
   }));
 
 
-   driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr().Unless([&]{
+   gamepad.RightTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr().Unless([&]{
        return driver.GetRightBumper() || driver.GetBButton() || driver.GetXButton();
     
    }));
 
-  driver.rightDpad().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
-  driver.rightDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-  
   gamepad.LeftTrigger().OnTrue(storage.startStorage());
   gamepad.LeftTrigger().OnFalse(storage.stopStorage());
 
@@ -159,8 +156,8 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
   gamepad.Y().OnTrue(ManualClimbCommand(&superStructure).ToPtr());
   gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  gamepad.rightDpad().WhileTrue(superStructure.setAngle(90_deg, 90_deg));
-  gamepad.rightDpad().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
+  /*gamepad.rightDpad().WhileTrue(superStructure.setAngle(90_deg, 90_deg));
+  gamepad.rightDpad().OnFalse(superStructure.setAngle(-10_deg, 80_deg));*/
  
 
   supportArms.setServoAngle(-110_deg);  
