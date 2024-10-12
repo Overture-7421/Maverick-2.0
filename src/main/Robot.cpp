@@ -101,6 +101,8 @@ void Robot::RobotInit() {
   driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
   driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
 
+  driver.Back().OnTrue(ResetHeading(&chassis));
+
   //driver.A().OnTrue(AlignToNote(&chassis, &noteTrackingCamera).ToPtr());
   //driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 

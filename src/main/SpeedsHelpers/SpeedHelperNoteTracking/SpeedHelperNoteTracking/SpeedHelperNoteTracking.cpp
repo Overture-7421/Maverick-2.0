@@ -19,7 +19,7 @@ void SpeedHelperNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
     }
 
    photon::PhotonTrackedTarget trackedTarget = noteTrackingCamera->GetLatestResult().GetTargets().front();
-   units::meter_t distanceToTarget = photon::PhotonUtils::CalculateDistanceToTarget(0.25_m, 0.045_m, -20_deg, units::degree_t(trackedTarget.GetPitch()));
+   units::meter_t distanceToTarget = photon::PhotonUtils::CalculateDistanceToTarget(0.30_m, 0.045_m, -36_deg, units::degree_t(trackedTarget.GetPitch()));
    frc::Translation2d targetTranslation = photon::PhotonUtils::EstimateCameraToTargetTranslation(distanceToTarget, {units::degree_t(trackedTarget.GetYaw())});
 
 

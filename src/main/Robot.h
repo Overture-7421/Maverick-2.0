@@ -73,6 +73,7 @@
 #include "Commands/ClosedCommandAuto/ClosedCommandAuto.h"
 #include "Commands/GroundGrabCommandAuto/GroundGrabCommandAuto.h"
 #include "Commands/Climbing/Cllimbing.h"
+#include "Commands/ResetHeading/ResetHeading.h"
 
 
 class Robot : public OverRobot {

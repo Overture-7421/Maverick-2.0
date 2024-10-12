@@ -7,10 +7,10 @@
 frc2::CommandPtr ResetHeading(Chassis* chassis){
     if(auto alliance = frc::DriverStation::GetAlliance()){
         if(alliance.value() == frc::DriverStation::Alliance::kRed){
-            frc2::cmd::RunOnce([chassis] {return chassis->resetHeading(180.0);});
+            return frc2::cmd::RunOnce([chassis] {return chassis->resetHeading(180.0);});
         }
         if(alliance.value() == frc::DriverStation::Alliance::kBlue){
-            frc2::cmd::RunOnce([chassis]{return chassis->resetHeading(0.0);});
+            return frc2::cmd::RunOnce([chassis]{return chassis->resetHeading(0.0);});
         }
     }
 }
