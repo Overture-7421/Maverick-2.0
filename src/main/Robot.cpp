@@ -12,7 +12,7 @@
 
 void Robot::RobotInit() {
 
- /* pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
+ pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
     frc2::cmd::Sequence(
       NearShoot(&superStructure, &shooter).ToPtr().WithTimeout(0.10_s),
       storage.startStorage(), 
@@ -20,40 +20,40 @@ void Robot::RobotInit() {
       storage.stopStorage()
     )));
 
-  //   pathplanner::NamedCommands::registerCommand("FarSpeaker", std::move(
-  //     frc2::cmd::Sequence(
-  //       FarSpeakerCommand(&superStructure, &shooter).ToPtr(),
-  //       storage.startStorage(),
-  //       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
-  //       ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
-  //     )));
+  pathplanner::NamedCommands::registerCommand("FarSpeaker", std::move(
+    frc2::cmd::Sequence(
+      FarSpeakerCommand(&superStructure, &shooter).ToPtr(),
+      storage.startStorage(),
+      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
+      ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
+    )));
 
-  //   pathplanner::NamedCommands::registerCommand("VisionSpeaker", std::move(
-  //     frc2::cmd::Sequence(
-  //       VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1_s),
-  //       storage.startStorage(),
-  //       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
-  //       ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
-  //   )));
+  pathplanner::NamedCommands::registerCommand("VisionSpeaker", std::move(
+    frc2::cmd::Sequence(
+      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1_s),
+      storage.startStorage(),
+      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
+      ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
+    )));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabLarge", std::move(
     GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(4.0_s)
   )); 
 
-  // pathplanner::NamedCommands::registerCommand("GroundGrabLargeAuto", std::move(
-  //   GroundGrabCommandAuto(&intake, &storage, &superStructure, &gamepad).WithTimeout(4.0_s)
-  // ));
+  pathplanner::NamedCommands::registerCommand("GroundGrabLargeAuto", std::move(
+    GroundGrabCommandAuto(&intake, &storage, &superStructure, &gamepad).WithTimeout(4.0_s)
+  ));
 
-  // pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
-  //   GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s)
-  // ));
-  // pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
-  //   AlignToNote(&chassis, &noteTrackingCamera).ToPtr()
-  // ));
+  pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
+    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s)
+  ));
+  pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
+    AlignToNote(&chassis, &noteTrackingCamera).ToPtr()
+  ));
 
-  // pathplanner::NamedCommands::registerCommand("NoVision", std::move(
-  //   frc2::cmd::RunOnce([this] {chassis.setAcceptingVisionMeasurements(false);})
-  // ));
+  pathplanner::NamedCommands::registerCommand("NoVision", std::move(
+    frc2::cmd::RunOnce([this] {chassis.setAcceptingVisionMeasurements(false);})
+  ));
 
   pathplanner::NamedCommands::registerCommand("YesVision", std::move(
     frc2::cmd::RunOnce([this] {chassis.setAcceptingVisionMeasurements(true);})
@@ -71,7 +71,7 @@ void Robot::RobotInit() {
   autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
   autoChooser.AddOption("SourceAuto", &sourceAuto);
   autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
-  autoChooser.AddOption("AmpAuto", &ampAuto);*/
+  autoChooser.AddOption("AmpAuto", &ampAuto);
 
 
 
@@ -86,26 +86,26 @@ void Robot::RobotInit() {
   isNoteOnSensorLeds.OnTrue(driver.rumbleCommand(1.0).AndThen(frc2::cmd::Wait(1.0_s)).AndThen(driver.rumbleCommand(0.0)));
   
   //Driver
-  /*driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
-  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/
-
-  driver.B().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  driver.B().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  /*driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
-  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());*/ 
+  driver.A().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  /*driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
+  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
+  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+
+  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
-  driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));*/
+  driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
 
-  driver.A().WhileTrue(AlignToNote(&chassis, &noteTrackingCamera).ToPtr());
+  //driver.A().OnTrue(AlignToNote(&chassis, &noteTrackingCamera).ToPtr());
+  //driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  /*
-  driver.LeftBumper().OnTrue(frc2::cmd::RunOnce([&]{chassis.enableSpeedHelper(&climbingSpeedHelper);}));
-  driver.LeftBumper().OnFalse(frc2::cmd::RunOnce([&]{chassis.disableSpeedHelper();}));
+  //driver.LeftBumper().OnTrue(frc2::cmd::RunOnce([&]{chassis.enableSpeedHelper(&climbingSpeedHelper);}));
+  //driver.LeftBumper().OnFalse(frc2::cmd::RunOnce([&]{chassis.disableSpeedHelper();}));
 
 
   gamepad.upDpad().OnTrue(frc2::cmd::RunOnce([&]{
@@ -122,7 +122,7 @@ void Robot::RobotInit() {
 gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
     offsetUpperShootRed = 0.0_deg;
     offsetUpperShootBlue = 0.0_deg;
-  }).AlongWith(BlinkEffect(&leds, "all", {255, 255, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));*/
+  }).AlongWith(BlinkEffect(&leds, "all", {255, 255, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));
 
 
   chassis.SetDefaultCommand(DriveCommand(&chassis, &driver).ToPtr());
@@ -145,9 +145,8 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
     
    }));
 
-
-  driver.X().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
-  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.rightDpad().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
+  driver.rightDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
   gamepad.LeftTrigger().OnTrue(storage.startStorage());
   gamepad.LeftTrigger().OnFalse(storage.stopStorage());

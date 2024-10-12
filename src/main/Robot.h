@@ -70,6 +70,10 @@
 #include "Autos/SourceAutoRace/SourceAutoRace.h"
 #include "Autos/AmpAutoRace/AmpAutoRace.h"
 
+#include "Commands/ClosedCommandAuto/ClosedCommandAuto.h"
+#include "Commands/GroundGrabCommandAuto/GroundGrabCommandAuto.h"
+#include "Commands/Climbing/Cllimbing.h"
+
 
 class Robot : public OverRobot {
  public:
@@ -94,7 +98,8 @@ class Robot : public OverRobot {
   Shooter shooter;
   SuperStructure superStructure;
   SupportArms supportArms;
-  units::degree_t offsetUpperShoot = 0_deg;
+  units::degree_t offsetUpperShootRed = 0_deg;
+  units::degree_t offsetUpperShootBlue = 0_deg;
 
   LedsManager leds{8, 240, {{"all", {0, 239}
     }}};
@@ -136,6 +141,7 @@ class Robot : public OverRobot {
   frc2::CommandPtr gallitoOro = frc2::cmd::None();
   frc2::CommandPtr gallitoOroV2 = frc2::cmd::None();
   frc2::CommandPtr sourceAuto = frc2::cmd::None();
+  frc2::CommandPtr ampAuto = frc2::cmd::None();
   frc2::CommandPtr autonomousGallito = frc2::cmd::None();
   frc2::CommandPtr defaultAuto = frc2::cmd::None();
 
