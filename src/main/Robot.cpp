@@ -89,8 +89,8 @@ void Robot::RobotInit() {
   driver.A().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.rightDpad().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
-  driver.rightDpad().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.LeftBumper().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
