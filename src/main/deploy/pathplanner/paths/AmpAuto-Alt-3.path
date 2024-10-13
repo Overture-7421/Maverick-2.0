@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.47,
-        "y": 5.527389345566628
+        "x": 8.094593992326358,
+        "y": 4.215901156481343
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6535795014526395,
-        "y": 4.820608264967918
+        "x": 7.075751212843366,
+        "y": 4.215901156481343
       },
       "isLocked": false,
-      "linkedName": "GallitoOroV2.5-6"
+      "linkedName": "AmpAuto-Alt-2-3"
     },
     {
       "anchor": {
-        "x": 2.65,
-        "y": 4.17
+        "x": 5.272282384793014,
+        "y": 4.215901156481343
       },
       "prevControl": {
-        "x": 1.65,
-        "y": 4.17
+        "x": 6.214710130274258,
+        "y": 3.881491311310579
+      },
+      "nextControl": {
+        "x": 4.5462105189545605,
+        "y": 4.473539560488536
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.8435603262076694,
+        "y": 5.5040931765173085
+      },
+      "prevControl": {
+        "x": 4.393969643859401,
+        "y": 4.719467127949948
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "GallitoOroV2.6-7"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -43,7 +59,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "GallitoOroV2",
+  "folder": "AmpAuto",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

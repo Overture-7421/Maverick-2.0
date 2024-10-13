@@ -14,23 +14,34 @@ FieldOrientedAlignToNote::FieldOrientedAlignToNote(Chassis *chassis, photon::Pho
   this->storage = storage;
   this->superStructure = superStructure;
   
-  AddRequirements({chassis, intake, storage, superStructure});
+  if(!frc::DriverStation::IsAutonomous){
+    AddRequirements({ intake, storage, superStructure});
+  } else {
+    AddRequirements({});
+  }
+  
 }
 
 // Called when the command is initially scheduled.
 void FieldOrientedAlignToNote::Initialize() {
   chassis->enableSpeedHelper(&noteTracking);
-  superStructure->getTargetPosition(-31_deg, 68_deg);
-  intake->setVoltage(ConstantsIn::NoteTrackingIn);
-  storage->setVoltage(ConstantsSt::NoteTrackingSt);
+  if(!frc::DriverStation::IsAutonomous){
+    superStructure->getTargetPosition(-31_deg, 68_deg);
+    intake->setVoltage(ConstantsIn::NoteTrackingIn);
+    storage->setVoltage(ConstantsSt::NoteTrackingSt);
+  }
+  
 }
 
 // Called repeatedly when this Command is scheduled to run   
 void FieldOrientedAlignToNote::Execute() {
-  if(storage->isNoteOnSensor()){
-    storage->setVoltage(ConstantsSt::stopVoltage);
-    intake->setVoltage(ConstantsIn::stopVolts);
+  if(!frc::DriverStation::IsAutonomous){
+    if(storage->isNoteOnSensor()){
+      storage->setVoltage(ConstantsSt::stopVoltage);
+      intake->setVoltage(ConstantsIn::stopVolts);
+    }
   }
+
 }
 
 // Called once the command ends or is interrupted.

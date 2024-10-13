@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3344830469477067,
-        "y": 6.472823778055917
+        "x": 2.3328624118018553,
+        "y": 6.335562571267796
       },
       "isLocked": false,
       "linkedName": "GallitoOroV2.5"
     },
     {
       "anchor": {
-        "x": 1.47,
-        "y": 5.527389345566628
+        "x": 2.5553683061717036,
+        "y": 4.098792791023527
       },
       "prevControl": {
-        "x": 1.8463379779811724,
-        "y": 5.977159124129494
+        "x": 1.0095378821285446,
+        "y": 4.578937089400569
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "AlignToNote",
+      "waypointRelativePos": 0.8,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AlignToNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.8,

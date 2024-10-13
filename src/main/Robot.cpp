@@ -14,7 +14,7 @@ void Robot::RobotInit() {
 
  pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
     frc2::cmd::Sequence(
-      NearShoot(&superStructure, &shooter).ToPtr().WithTimeout(0.10_s),
+      NearShoot(&superStructure, &shooter).ToPtr().WithTimeout(0.60_s),
       storage.startStorage(), 
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
       storage.stopStorage()
@@ -22,7 +22,7 @@ void Robot::RobotInit() {
 
   pathplanner::NamedCommands::registerCommand("FarSpeaker", std::move(
     frc2::cmd::Sequence(
-      FarSpeakerCommand(&superStructure, &shooter).ToPtr(),
+      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1.4_s),
       storage.startStorage(),
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
       ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
@@ -37,7 +37,7 @@ void Robot::RobotInit() {
     )));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabLarge", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(4.0_s)
+    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(3.5_s)
   )); 
 
   pathplanner::NamedCommands::registerCommand("GroundGrabLargeAuto", std::move(
@@ -48,7 +48,7 @@ void Robot::RobotInit() {
     GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s)
   ));
   pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
-    AlignToNote(&chassis, &noteTrackingCamera).ToPtr()
+    FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr()
   ));
 
   pathplanner::NamedCommands::registerCommand("NoVision", std::move(
@@ -59,19 +59,21 @@ void Robot::RobotInit() {
     frc2::cmd::RunOnce([this] {chassis.setAcceptingVisionMeasurements(true);})
   )); 
   
-  gallitoOro = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
+  //gallitoOro = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
   gallitoOroV2 = pathplanner::AutoBuilder::buildAuto("GallitoOroV2");
-  autonomousGallito = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
-  sourceAuto = SourceAutoRace(&storage);
-  ampAuto = AmpAutoRace(&storage);
+  //autonomousGallito = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
+  noteAuto4 = pathplanner::AutoBuilder::buildAuto("4NoteAuto");
+  sourceAuto = SourceAutoRace(&storage, &chassis);
+  ampAuto = AmpAutoRace(&storage, &chassis);
 
   
   autoChooser.SetDefaultOption("None", &defaultAuto);
-  autoChooser.AddOption("GallitoOro", &gallitoOro);
+  //autoChooser.AddOption("GallitoOro", &gallitoOro);
   autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
   autoChooser.AddOption("SourceAuto", &sourceAuto);
-  autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
+  //autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
   autoChooser.AddOption("AmpAuto", &ampAuto);
+  autoChooser.AddOption("4NoteAuto", &noteAuto4);
 
 
 

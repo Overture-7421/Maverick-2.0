@@ -7,9 +7,16 @@
 #include <pathplanner/lib/auto/NamedCommands.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 
-frc2::CommandPtr SourceAutoRace(Storage* storage){
+frc2::CommandPtr SourceAutoRace(Storage* storage, Chassis* chassis){
+    frc::Pose2d startingPose = pathplanner::PathPlannerPath::fromPathFile("SourceAuto1").get()->getPreviewStartingHolonomicPose();
+    if(frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kRed){
+        startingPose = pathplanner::GeometryUtil::flipFieldPose(startingPose);
+    }
     return frc2::cmd::Sequence(
-        pathplanner::NamedCommands::getCommand("autoSpeaker"),
+        frc2::cmd::Parallel(
+            pathplanner::NamedCommands::getCommand("autoSpeaker"),
+            frc2::cmd::RunOnce([=]() {chassis->resetOdometry(startingPose);})
+        ),
         frc2::cmd::Parallel(
             pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto1")),
             pathplanner::NamedCommands::getCommand("GroundGrabLarge")
@@ -18,7 +25,7 @@ frc2::CommandPtr SourceAutoRace(Storage* storage){
             frc2::cmd::Sequence(
                 frc2::cmd::Sequence(
                     pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto2")),
-                    pathplanner::NamedCommands::getCommand("VisionSpeaker")
+                    pathplanner::NamedCommands::getCommand("FarSpeaker")
                 ),
                 frc2::cmd::Parallel(
                     pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto3")),
@@ -34,11 +41,17 @@ frc2::CommandPtr SourceAutoRace(Storage* storage){
         frc2::cmd::Either(
             frc2::cmd::Sequence(
                 pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto4")),
-                pathplanner::NamedCommands::getCommand("VisionSpeaker")
+                pathplanner::NamedCommands::getCommand("FarSpeaker")
             ),
-            frc2::cmd::Parallel(
-                pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto-Alt-2")),
-                pathplanner::NamedCommands::getCommand("GroundGrabSmall")
+            frc2::cmd::Sequence(
+                frc2::cmd::Parallel(
+                    pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto-Alt-2")),
+                    pathplanner::NamedCommands::getCommand("GroundGrabSmall")
+                ),
+                frc2::cmd::Sequence(
+                    pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto-Alt-3")),
+                    pathplanner::NamedCommands::getCommand("FarSpeaker")
+                )
             ),
             [=]{return storage->isNoteOnSensor();}
         )

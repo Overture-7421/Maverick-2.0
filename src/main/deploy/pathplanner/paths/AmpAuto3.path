@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.332375657868876,
-        "y": 6.521998352776468
+        "x": 3.7264519607498547,
+        "y": 6.394116753996703
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.652183771257424,
-        "y": 6.935097743893405
+        "x": 6.046260074138403,
+        "y": 6.80721614511364
       },
       "isLocked": false,
       "linkedName": "AmpAuto 2 to 3"
     },
     {
       "anchor": {
-        "x": 7.903097537604621,
-        "y": 5.747684747311781
+        "x": 8.082883155780575,
+        "y": 5.913972455619661
       },
       "prevControl": {
-        "x": 6.215461773010175,
-        "y": 5.9666615571031985
+        "x": 6.162305962272407,
+        "y": 5.878839945982317
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "AlignToNote",
+      "waypointRelativePos": 0.8,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AlignToNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 3.5,
