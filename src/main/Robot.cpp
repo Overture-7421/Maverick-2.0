@@ -22,7 +22,7 @@ void Robot::RobotInit() {
 
   pathplanner::NamedCommands::registerCommand("FarSpeaker", std::move(
     frc2::cmd::Sequence(
-      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1.4_s),
+      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1.4_s),
       storage.startStorage(),
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
       ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
@@ -30,7 +30,7 @@ void Robot::RobotInit() {
 
   pathplanner::NamedCommands::registerCommand("VisionSpeaker", std::move(
     frc2::cmd::Sequence(
-      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1_s),
+      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1_s),
       storage.startStorage(),
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
       ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
@@ -48,7 +48,7 @@ void Robot::RobotInit() {
     GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s)
   ));
   pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
-    FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr()
+    FieldOrientedAlignToNote(&chassis, &noteTrackingCamera).ToPtr()
   ));
 
   pathplanner::NamedCommands::registerCommand("NoVision", std::move(

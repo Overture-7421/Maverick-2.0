@@ -16,6 +16,17 @@
     AddRequirements({superstructure, shooter});
   }
 
+  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout) : headingSpeedsHelper({7, 0, 0.5,{1200_deg_per_s, 1200_deg_per_s_sq}}, chassis){
+    this->chassis = chassis;
+    this->superstructure = superstructure;
+    this->shooter = shooter;
+    this->gamePad = nullptr;
+    this->tagLayout = tagLayout;
+    this->offsetVisionShootRed = offsetVisionShootRed;
+    this->offsetVisionShootBlue = offsetVisionShootBlue;
+    AddRequirements({superstructure, shooter});
+  }
+
 
 // Called when the command is initially scheduled.
 void VisionSpeakerCommand::Initialize() {
@@ -70,7 +81,7 @@ void VisionSpeakerCommand::Execute() {
   bool allTargetsSS = superstructure->getTargetPosition(targetLower, targetUpper);
   bool onTargetVel = shooter->getObjectiveVelocity(targetVelocity);
 
-  if(!frc::DriverStation::IsAutonomous){
+  if(gamePad != nullptr){
     if (angleErrorChassis <= 2.0_deg && allTargetsSS == true && onTargetVel == true ){
       gamePad->SetRumble(frc::GenericHID::kBothRumble, 1);
     } else {
@@ -83,7 +94,9 @@ void VisionSpeakerCommand::Execute() {
 // Called once the command ends or is interrupted.
 void VisionSpeakerCommand::End(bool interrupted) {
   chassis->disableSpeedHelper();
-  gamePad->SetRumble(frc::GenericHID::kBothRumble, 0);
+  if(gamePad != nullptr){
+    gamePad->SetRumble(frc::GenericHID::kBothRumble, 0);
+  }
 }
 
 // Returns true when the command should end.

@@ -26,6 +26,7 @@ class VisionSpeakerCommand
     : public frc2::CommandHelper<frc2::Command, VisionSpeakerCommand> {
  public:
   VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, Gamepad* gamePad, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout);
+  VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout);
 
   void Initialize() override; 
 
@@ -59,14 +60,14 @@ class VisionSpeakerCommand
 
   };
 
-  SuperStructure* superstructure;
-  Shooter* shooter;
-  Chassis* chassis;
+  SuperStructure* superstructure = nullptr;
+  Shooter* shooter = nullptr;
+  Chassis* chassis = nullptr;
   HeadingSpeedsHelper headingSpeedsHelper;
-  Gamepad* gamePad;
-  units::degree_t* offsetVisionShootRed;
-  units::degree_t* offsetVisionShootBlue;
-  frc::AprilTagFieldLayout* tagLayout;
+  Gamepad* gamePad = nullptr;
+  units::degree_t* offsetVisionShootRed = nullptr;
+  units::degree_t* offsetVisionShootBlue = nullptr;
+  frc::AprilTagFieldLayout* tagLayout = nullptr;
   units::degree_t offsetUpdated;
   };
 
