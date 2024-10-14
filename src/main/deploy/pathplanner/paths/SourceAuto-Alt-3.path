@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.65,
-        "y": 4.17
+        "x": 8.036039809597451,
+        "y": 3.9816844255657124
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.365451772745943,
-        "y": 4.527980027835749
+        "x": 9.036039809597451,
+        "y": 3.9816844255657124
       },
       "isLocked": false,
-      "linkedName": "GallitoOroV2.6-7"
+      "linkedName": "SourceAuto-Alt-2-3"
     },
     {
       "anchor": {
-        "x": 1.51,
-        "y": 5.564105245857552
+        "x": 4.9443789615111315,
+        "y": 3.7708893677416455
       },
       "prevControl": {
-        "x": 1.877159002908461,
-        "y": 5.187767267876379
+        "x": 5.881245885173652,
+        "y": 4.180768646843998
+      },
+      "nextControl": {
+        "x": 3.8313550970616177,
+        "y": 3.283941427044983
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.2743082290729473,
+        "y": 3.126793357723663
+      },
+      "prevControl": {
+        "x": 4.027367739471567,
+        "y": 2.8750103719893603
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,11 +55,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -2.121096396661437,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "GallitoOroV2",
+  "folder": "SourceAuto",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

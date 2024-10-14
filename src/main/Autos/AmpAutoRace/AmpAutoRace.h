@@ -5,7 +5,8 @@
 #pragma once
 
 #include "Subsystems/Storage/Storage.h"
+#include "Subsystems/Chassis/Chassis.h"
 #include <frc2/command/Commands.h>
 #include <frc2/command/CommandPtr.h>
 
-frc2::CommandPtr AmpAutoRace(Storage* storage);
+frc2::CommandPtr AmpAutoRace(Storage* storage, Chassis* chassis);

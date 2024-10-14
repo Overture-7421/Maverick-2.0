@@ -70,12 +70,13 @@ void VisionSpeakerCommand::Execute() {
   bool allTargetsSS = superstructure->getTargetPosition(targetLower, targetUpper);
   bool onTargetVel = shooter->getObjectiveVelocity(targetVelocity);
 
-if (angleErrorChassis <= 2.0_deg && allTargetsSS == true && onTargetVel == true){
-   gamePad->SetRumble(frc::GenericHID::kBothRumble, 1);
-  } else {
-   gamePad->SetRumble(frc::GenericHID::kBothRumble, 0);
+  if(!frc::DriverStation::IsAutonomous){
+    if (angleErrorChassis <= 2.0_deg && allTargetsSS == true && onTargetVel == true ){
+      gamePad->SetRumble(frc::GenericHID::kBothRumble, 1);
+    } else {
+      gamePad->SetRumble(frc::GenericHID::kBothRumble, 0);
+    }
   }
-
 
 }
 

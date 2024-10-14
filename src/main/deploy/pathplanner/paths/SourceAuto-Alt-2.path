@@ -3,34 +3,52 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.95406395377698,
-        "y": 2.389010655339427
+        "x": 8.15,
+        "y": 2.3070347995189566
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.274835434121652,
-        "y": 3.325877579001948
+        "x": 6.662723758685748,
+        "y": 2.552962366980368
       },
       "isLocked": false,
       "linkedName": "SourceAuto-Alt-1-2"
     },
     {
       "anchor": {
-        "x": 7.95406395377698,
-        "y": 4.122214464115091
+        "x": 8.036039809597451,
+        "y": 3.9816844255657124
       },
       "prevControl": {
-        "x": 6.630739424103669,
-        "y": 4.157346973752435
+        "x": 7.415365472671032,
+        "y": 3.5835159830091414
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "SourceAuto-Alt-2-3"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "AlignToNote",
+      "waypointRelativePos": 0.7,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AlignToNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.8,
@@ -39,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 29.53878225955814,
     "rotateFast": false
   },
   "reversed": false,

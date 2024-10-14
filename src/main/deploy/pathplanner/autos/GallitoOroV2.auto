@@ -50,7 +50,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "FarSpeaker"
+                  "name": "VisionSpeaker"
                 }
               },
               {
@@ -88,26 +88,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "FarSpeaker"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "GallitoOroV2.4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "GroundGrabSmall"
+                  "name": "VisionSpeaker"
                 }
               }
             ]
@@ -118,34 +99,28 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "parallel",
                 "data": {
-                  "pathName": "GallitoOroV2.5"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "GallitoOroV2.4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabSmall"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "autoSpeaker"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "GallitoOroV2.6"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "GroundGrabSmall"
+                  "name": "VisionSpeaker"
                 }
               }
             ]
@@ -156,15 +131,28 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "parallel",
                 "data": {
-                  "pathName": "GallitoOroV2.7"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "GallitoOroV2.5"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabSmall"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "autoSpeaker"
+                  "name": "VisionSpeaker"
                 }
               }
             ]

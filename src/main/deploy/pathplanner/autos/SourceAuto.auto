@@ -5,7 +5,7 @@
       "x": 0.7636103146671328,
       "y": 4.2978770123018135
     },
-    "rotation": -59.74356283647073
+    "rotation": -59.74000000000001
   },
   "command": {
     "type": "sequential",
@@ -56,7 +56,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "VisionSpeaker"
+                  "name": "FarSpeaker"
                 }
               }
             ]
@@ -94,7 +94,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "VisionSpeaker"
+                  "name": "FarSpeaker"
                 }
               }
             ]
