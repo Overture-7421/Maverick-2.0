@@ -34,7 +34,7 @@ void FieldOrientedNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
     double outHeading = headingController.Calculate(targetTranslation.Angle().Degrees(), 0_deg);
 
 
-    if (wYPIDController.AtSetpoint() && wXPIDController.AtSetpoint() && headingController.AtSetpoint()){
+    if (wYPIDController.AtGoal() && wXPIDController.AtGoal() && headingController.AtGoal()){
         outY = 0;
         outX = 0;
         outHeading = 0;

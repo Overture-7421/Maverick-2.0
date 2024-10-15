@@ -3,10 +3,7 @@
 #include "Subsystems/SupportArms/SupportArms.h"
 #include <exception>
 #include "Subsystems/SuperStructure/SuperStructure.h"
-
-pathplanner::PathConstraints pathfindingConstraints = pathplanner::PathConstraints(
-	2.5_mps, 3.5_mps_sq,
-	560_deg_per_s, 720_deg_per_s_sq);
+#include "SpeedsHelpers/ClimbingSpeedHelper/ClimbingSpeedHelper.h"
 
 int checkpointButtonId = frc::XboxController::Button::kBack;
 
@@ -18,9 +15,12 @@ SuperStructureMoveByDistance::Profile superStructureProfile{ lowerStartingState,
 
 units::second_t storageTrapScoreWait = 1_s;
 
-frc2::CommandPtr GoToClimbingLocationPathFind(SuperStructure* superStructure, std::shared_ptr<pathplanner::PathPlannerPath> pathToFollow) {
+
+
+frc2::CommandPtr GoToClimbingLocationPathFind(SuperStructure* superStructure, std::shared_ptr<pathplanner::PathPlannerPath> pathToFollow, Chassis* chassis) {
+	ClimbingSpeedHelper climbingSpeedHelper (chassis);
 	return frc2::cmd::Deadline(
-		pathplanner::AutoBuilder::pathfindToPoseFlipped(pathToFollow->getStartingDifferentialPose(), pathfindingConstraints),
+		//pathplanner::AutoBuilder::pathfindToPoseFlipped(pathToFollow->getStartingDifferentialPose(), pathfindingConstraints),
 		superStructure->setAngle(lowerStartingState, upperStartingState)
 	);
 }

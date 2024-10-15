@@ -91,8 +91,8 @@ void Robot::RobotInit() {
   driver.A().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.LeftBumper().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
-  driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  //driver.LeftBumper().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  //driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
   driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
@@ -108,8 +108,8 @@ void Robot::RobotInit() {
 
   driver.Back().OnTrue(ResetHeading(&chassis));
 
-  //driver.LeftBumper().OnTrue(frc2::cmd::RunOnce([&]{chassis.enableSpeedHelper(&climbingSpeedHelper);}));
-  //driver.LeftBumper().OnFalse(frc2::cmd::RunOnce([&]{chassis.disableSpeedHelper();}));
+  driver.LeftBumper().OnTrue(frc2::cmd::RunOnce([&]{chassis.enableSpeedHelper(&climbingSpeedHelper);}));
+  driver.LeftBumper().OnFalse(frc2::cmd::RunOnce([&]{chassis.disableSpeedHelper();}));
 
 //OPERATOR BUTTONS
 

@@ -4,14 +4,14 @@
 
 #include "ClimbingSpeedHelper.h"
 
-ClimbingSpeedHelper::ClimbingSpeedHelper(Chassis *chassis){
+ClimbingSpeedHelper::ClimbingSpeedHelper(Chassis* chassis){
     this->chassis = chassis;
     this->yPIDController.SetIZone(3);
-	this->yPIDController.SetTolerance(0.05_m);
+	this->yPIDController.SetTolerance(0.15_m);
     this->xPIDController.SetIZone(3);
-	this->xPIDController.SetTolerance(0.05_m);
+	this->xPIDController.SetTolerance(0.15_m);
     this->headingPIDController.SetIZone(3);
-	this->headingPIDController.SetTolerance(0.05_deg);
+	this->headingPIDController.SetTolerance(3.0_deg);
     headingPIDController.EnableContinuousInput(-180_deg, 180_deg);
 
 }
@@ -20,33 +20,33 @@ void ClimbingSpeedHelper::alterSpeed(frc::ChassisSpeeds &inputSpeed){
 
     units::meter_t xGoal = 1_m;
     units::meter_t yGoal = 1_m;
-    units::degree_t rotationGoal = 75_deg;
+    units::degree_t rotationGoal = 90_deg;
 
     frc::Pose2d pose = chassis->getEstimatedPose();
 
-    double xOut = xPIDController.Calculate(pose.X(), xGoal);
-    double yOut = yPIDController.Calculate(pose.Y(), yGoal);
-    double rotationOut = headingPIDController.Calculate(pose.Rotation().Degrees(), rotationGoal);
+    auto xOut = units::meters_per_second_t(xPIDController.Calculate(pose.X(), xGoal));
+    auto yOut = units::meters_per_second_t(yPIDController.Calculate(pose.Y(), yGoal));
+    auto rotationOut = units::degrees_per_second_t(headingPIDController.Calculate(pose.Rotation().Degrees(), rotationGoal));
 
-   
-    
+    frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(xOut, yOut, rotationOut, chassis->getEstimatedPose().Rotation());
 
-    if (headingPIDController.AtSetpoint()) {
-		rotationOut = 0;
+    if (headingPIDController.AtGoal()) {
+		rotationOut = 0_deg_per_s;
 	}
 
-    if (xPIDController.AtSetpoint()) {
-        xOut = 0;
+    if (xPIDController.AtGoal()) {
+        xOut = 0_mps;
     }
 
-    if (yPIDController.AtSetpoint()) {
-        yOut = 0;
+    if (yPIDController.AtGoal()) {
+        yOut = 0_mps;
     }
 
-    inputSpeed.omega = units::degrees_per_second_t(rotationOut);
-    inputSpeed.vx = units::meters_per_second_t(xOut);
-    inputSpeed.vy = units::meters_per_second_t(0);
+    frc::SmartDashboard::PutNumber("TRAP/Rotation: ", pose.Rotation().Degrees().value());
+    frc::SmartDashboard::PutNumber("TRAP/X: ", pose.X().value());
+    frc::SmartDashboard::PutNumber("TRAP/Y: ", pose.Y().value());
 
+    inputSpeed = speeds;
 
 }
 
