@@ -14,6 +14,7 @@
 #include "Commands/UtilityFunctions/UtilityFunctions.h"
 #include "Commands/WaitForButton/WaitForButton.h"
 #include "Commands/SuperStructureMoveByDistance/SuperStructureMoveByDistance.h"
+#include "Commands/PathFind/Pathfind.h"
 
 
 #include <vector>

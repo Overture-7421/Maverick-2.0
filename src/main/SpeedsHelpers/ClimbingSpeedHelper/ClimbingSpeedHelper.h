@@ -11,10 +11,11 @@
 
 class ClimbingSpeedHelper : public SpeedsHelper{
  public:
-  ClimbingSpeedHelper(Chassis* chassis);
+  ClimbingSpeedHelper(Chassis* chassis, frc::Pose2d pose2d);
   void alterSpeed(frc::ChassisSpeeds &inputSpeed) override;
   void getRotation();
   void getX();
+  bool atGoal();
 
   void initialize() override;
 
@@ -32,7 +33,8 @@ class ClimbingSpeedHelper : public SpeedsHelper{
     };
 
 	Chassis* chassis;
-      frc::Pose2d pose2d;
+    frc::Pose2d pose2d;
+    
 };
 
 

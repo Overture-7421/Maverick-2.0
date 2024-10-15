@@ -1,5 +1,6 @@
 #include "Cllimbing.h"
 #include "Commands/ClosedCommand/ClosedCommand.h"
+#include "Commands/PathFind/Pathfind.h"
 #include "Subsystems/SupportArms/SupportArms.h"
 #include <exception>
 #include "Subsystems/SuperStructure/SuperStructure.h"
@@ -18,9 +19,8 @@ units::second_t storageTrapScoreWait = 1_s;
 
 
 frc2::CommandPtr GoToClimbingLocationPathFind(SuperStructure* superStructure, std::shared_ptr<pathplanner::PathPlannerPath> pathToFollow, Chassis* chassis) {
-	ClimbingSpeedHelper climbingSpeedHelper (chassis);
 	return frc2::cmd::Deadline(
-		//pathplanner::AutoBuilder::pathfindToPoseFlipped(pathToFollow->getStartingDifferentialPose(), pathfindingConstraints),
+		Pathfind(chassis, pathToFollow->getStartingDifferentialPose()).ToPtr(),
 		superStructure->setAngle(lowerStartingState, upperStartingState)
 	);
 }
@@ -79,14 +79,14 @@ frc2::CommandPtr AutoClimb(Chassis* chassis, SuperStructure* superStructure, Sup
 
 	return frc2::cmd::Select<StageLocation>([chassis]() {return findClosestStageLocation(chassis);},
 		std::pair{ StageLocation::Left, frc2::cmd::Sequence(
-			GoToClimbingLocationPathFind(superStructure, climbPathLeft).AndThen([=] { chassis->setAcceptingVisionMeasurements(false);}),
+			GoToClimbingLocationPathFind(superStructure, climbPathLeft, chassis).AndThen([=] { chassis->setAcceptingVisionMeasurements(false);}),
 			WaitForButton(gamepad, checkpointButtonId),
 			SetUpJoints(chassis, superStructure, supportArms, climbPathLeft, gamepad),
 			WaitForButton(gamepad, checkpointButtonId),
 			ClimbAtLocation(superStructure, shooter, storage, gamepad)
 		) },
 		std::pair{ StageLocation::Right, frc2::cmd::Sequence(
-			GoToClimbingLocationPathFind(superStructure, climbPathRight).AndThen([=] { chassis->setAcceptingVisionMeasurements(false);}),
+			GoToClimbingLocationPathFind(superStructure, climbPathRight, chassis).AndThen([=] { chassis->setAcceptingVisionMeasurements(false);}),
 			WaitForButton(gamepad, checkpointButtonId),
 			SetUpJoints(chassis, superStructure, supportArms, climbPathRight, gamepad),
 			WaitForButton(gamepad, checkpointButtonId),
@@ -96,7 +96,7 @@ frc2::CommandPtr AutoClimb(Chassis* chassis, SuperStructure* superStructure, Sup
 			frc2::cmd::RunOnce([=]() {
 				chassis->setAcceptingVisionMeasurements(false);
 			}),
-			GoToClimbingLocationPathFind(superStructure, climbPathBack).AndThen([=] { chassis->setAcceptingVisionMeasurements(false);}),
+			GoToClimbingLocationPathFind(superStructure, climbPathBack, chassis).AndThen([=] { chassis->setAcceptingVisionMeasurements(false);}),
 			WaitForButton(gamepad, checkpointButtonId),
 			SetUpJoints(chassis, superStructure, supportArms, climbPathBack, gamepad),
 			WaitForButton(gamepad, checkpointButtonId),
