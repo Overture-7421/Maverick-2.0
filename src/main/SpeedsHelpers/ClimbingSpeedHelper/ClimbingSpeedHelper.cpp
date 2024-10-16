@@ -6,9 +6,9 @@
 #include <pathplanner/lib/pathfinding/Pathfinding.h>
 #include <pathplanner/lib/pathfinding/Pathfinder.h>
 
-ClimbingSpeedHelper::ClimbingSpeedHelper(Chassis* chassis, frc::Pose2d pose2d){
+ClimbingSpeedHelper::ClimbingSpeedHelper(Chassis* chassis, frc::Pose2d targetPose){
     this->chassis = chassis;
-    this->pose2d = pose2d;
+    this->targetPose = targetPose;
     this->yPIDController.SetIZone(3);
 	this->yPIDController.SetTolerance(0.15_m);
     this->xPIDController.SetIZone(3);
@@ -17,26 +17,16 @@ ClimbingSpeedHelper::ClimbingSpeedHelper(Chassis* chassis, frc::Pose2d pose2d){
 	this->headingPIDController.SetTolerance(3.0_deg);
     headingPIDController.EnableContinuousInput(-180_deg, 180_deg);
 
-    if(auto alliance = frc::DriverStation::GetAlliance()){
-    if(alliance.value() == frc::DriverStation::Alliance::kRed){
-      pose2d = pathplanner::GeometryUtil::flipFieldPose(pose2d);
-    } else if(alliance.value() == frc::DriverStation::Alliance::kBlue){
-      pose2d = pose2d;
-    }
-  }
+
 
 }
 
 void ClimbingSpeedHelper::alterSpeed(frc::ChassisSpeeds &inputSpeed){
-
-
     frc::Pose2d pose = chassis->getEstimatedPose();
 
-    auto xOut = units::meters_per_second_t(xPIDController.Calculate(pose.X(), pose2d.X()));
-    auto yOut = units::meters_per_second_t(yPIDController.Calculate(pose.Y(), pose2d.Y()));
-    auto rotationOut = units::degrees_per_second_t(headingPIDController.Calculate(pose.Rotation().Degrees(), pose2d.Rotation().Degrees()));
-
-    frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(xOut, yOut, rotationOut, chassis->getEstimatedPose().Rotation());
+    auto xOut = units::meters_per_second_t(xPIDController.Calculate(pose.X(), targetPose.X()));
+    auto yOut = units::meters_per_second_t(yPIDController.Calculate(pose.Y(), targetPose.Y()));
+    auto rotationOut = units::degrees_per_second_t(headingPIDController.Calculate(pose.Rotation().Degrees(), targetPose.Rotation().Degrees()));
 
     if (headingPIDController.AtGoal()) {
 		rotationOut = 0_deg_per_s;
@@ -50,31 +40,38 @@ void ClimbingSpeedHelper::alterSpeed(frc::ChassisSpeeds &inputSpeed){
         yOut = 0_mps;
     }
 
+    //frc::ChassisSpeeds speeds = {xOut, yOut, rotationOut};
+    frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(xOut, yOut, rotationOut, chassis->getEstimatedPose().Rotation());
+
     frc::SmartDashboard::PutNumber("TRAP/Rotation: ", pose.Rotation().Degrees().value());
     frc::SmartDashboard::PutNumber("TRAP/X: ", pose.X().value());
     frc::SmartDashboard::PutNumber("TRAP/Y: ", pose.Y().value());
+
+    frc::SmartDashboard::PutNumber("TRAP/TargetRotation: ", targetPose.Rotation().Degrees().value());
+    frc::SmartDashboard::PutNumber("TRAP/TargetX: ", targetPose.X().value());
+    frc::SmartDashboard::PutNumber("TRAP/TargetY: ", targetPose.Y().value());
+
 
     inputSpeed = speeds;
 
 }
 
-void ClimbingSpeedHelper::getRotation(){
-    frc::Pose2d pose = chassis->getEstimatedPose();
-    frc::SmartDashboard::PutNumber("Rotation: ", pose.Rotation().Degrees().value());
-}
-
-void ClimbingSpeedHelper::getX(){
-    frc::Pose2d pose = chassis->getEstimatedPose();
-    frc::SmartDashboard::PutNumber("X: ", pose.X().value());
-}
-
 void ClimbingSpeedHelper::initialize(){
     headingPIDController.Reset(chassis->getEstimatedPose().Rotation().Radians());
+
+    auto alliance = frc::DriverStation::GetAlliance();
+    if(alliance.value() == frc::DriverStation::Alliance::kRed){
+      targetPose = pathplanner::GeometryUtil::flipFieldPose(targetPose);
+    } else if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+      targetPose = targetPose;
+    }
 
 }
 
 bool ClimbingSpeedHelper::atGoal(){
     if (headingPIDController.AtGoal() && xPIDController.AtGoal() && yPIDController.AtGoal()){
         return true;
-    } 
+    }
+
+    return false;
 }

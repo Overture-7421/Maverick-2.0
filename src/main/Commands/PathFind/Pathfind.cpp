@@ -32,7 +32,7 @@ void Pathfind::End(bool interrupted) {
 bool Pathfind::IsFinished() {
   if(climbingSpeedHelper.atGoal()){
     return true;
-  } else {
-    return false;
-  }
+  } 
+
+  return false;
 }

@@ -9,6 +9,7 @@
 
 #include <pathplanner/lib/path/PathPlannerTrajectory.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
+#include <frc2/command/Command.h>
 
 void Robot::RobotInit() {
 
@@ -100,16 +101,13 @@ void Robot::RobotInit() {
   driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
   driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
-  driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
+  //driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
+  //driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
 
   driver.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
   driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.Back().OnTrue(ResetHeading(&chassis));
-
-  /*driver.LeftBumper().OnTrue(frc2::cmd::RunOnce([&]{chassis.enableSpeedHelper(&climbingSpeedHelper);}));
-  driver.LeftBumper().OnFalse(frc2::cmd::RunOnce([&]{chassis.disableSpeedHelper();}));*/
 
 //OPERATOR BUTTONS
 
@@ -155,8 +153,14 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
   //Intake sin sensor A()
 
   //Escalada manual Y() No esta probada
-  gamepad.Y().OnTrue(ManualClimbCommand(&superStructure).ToPtr());
-  gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  //gamepad.Y().OnTrue(ManualClimbCommand(&superStructure).ToPtr());
+  
+
+  //driver.Y().OnTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
+  //driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+
+  driver.Y().WhileTrue(Pathfind(&chassis, {4_m, 4_m, 0_deg}).ToPtr());
+
 
   /*gamepad.rightDpad().WhileTrue(superStructure.setAngle(90_deg, 90_deg));
   gamepad.rightDpad().OnFalse(superStructure.setAngle(-10_deg, 80_deg));*/

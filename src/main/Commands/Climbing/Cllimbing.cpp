@@ -20,7 +20,7 @@ units::second_t storageTrapScoreWait = 1_s;
 
 frc2::CommandPtr GoToClimbingLocationPathFind(SuperStructure* superStructure, std::shared_ptr<pathplanner::PathPlannerPath> pathToFollow, Chassis* chassis) {
 	return frc2::cmd::Deadline(
-		Pathfind(chassis, pathToFollow->getStartingDifferentialPose()).ToPtr(),
+		Pathfind(chassis, pathToFollow->getPreviewStartingHolonomicPose()).ToPtr(),
 		superStructure->setAngle(lowerStartingState, upperStartingState)
 	);
 }

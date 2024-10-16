@@ -11,10 +11,8 @@
 
 class ClimbingSpeedHelper : public SpeedsHelper{
  public:
-  ClimbingSpeedHelper(Chassis* chassis, frc::Pose2d pose2d);
+  ClimbingSpeedHelper(Chassis* chassis, frc::Pose2d targetPose);
   void alterSpeed(frc::ChassisSpeeds &inputSpeed) override;
-  void getRotation();
-  void getX();
   bool atGoal();
 
   void initialize() override;
@@ -22,18 +20,18 @@ class ClimbingSpeedHelper : public SpeedsHelper{
 
  private:
     frc::ProfiledPIDController<units::meters> yPIDController{
-        4, 0.0, 0.0, {4.8_mps, 3.2_mps_sq} //Before PID 10, Before mps 4.5
+        4, 0.0, 0.0, {4.0_mps, 2.5_mps_sq} //Before PID 10, Before mps 4.5
     };
 
     frc::ProfiledPIDController<units::meters> xPIDController{
-        4, 0.0, 0.0, {4.8_mps, 3.2_mps_sq} //Before PID 7, Before mps 4.5
+        4, 0.0, 0.0, {4.0_mps, 2.5_mps_sq} //Before PID 7, Before mps 4.5
     };
     frc::ProfiledPIDController<units::degree> headingPIDController{
         4, 0.0, 0.0, {800_deg_per_s, 500_deg_per_s / 1_s} //Constraints max velocity, max acceleration
     };
 
 	Chassis* chassis;
-    frc::Pose2d pose2d;
+    frc::Pose2d targetPose;
     
 };
 
