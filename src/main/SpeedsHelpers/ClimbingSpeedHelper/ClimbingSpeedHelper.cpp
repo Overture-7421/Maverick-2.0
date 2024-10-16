@@ -58,6 +58,8 @@ void ClimbingSpeedHelper::alterSpeed(frc::ChassisSpeeds &inputSpeed){
 
 void ClimbingSpeedHelper::initialize(){
     headingPIDController.Reset(chassis->getEstimatedPose().Rotation().Radians());
+    xPIDController.Reset(chassis->getEstimatedPose().X());
+    yPIDController.Reset(chassis->getEstimatedPose().Y());
 
     auto alliance = frc::DriverStation::GetAlliance();
     if(alliance.value() == frc::DriverStation::Alliance::kRed){

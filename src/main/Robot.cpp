@@ -156,10 +156,10 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
   //gamepad.Y().OnTrue(ManualClimbCommand(&superStructure).ToPtr());
   
 
-  //driver.Y().OnTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
-  //driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
+  driver.Y().OnTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
+  driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.Y().WhileTrue(Pathfind(&chassis, {4_m, 4_m, 0_deg}).ToPtr());
+  //driver.Y().WhileTrue(Pathfind(&chassis, {4_m, 4_m, 0_deg}).ToPtr());
 
 
   /*gamepad.rightDpad().WhileTrue(superStructure.setAngle(90_deg, 90_deg));
