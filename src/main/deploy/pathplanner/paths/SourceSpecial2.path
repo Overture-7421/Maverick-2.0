@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.07749806398614,
+        "y": 2.3239270451903833
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.957663105115334,
+        "y": 2.3790008956266515
+      },
+      "isLocked": false,
+      "linkedName": "SourceAutoSpecial1-2"
+    },
+    {
+      "anchor": {
+        "x": 8.07749806398614,
+        "y": 0.882827958774674
+      },
+      "prevControl": {
+        "x": 7.242211332369392,
+        "y": 1.6263249396643085
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "SourceAutoSpecial2-3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "AlignToNote",
+      "waypointRelativePos": 0.85,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AlignToNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -38.33334010909848,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SourceSpecial",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

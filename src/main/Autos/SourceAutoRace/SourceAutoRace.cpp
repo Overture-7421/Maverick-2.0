@@ -41,8 +41,18 @@ frc2::CommandPtr SourceAutoRace(Storage* storage, Chassis* chassis){
         ),
         frc2::cmd::Either(
             frc2::cmd::Sequence(
-                pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto4")),
-                pathplanner::NamedCommands::getCommand("FarSpeaker")
+                frc2::cmd::Sequence(
+                    pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto4")),
+                    pathplanner::NamedCommands::getCommand("FarSpeaker")
+                ),
+                frc2::cmd::Parallel(
+                    pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto5")),
+                    pathplanner::NamedCommands::getCommand("GroundGrabLargeAuto")
+                ),
+                frc2::cmd::Sequence(
+                    pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("SourceAuto-Alt-3")),
+                    pathplanner::NamedCommands::getCommand("FarSpeaker")
+                ) 
             ),
             frc2::cmd::Sequence(
                 frc2::cmd::Parallel(

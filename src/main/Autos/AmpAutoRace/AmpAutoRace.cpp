@@ -40,8 +40,18 @@ frc2::CommandPtr AmpAutoRace(Storage* storage, Chassis* chassis){
         ),
         frc2::cmd::Either(
             frc2::cmd::Sequence(
-                pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("AmpAuto4")),
-                pathplanner::NamedCommands::getCommand("FarSpeaker")
+                frc2::cmd::Sequence(
+                    pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("AmpAuto4")),
+                    pathplanner::NamedCommands::getCommand("FarSpeaker")
+                ),
+                frc2::cmd::Parallel(
+                    pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("AmpAuto5")),
+                    pathplanner::NamedCommands::getCommand("GroundGrabLargeAuto")
+                ),
+                frc2::cmd::Sequence(
+                    pathplanner::AutoBuilder::followPath(pathplanner::PathPlannerPath::fromPathFile("AmpAuto-Alt-3")),
+                    pathplanner::NamedCommands::getCommand("FarSpeaker")
+                ) 
             ),
             frc2::cmd::Sequence(
                 frc2::cmd::Parallel(

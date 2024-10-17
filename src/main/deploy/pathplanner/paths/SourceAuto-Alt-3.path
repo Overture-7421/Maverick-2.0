@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.036039809597451,
-        "y": 3.9816844255657124
+        "x": 8.068319088913428,
+        "y": 4.1046482092964185
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.036039809597451,
-        "y": 3.9816844255657124
+        "x": 9.068319088913428,
+        "y": 4.1046482092964185
       },
       "isLocked": false,
-      "linkedName": "SourceAuto-Alt-2-3"
+      "linkedName": "SourceAuto5 -- SourceAuto-Alt-3"
     },
     {
       "anchor": {

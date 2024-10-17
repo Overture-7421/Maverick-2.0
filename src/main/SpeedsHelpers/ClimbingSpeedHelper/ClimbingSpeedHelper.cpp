@@ -44,15 +44,6 @@ void ClimbingSpeedHelper::alterSpeed(frc::ChassisSpeeds &inputSpeed){
     //frc::ChassisSpeeds speeds = {xOut, yOut, rotationOut};
     frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(xOut, yOut, rotationOut, chassis->getEstimatedPose().Rotation());
 
-    frc::SmartDashboard::PutNumber("TRAP/Rotation: ", pose.Rotation().Degrees().value());
-    frc::SmartDashboard::PutNumber("TRAP/X: ", pose.X().value());
-    frc::SmartDashboard::PutNumber("TRAP/Y: ", pose.Y().value());
-
-    frc::SmartDashboard::PutNumber("TRAP/TargetRotation: ", targetPose.Rotation().Degrees().value());
-    frc::SmartDashboard::PutNumber("TRAP/TargetX: ", targetPose.X().value());
-    frc::SmartDashboard::PutNumber("TRAP/TargetY: ", targetPose.Y().value());
-
-
     inputSpeed = speeds;
 
 }

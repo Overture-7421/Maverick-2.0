@@ -1,0 +1,171 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3676672858340169,
+      "y": 1.5896090393734619
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "spitShoot"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceSpecial1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GroundGrabLargeAuto"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "spitShoot"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "SourceSpecial2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabSmall"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceSpecial3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "VisionSpeaker"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceSpecial4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GroundGrabLarge"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceSpecial5"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "VisionSpeaker"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceSpecial6"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GroundGrabSmall"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SourceSpecial7"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "VisionSpeaker"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "SourceSpecial",
+  "choreoAuto": false
+}

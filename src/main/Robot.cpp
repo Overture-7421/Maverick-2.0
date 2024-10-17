@@ -21,6 +21,14 @@ void Robot::RobotInit() {
       storage.stopStorage()
     )));
 
+  pathplanner::NamedCommands::registerCommand("spitShoot", std::move(
+    frc2::cmd::Sequence(
+      SpitShoot(&superStructure, &shooter).ToPtr(),
+      storage.startStorage(),
+      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
+      storage.stopStorage()
+    )));
+
   pathplanner::NamedCommands::registerCommand("FarSpeaker", std::move(
     frc2::cmd::Sequence(
       VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1.4_s),
@@ -64,6 +72,7 @@ void Robot::RobotInit() {
   gallitoOroV2 = pathplanner::AutoBuilder::buildAuto("GallitoOroV2");
   //autonomousGallito = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
   noteAuto4 = pathplanner::AutoBuilder::buildAuto("4NoteAuto");
+  sourceSpecial = pathplanner::AutoBuilder::buildAuto("SourceSpecial");
   sourceAuto = SourceAutoRace(&storage, &chassis);
   ampAuto = AmpAutoRace(&storage, &chassis);
 
@@ -72,6 +81,7 @@ void Robot::RobotInit() {
   //autoChooser.AddOption("GallitoOro", &gallitoOro);
   autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
   autoChooser.AddOption("SourceAuto", &sourceAuto);
+  autoChooser.AddOption("SourceSpecial", &sourceSpecial);
   //autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
   autoChooser.AddOption("AmpAuto", &ampAuto);
   autoChooser.AddOption("4NoteAuto", &noteAuto4);

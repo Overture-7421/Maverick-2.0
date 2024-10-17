@@ -4,52 +4,52 @@
     {
       "anchor": {
         "x": 8.07749806398614,
-        "y": 4.095469234223708
+        "y": 0.882827958774674
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.058655284503148,
-        "y": 4.095469234223708
+        "x": 7.067810805987872,
+        "y": 0.8093961581929819
       },
       "isLocked": false,
-      "linkedName": "AmpAuto5 -- AmpAuto-Alt-3"
+      "linkedName": "SourceAutoSpecial2-3"
     },
     {
       "anchor": {
-        "x": 5.272282384793014,
-        "y": 4.215901156481343
+        "x": 5.112689115500318,
+        "y": 0.882827958774674
       },
       "prevControl": {
-        "x": 6.214710130274258,
-        "y": 3.881491311310579
+        "x": 6.176504962755192,
+        "y": 0.5529103858918331
       },
       "nextControl": {
-        "x": 4.5462105189545605,
-        "y": 4.473539560488536
+        "x": 3.6624110540118973,
+        "y": 1.3325977373375393
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.8435603262076694,
-        "y": 5.5040931765173085
+        "x": 2.9831668986312447,
+        "y": 2.6635491228807098
       },
       "prevControl": {
-        "x": 4.393969643859401,
-        "y": 4.719467127949948
+        "x": 3.506368477775802,
+        "y": 2.021020867790903
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "SourceSpecial3-4"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 4.8,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -59,10 +59,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "AmpAuto",
+  "folder": "SourceSpecial",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
