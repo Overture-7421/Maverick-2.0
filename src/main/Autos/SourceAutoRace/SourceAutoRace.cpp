@@ -3,13 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "SourceAutoRace.h"
+#include <Commands/UtilityFunctions/UtilityFunctions.h>
 
 #include <pathplanner/lib/auto/NamedCommands.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 
 frc2::CommandPtr SourceAutoRace(Storage* storage, Chassis* chassis){
     frc::Pose2d startingPose = pathplanner::PathPlannerPath::fromPathFile("SourceAuto1").get()->getPreviewStartingHolonomicPose();
-    if(frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kRed){
+    if(isRedAlliance()){
         startingPose = pathplanner::GeometryUtil::flipFieldPose(startingPose);
     }
     return frc2::cmd::Sequence(

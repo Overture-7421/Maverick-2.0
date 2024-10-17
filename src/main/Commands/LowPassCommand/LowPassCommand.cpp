@@ -8,6 +8,7 @@
 #include <frc/DriverStation.h>
 #include "Commands/LowPassCommand/LowerPassConstants.h"
 #include <pathplanner/lib/util/GeometryUtil.h>
+#include <Commands/UtilityFunctions/UtilityFunctions.h>
 
 LowPassCommand::LowPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad) : headingSpeedsHelper{headingController, chassis} {
   this->superStructure = superStructure;
@@ -20,16 +21,11 @@ LowPassCommand::LowPassCommand(SuperStructure* superStructure, Shooter* shooter,
 
 // Called when the command is initially scheduled.
 void LowPassCommand::Initialize() {
-
-  if(auto alliance = frc::DriverStation::GetAlliance()){
-    if(alliance.value() == frc::DriverStation::Alliance::kRed){
-      targetObjective = pathplanner::GeometryUtil::flipFieldPosition(LowerPassConstants::TargetObjective);
-    }
-    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
-      targetObjective = LowerPassConstants::TargetObjective;
-    }
+  if(isRedAlliance()){
+    targetObjective = pathplanner::GeometryUtil::flipFieldPosition(LowerPassConstants::TargetObjective);
+  } else {
+    targetObjective = LowerPassConstants::TargetObjective;
   }
-
 
   chassis->enableSpeedHelper(&headingSpeedsHelper);
  

@@ -8,6 +8,7 @@
 
 #include <frc/DriverStation.h>
 #include <pathplanner/lib/util/GeometryUtil.h>
+#include <Commands/UtilityFunctions/UtilityFunctions.h>
 
 
 HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad) : headingSpeedsHelper{headingController, chassis}{
@@ -22,13 +23,10 @@ HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shoote
 // Called when the command is initially scheduled.
 void HighPassCommand::Initialize() {
 
-  if(auto alliance = frc::DriverStation::GetAlliance()){
-    if(alliance.value() == frc::DriverStation::Alliance::kRed){
-      targetObjective = pathplanner::GeometryUtil::flipFieldPosition(HighPassConstants::TargetObjective);
-    }
-    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
-      targetObjective = HighPassConstants::TargetObjective;
-    }
+  if(isRedAlliance()){
+    targetObjective = pathplanner::GeometryUtil::flipFieldPosition(HighPassConstants::TargetObjective);
+  } else {
+    targetObjective = HighPassConstants::TargetObjective;
   }
 
   chassis->enableSpeedHelper(&headingSpeedsHelper);

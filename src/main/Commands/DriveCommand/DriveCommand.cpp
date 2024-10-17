@@ -5,6 +5,7 @@
 #include "DriveCommand.h"
 #include <OvertureLib/Gamepad/Gamepad.h>
 #include <cmath>
+#include <Commands/UtilityFunctions/UtilityFunctions.h>
 
 DriveCommand::DriveCommand(Chassis* chassis, Gamepad* gamepad) : headingSpeedsHelper{headingController, chassis} {
   this->chassis = chassis;
@@ -15,11 +16,9 @@ DriveCommand::DriveCommand(Chassis* chassis, Gamepad* gamepad) : headingSpeedsHe
 
 // Called when the command is initially scheduled.
 void DriveCommand::Initialize() {
-  auto alliance = frc::DriverStation::GetAlliance();
-  if(alliance.value() == frc::DriverStation::Alliance::kRed){
+  if(isRedAlliance()){
     allianceMulti = -1;
-  }
-  if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+  } else {
     allianceMulti = 1;
   }
 

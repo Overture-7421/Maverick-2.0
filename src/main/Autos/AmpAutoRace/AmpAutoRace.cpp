@@ -5,10 +5,11 @@
 #include "AmpAutoRace.h"
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
+#include <Commands/UtilityFunctions/UtilityFunctions.h>
 
 frc2::CommandPtr AmpAutoRace(Storage* storage, Chassis* chassis){
     frc::Pose2d startingPose = pathplanner::PathPlannerPath::fromPathFile("AmpAuto1").get()->getPreviewStartingHolonomicPose();
-    if(frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kRed){
+    if(isRedAlliance()){
         startingPose = pathplanner::GeometryUtil::flipFieldPose(startingPose);
     }
     return frc2::cmd::Sequence(

@@ -5,6 +5,7 @@
 #include "ClimbingSpeedHelper.h"
 #include <pathplanner/lib/pathfinding/Pathfinding.h>
 #include <pathplanner/lib/pathfinding/Pathfinder.h>
+#include <Commands/UtilityFunctions/UtilityFunctions.h>
 
 ClimbingSpeedHelper::ClimbingSpeedHelper(Chassis* chassis, frc::Pose2d targetPose){
     this->chassis = chassis;
@@ -61,10 +62,9 @@ void ClimbingSpeedHelper::initialize(){
     xPIDController.Reset(chassis->getEstimatedPose().X());
     yPIDController.Reset(chassis->getEstimatedPose().Y());
 
-    auto alliance = frc::DriverStation::GetAlliance();
-    if(alliance.value() == frc::DriverStation::Alliance::kRed){
+    if(isRedAlliance()){
       targetPose = pathplanner::GeometryUtil::flipFieldPose(targetPose);
-    } else if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+    } else{
       targetPose = targetPose;
     }
 

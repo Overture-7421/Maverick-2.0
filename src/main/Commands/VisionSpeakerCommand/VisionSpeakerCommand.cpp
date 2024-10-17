@@ -4,6 +4,7 @@
 
 #include "VisionSpeakerCommand.h"
 #include "VisionSpeakerConstants.h"
+#include <Commands/UtilityFunctions/UtilityFunctions.h>
 
   VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, Gamepad* gamePad, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout) : headingSpeedsHelper({7, 0, 0.5,{1200_deg_per_s, 1200_deg_per_s_sq}}, chassis){
     this->chassis = chassis;
@@ -30,15 +31,11 @@
 
 // Called when the command is initially scheduled.
 void VisionSpeakerCommand::Initialize() {
-
-  if(auto alliance = frc::DriverStation::GetAlliance()){
-    if(alliance.value() == frc::DriverStation::Alliance::kRed){
+    if(isRedAlliance()){
       targetObjective = tagLayout->GetTagPose(4).value().ToPose2d().Translation();
-    }
-    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+    } else {
       targetObjective = tagLayout->GetTagPose(7).value().ToPose2d().Translation();
     }
-  }
 
   targetWhileMoving.setTargetLocation(targetObjective);
   chassis->enableSpeedHelper(&headingSpeedsHelper);
@@ -58,15 +55,10 @@ void VisionSpeakerCommand::Execute() {
   units::degree_t targetLower = VisionSpeakerConstants::DistanceToLowerAngle[distance];
   units::degree_t targetUpper = VisionSpeakerConstants::DistanceToUpperAngle[distance];
 
-   if(auto alliance = frc::DriverStation::GetAlliance()){
-    if(alliance.value() == frc::DriverStation::Alliance::kRed){
-   offsetUpdated = targetUpper + *offsetVisionShootRed;
-
-    }
-    if(alliance.value() == frc::DriverStation::Alliance::kBlue){
-   offsetUpdated = targetUpper + *offsetVisionShootBlue;
-
-    }
+  if(isRedAlliance()){
+    offsetUpdated = targetUpper + *offsetVisionShootRed;
+  } else {
+    offsetUpdated = targetUpper + *offsetVisionShootBlue;
   }
 
   double targetVelocity = VisionSpeakerConstants::DistanceToShooter[distance];
