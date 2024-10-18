@@ -16,21 +16,28 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "spitShoot"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "SourceSpecial1"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "GroundGrabLargeAuto"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "spitShoot"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GroundGrabLarge"
+                      }
+                    }
+                  ]
                 }
               }
             ]

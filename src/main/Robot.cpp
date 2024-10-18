@@ -23,6 +23,7 @@ void Robot::RobotInit() {
 
   pathplanner::NamedCommands::registerCommand("spitShoot", std::move(
     frc2::cmd::Sequence(
+      frc2::cmd::Wait(4.0_s),
       SpitShoot(&superStructure, &shooter).ToPtr(),
       storage.startStorage(),
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
@@ -46,7 +47,7 @@ void Robot::RobotInit() {
     )));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabLarge", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(3.5_s)
+    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(11_s) //3.5
   )); 
 
   pathplanner::NamedCommands::registerCommand("GroundGrabLargeAuto", std::move(
@@ -57,7 +58,7 @@ void Robot::RobotInit() {
     GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s)
   ));
   pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
-    FieldOrientedAlignToNote(&chassis, &noteTrackingCamera).ToPtr()
+    FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &storage).ToPtr()
   ));
 
   pathplanner::NamedCommands::registerCommand("NoVision", std::move(

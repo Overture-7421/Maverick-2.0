@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.07749806398614,
+        "x": 8.068319088913428,
         "y": 2.3239270451903833
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.957663105115334,
-        "y": 2.3790008956266515
+        "x": 6.3151348500255295,
+        "y": 2.3147480701176724
       },
       "isLocked": false,
       "linkedName": "SourceAutoSpecial1-2"
     },
     {
       "anchor": {
-        "x": 8.07749806398614,
-        "y": 0.882827958774674
+        "x": 8.068319088913428,
+        "y": 0.8736489837019632
       },
       "prevControl": {
-        "x": 7.242211332369392,
-        "y": 1.6263249396643085
+        "x": 6.342671775243662,
+        "y": 1.0205125848653478
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "AlignToNote",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.75,
       "command": {
         "type": "parallel",
         "data": {
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -38.33334010909848,
+    "rotation": -22.203478532057375,
     "rotateFast": false
   },
   "reversed": false,

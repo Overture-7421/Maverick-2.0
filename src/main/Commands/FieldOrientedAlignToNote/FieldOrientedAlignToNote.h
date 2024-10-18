@@ -23,7 +23,7 @@ class FieldOrientedAlignToNote
     : public frc2::CommandHelper<frc2::Command, FieldOrientedAlignToNote> {
  public:
   FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera, Intake *intake, Storage *storage, SuperStructure *superStructure);
-  FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera);
+  FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera, Storage *storage);
 
   void Initialize() override;
 

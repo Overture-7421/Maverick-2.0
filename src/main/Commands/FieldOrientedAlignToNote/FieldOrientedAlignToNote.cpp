@@ -20,12 +20,12 @@ FieldOrientedAlignToNote::FieldOrientedAlignToNote(Chassis *chassis, photon::Pho
   
 }
 
-FieldOrientedAlignToNote::FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera) : noteTracking(chassis, noteTrackingCamera) {
+FieldOrientedAlignToNote::FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera, Storage *storage) : noteTracking(chassis, noteTrackingCamera) {
   // Use addRequirements() here to declare subsystem dependencies.
   this->chassis = chassis;
   this->camera = noteTrackingCamera;
   this->intake = nullptr;
-  this->storage = nullptr;
+  this->storage = storage;
   this->superStructure = nullptr;
   
   AddRequirements({});
@@ -45,7 +45,7 @@ void FieldOrientedAlignToNote::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run   
 void FieldOrientedAlignToNote::Execute() {
-  if(intake != nullptr && storage != nullptr && superStructure != nullptr){
+  if(intake != nullptr  && superStructure != nullptr){
     if(storage->isNoteOnSensor()){
       storage->setVoltage(ConstantsSt::stopVoltage);
       intake->setVoltage(ConstantsIn::stopVolts);
