@@ -9,7 +9,7 @@ class ConstantsSt {
 
   public:
 
-  constexpr static const units::volt_t startVoltage = 4_V;
+  constexpr static const units::volt_t startVoltage = 4_V; //Previous 4
   constexpr static const units::volt_t startVoltageAuto = 2_V;
   constexpr static const units::volt_t stopVoltage = 0_V;
   constexpr static const units::volt_t reverseVoltage = -4_V;

@@ -23,7 +23,15 @@ void Robot::RobotInit() {
 
   pathplanner::NamedCommands::registerCommand("spitShoot", std::move(
     frc2::cmd::Sequence(
-      frc2::cmd::Wait(4.0_s),
+      frc2::cmd::Wait(1.8_s),
+      SpitShoot(&superStructure, &shooter).ToPtr(),
+      storage.startStorage(),
+      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
+      storage.stopStorage()
+    )));
+
+    pathplanner::NamedCommands::registerCommand("spitLowShoot", std::move(
+    frc2::cmd::Sequence(
       SpitShoot(&superStructure, &shooter).ToPtr(),
       storage.startStorage(),
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
@@ -55,8 +63,13 @@ void Robot::RobotInit() {
   ));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s)
+    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(5.0_s) //previous 2.6
   ));
+
+  pathplanner::NamedCommands::registerCommand("GroundGrabSmallSlow", std::move(
+    GroundGrabCommandAuto(&intake, &storage, &superStructure, &gamepad).WithTimeout(5.0_s) //previous 2.6
+  ));
+
   pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
     FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &storage).ToPtr()
   ));
@@ -103,7 +116,7 @@ void Robot::RobotInit() {
   driver.A().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.LeftBumper().OnTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  driver.LeftBumper().WhileTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
   driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
@@ -164,7 +177,8 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
   //Intake sin sensor A()
 
   //Escalada manual Y() No esta probada
-  //gamepad.Y().OnTrue(ManualClimbCommand(&superStructure).ToPtr());
+  gamepad.Y().WhileTrue(ManualClimbCommand(&superStructure).ToPtr());
+  gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
   
 
   driver.Y().OnTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
@@ -275,7 +289,6 @@ void Robot::AutonomousInit() {
   autonomo = autoChooser.GetSelected();
   autonomo->Schedule();
   chassis.setAcceptingVisionMeasurements(true);
-  
 }
 
 void Robot::AutonomousPeriodic() {

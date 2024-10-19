@@ -44,29 +44,29 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "spitShoot"
+                  "pathName": "SourceSpecial2"
                 }
               },
               {
-                "type": "parallel",
+                "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "named",
                       "data": {
-                        "pathName": "SourceSpecial2"
+                        "name": "spitLowShoot"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "GroundGrabSmall"
+                        "name": "GroundGrabSmallSlow"
                       }
                     }
                   ]
@@ -145,7 +145,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "GroundGrabSmall"
+                  "name": "GroundGrabSmallSlow"
                 }
               }
             ]

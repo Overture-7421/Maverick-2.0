@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.9831668986312447,
-        "y": 2.6635491228807098
+        "x": 2.6948948249748352,
+        "y": 3.054019793224772
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.7909167050298587,
-        "y": 2.112810618518019
+        "x": 3.502644631373449,
+        "y": 2.5032812888620812
       },
       "isLocked": false,
       "linkedName": "SourceSpecial3-4"
@@ -49,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "AlignToNote",
-      "waypointRelativePos": 1.5,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "parallel",
         "data": {
@@ -66,8 +66,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 0.7,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

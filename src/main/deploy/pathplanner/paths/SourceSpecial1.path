@@ -33,18 +33,24 @@
     {
       "anchor": {
         "x": 8.068319088913428,
-        "y": 2.3239270451903833
+        "y": 2.3268580842717244
       },
       "prevControl": {
         "x": 7.154756927715854,
-        "y": 2.108221130981662
+        "y": 2.111152170063003
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "SourceAutoSpecial1-2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 52.734512063702105,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -66,15 +72,15 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 0.7,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 20.323136829662822,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "SourceSpecial",

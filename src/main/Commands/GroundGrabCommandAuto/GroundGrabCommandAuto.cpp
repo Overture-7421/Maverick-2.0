@@ -19,10 +19,10 @@ frc2::CommandPtr GroundGrabCommandAuto(Intake* intake, Storage* storage, SuperSt
         frc2::cmd::WaitUntil([storage]{
             return storage->isNoteOnSensor();
             
-        }),
-        frc2::cmd::Parallel(
-        intake->stopIntake(),
-        storage->stopStorage()
-    )
-    );
+        })
+    
+    ).FinallyDo([=]() {
+        intake->setVoltage(0_V);
+        storage->setVoltage(0_V);
+    });
 }
