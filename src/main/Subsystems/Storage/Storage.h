@@ -30,7 +30,8 @@ class Storage : public frc2::SubsystemBase {
  //ID 24
  OverTalonFX storagemotor{24, ControllerNeutralMode::Coast, false, "rio"};
  frc::DigitalInput sensor1{1};
- frc::DigitalInput sensor2{7};
+ //frc::DigitalInput sensor2{7};
+ 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

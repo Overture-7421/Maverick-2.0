@@ -16,7 +16,8 @@ void Storage::setVoltage(units::volt_t voltage){
 }
 
 bool Storage::isNoteOnSensor(){
-    return !(sensor1.Get() || sensor2.Get());
+    return !(sensor1.Get());
+    //return !(sensor2.Get());
 }
 
 frc2::CommandPtr Storage::startStorage(){
