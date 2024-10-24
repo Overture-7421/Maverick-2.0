@@ -46,5 +46,5 @@ void FieldOrientedNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
 
 }
 
-void FieldOrientedNoteTracking::initialize() {}
-
+void FieldOrientedNoteTracking::initialize() {
+}

@@ -33,6 +33,8 @@ class FieldOrientedAlignToNote
 
   bool IsFinished() override;
 
+  static bool isSpeedHelperOn();
+
   private:
   FieldOrientedNoteTracking noteTracking;
   Chassis* chassis = nullptr;
@@ -40,4 +42,6 @@ class FieldOrientedAlignToNote
   Storage* storage = nullptr;
   SuperStructure* superStructure = nullptr;
   photon::PhotonCamera* camera = nullptr;
+
+  static bool isHelperOn;
 };

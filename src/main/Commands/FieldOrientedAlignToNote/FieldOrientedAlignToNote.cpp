@@ -6,6 +6,8 @@
 #include "Subsystems/Intake/Constants.h"
 #include "Subsystems/Storage/Constants.h"
 
+bool FieldOrientedAlignToNote::isHelperOn = false;
+
 FieldOrientedAlignToNote::FieldOrientedAlignToNote(Chassis *chassis, photon::PhotonCamera *noteTrackingCamera, Intake *intake, Storage *storage, SuperStructure *superStructure) : noteTracking(chassis, noteTrackingCamera) {
   // Use addRequirements() here to declare subsystem dependencies.
   this->chassis = chassis;
@@ -41,6 +43,7 @@ void FieldOrientedAlignToNote::Initialize() {
     storage->setVoltage(ConstantsSt::NoteTrackingSt);
   }
   
+  isHelperOn = true;
 }
 
 // Called repeatedly when this Command is scheduled to run   
@@ -57,6 +60,7 @@ void FieldOrientedAlignToNote::Execute() {
 // Called once the command ends or is interrupted.
 void FieldOrientedAlignToNote::End(bool interrupted) {
   chassis->disableSpeedHelper();
+  isHelperOn = false;
 }
 
 // Returns true when the command should end.
@@ -66,5 +70,9 @@ bool FieldOrientedAlignToNote::IsFinished() {
   } else {
     return false;
   }
+}
+
+bool FieldOrientedAlignToNote::isSpeedHelperOn(){
+  return isHelperOn;
 }
 

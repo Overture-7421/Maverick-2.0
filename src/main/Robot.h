@@ -114,6 +114,8 @@ class Robot : public OverRobot {
   frc2::Trigger isNoteOnSensorLeds{[this] {return storage.isNoteOnSensor();
   }};
 
+  frc2::Trigger fieldOrientedNoteTrackingLeds{[this] {return FieldOrientedAlignToNote::isSpeedHelperOn();
+  }};
 
  private:
   Chassis chassis;
@@ -154,9 +156,3 @@ class Robot : public OverRobot {
 
   int allianceMulti;
 };
-
-
-
-
-
-

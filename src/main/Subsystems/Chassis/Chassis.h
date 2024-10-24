@@ -34,7 +34,6 @@ public:
 
   wpi::log::StructLogEntry<frc::Pose2d>& getPoseLog() override;
   wpi::log::StructLogEntry<frc::Pose2d>& getVisionPoseLog() override;
-
  
 private:
   OverPigeon pigeon{13, "OverCANivore"}; 

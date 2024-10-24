@@ -105,18 +105,20 @@ void Robot::RobotInit() {
 
   frc::SmartDashboard::PutData("AutoChooser", &autoChooser);  
 
-  leds.SetDefaultCommand(BlinkEffect(&leds, "all", {112, 21, 133}, 4_s).ToPtr().IgnoringDisable(true));
+  leds.SetDefaultCommand(BlinkEffect(&leds, "all", {224, 42, 266}, 4_s).ToPtr().IgnoringDisable(true));
 
-  intakeLeds.WhileTrue(BlinkEffect(&leds, "all", {112, 21, 133}, 0.2_s).ToPtr().IgnoringDisable(true));
+  intakeLeds.WhileTrue(BlinkEffect(&leds, "all", {224, 42, 266}, 0.2_s).ToPtr().IgnoringDisable(true));
 
-  isNoteOnSensorLeds.WhileTrue(StaticEffect(&leds, "all", {14, 227, 49}). ToPtr().IgnoringDisable(true));
+  fieldOrientedNoteTrackingLeds.WhileTrue(BlinkEffect(&leds, "all", {255, 255, 0}, 0.2_s).ToPtr().IgnoringDisable(true));
+
+  isNoteOnSensorLeds.WhileTrue(StaticEffect(&leds, "all", {28, 254, 98}). ToPtr().IgnoringDisable(true));
   isNoteOnSensorLeds.OnTrue(driver.rumbleCommand(1.0).AndThen(frc2::cmd::Wait(1.0_s)).AndThen(driver.rumbleCommand(0.0)));
   
   //Driver
   driver.A().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
   driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
-  driver.LeftBumper().WhileTrue(FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr());
+  driver.LeftBumper().WhileTrue((FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr()));
   driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
 
   driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
