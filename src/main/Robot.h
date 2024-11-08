@@ -76,6 +76,7 @@
 #include "Commands/ResetHeading/ResetHeading.h"
 #include "Commands/Climbing/Cllimbing.h"
 #include "Commands/SpitShoot/SpitShoot.h"
+#include "Commands/NearShootFar/NearShootFar.h"
 
 
 class Robot : public OverRobot {
@@ -93,7 +94,7 @@ class Robot : public OverRobot {
   void SimulationInit() override;
   void SimulationPeriodic() override;
 
-  Gamepad gamepad{1, 0.1, 0.1};
+  Gamepad gamepad{1, 0.1, 0.8}; // Trigger 0.1
   Gamepad driver{0,0.25, 0.5};
 
   Intake intake;
@@ -101,8 +102,10 @@ class Robot : public OverRobot {
   Shooter shooter;
   SuperStructure superStructure;
   SupportArms supportArms;
-  units::degree_t offsetUpperShootRed = 0_deg;
-  units::degree_t offsetUpperShootBlue = 0_deg;
+  units::degree_t offsetUpperShootRed = 3.0_deg;
+  units::degree_t offsetUpperShootRedAuto = 1.0_deg;
+  units::degree_t offsetUpperShootBlue = 3.0_deg;
+  units::degree_t offsetUpperShootBlueAuto = 1.0_deg;
 
   LedsManager leds{8, 240, {{"all", {0, 239}
     }}};

@@ -9,7 +9,7 @@
 #include <pathplanner/lib/auto/AutoBuilder.h>
 
 frc2::CommandPtr SourceAutoRace(Storage* storage, Chassis* chassis){
-    frc::Pose2d startingPose = pathplanner::PathPlannerPath::fromPathFile("SourceAuto1").get()->getPreviewStartingHolonomicPose();
+    frc::Pose2d startingPose = pathplanner::PathPlannerPath::fromPathFile("SourceAuto1").get()->getStartingDifferentialPose();
     if(isRedAlliance()){
         startingPose = pathplanner::GeometryUtil::flipFieldPose(startingPose);
     }

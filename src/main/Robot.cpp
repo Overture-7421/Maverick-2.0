@@ -15,11 +15,19 @@ void Robot::RobotInit() {
 
  pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
     frc2::cmd::Sequence(
-      NearShoot(&superStructure, &shooter).ToPtr().WithTimeout(0.60_s),
+      NearShoot(&superStructure, &shooter).ToPtr().WithTimeout(0.70_s),
       storage.startStorage(), 
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
       storage.stopStorage()
     )));
+
+  pathplanner::NamedCommands::registerCommand("lol", std::move(
+    frc2::cmd::Sequence(
+      NearShootFar(&superStructure, &shooter).ToPtr().WithTimeout(0.95_s),
+      storage.startStorage(), 
+      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
+      storage.stopStorage()
+  )));
 
   pathplanner::NamedCommands::registerCommand("spitShoot", std::move(
     frc2::cmd::Sequence(
@@ -40,7 +48,7 @@ void Robot::RobotInit() {
 
   pathplanner::NamedCommands::registerCommand("FarSpeaker", std::move(
     frc2::cmd::Sequence(
-      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1.4_s),
+      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRedAuto, &offsetUpperShootBlueAuto, &tagLayout).ToPtr().WithTimeout(1.4_s),
       storage.startStorage(),
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
       ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
@@ -48,14 +56,14 @@ void Robot::RobotInit() {
 
   pathplanner::NamedCommands::registerCommand("VisionSpeaker", std::move(
     frc2::cmd::Sequence(
-      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr().WithTimeout(1_s),
+      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRedAuto, &offsetUpperShootBlueAuto, &tagLayout).ToPtr().WithTimeout(1.0_s),
       storage.startStorage(),
       frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
       ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
     )));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabLarge", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(11_s) //3.5
+    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(3.5_s) //3.5 //Ayer11
   )); 
 
   pathplanner::NamedCommands::registerCommand("GroundGrabLargeAuto", std::move(
@@ -63,11 +71,11 @@ void Robot::RobotInit() {
   ));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(5.0_s) //previous 2.6
+    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s) //previous 2.6 //Ayer 5.0
   ));
 
   pathplanner::NamedCommands::registerCommand("GroundGrabSmallSlow", std::move(
-    GroundGrabCommandAuto(&intake, &storage, &superStructure, &gamepad).WithTimeout(5.0_s) //previous 2.6
+    GroundGrabCommandAuto(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s) //previous 2.6 //5.0
   ));
 
   pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
@@ -95,7 +103,7 @@ void Robot::RobotInit() {
   //autoChooser.AddOption("GallitoOro", &gallitoOro);
   autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
   autoChooser.AddOption("SourceAuto", &sourceAuto);
-  autoChooser.AddOption("SourceSpecial", &sourceSpecial);
+  //autoChooser.AddOption("SourceSpecial", &sourceSpecial);
   //autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
   autoChooser.AddOption("AmpAuto", &ampAuto);
   autoChooser.AddOption("4NoteAuto", &noteAuto4);
@@ -264,8 +272,8 @@ AprilTags::Config Robot::frontRightCameraConfig() {
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();
   chassis.shuffleboardPeriodic();
-  //superStructure.getCurrentAngle(superStructure.lowerCANCoder.GetAbsolutePosition().GetValueAsDouble(), superStructure.upperCANCoder.GetAbsolutePosition().GetValueAsDouble());
-  //frc::SmartDashboard::PutNumber("upperMotor position", superStructure.upperMotor.GetPosition().GetValueAsDouble());
+  superStructure.getCurrentAngle(superStructure.lowerCANCoder.GetAbsolutePosition().GetValueAsDouble(), superStructure.upperCANCoder.GetAbsolutePosition().GetValueAsDouble());
+  frc::SmartDashboard::PutNumber("upperMotor position", superStructure.upperMotor.GetPosition().GetValueAsDouble());
   //frc::SmartDashboard::PutNumber("lowerMotor position:", superStructure.lowerRightMotor.GetPosition().GetValueAsDouble());
 
   //frc::SmartDashboard::PutNumber("actualVelocity", shooter.getVelocityVoltage());

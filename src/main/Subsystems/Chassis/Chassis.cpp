@@ -102,7 +102,7 @@ ModuleConfig Chassis::FrontLeftConfig(){
     config.TurnNeutralMode = ControllerNeutralMode::Coast;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
-    config.WheelDiameter = 4_in * 0.97;
+    config.WheelDiameter = 4_in;
     config.kP = 56.0; //Original 53
     config.ModuleName = "Front Left";
     config.Offset = -0.443359375_tr;
@@ -127,7 +127,7 @@ ModuleConfig Chassis::FrontRightConfig(){
     config.TurnNeutralMode = ControllerNeutralMode::Coast;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
-    config.WheelDiameter = 4_in * 0.97;
+    config.WheelDiameter = 4_in;
     config.kP = 53.0;
     config.DriveInverted = false;
     config.ModuleName = "Front Right";
@@ -152,7 +152,7 @@ ModuleConfig Chassis::BackLeftConfig(){
     config.TurnNeutralMode = ControllerNeutralMode::Coast;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
-    config.WheelDiameter = 4_in * 0.97;
+    config.WheelDiameter = 4_in;
     config.kP = 53.0; //Original 53
     config.ModuleName = "Back Left";
     config.DriveInverted = false;
@@ -177,7 +177,7 @@ ModuleConfig Chassis::BackRightConfig(){
     config.TurnNeutralMode = ControllerNeutralMode::Coast;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
-    config.WheelDiameter = 4_in * 0.97;
+    config.WheelDiameter = 4_in;
     config.kP = 53.0;
     config.DriveInverted = false;
     config.ModuleName = "Back Right";

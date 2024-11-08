@@ -103,6 +103,6 @@ frc2::CommandPtr SuperStructure::SysIdDynamic(frc2::sysid::Direction direction){
 }
 
 void SuperStructure::Periodic() {
-
+  
 }
 

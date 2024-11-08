@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.37,
-        "y": 4.2
+        "x": 8.21,
+        "y": 4.098792791023527
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.569837960157935,
-        "y": 4.215034393345603
+        "x": 7.409837960157937,
+        "y": 4.11382718436913
       },
       "isLocked": false,
       "linkedName": "GallitoOroV2.2-3"

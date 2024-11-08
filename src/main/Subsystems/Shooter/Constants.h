@@ -8,11 +8,12 @@
 class ConstantsSh {
  public:
   constexpr static const double ShooterSpeaker = 100.0;
-  constexpr static const double ShooterNearShoot = 105.0;
+  constexpr static const double ShooterNearShoot = 115.0;
+  constexpr static const double ShooterNearShootFar = 100.0;
   constexpr static const double ShooterSpitShoot = 25.0; //40
   constexpr static const double ShooterAmp = 70.0;
   constexpr static const double ShooterLowPass = 150.0;
-  constexpr static const double ShooterHighPass = 85.0;
+  constexpr static const double ShooterHighPass = 75.0;
   constexpr static const double ShooterFarSpeaker = 120;
   constexpr static const double StopShooterSpeaker = 0.0;
   constexpr static const double ShooterClosedCommand = 30.0;
