@@ -43,6 +43,7 @@ void ClimbingSpeedHelper::alterSpeed(frc::ChassisSpeeds &inputSpeed){
 
     //frc::ChassisSpeeds speeds = {xOut, yOut, rotationOut};
     frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(xOut, yOut, rotationOut, chassis->getEstimatedPose().Rotation());
+	speeds = frc::ChassisSpeeds::Discretize(speeds, 0.02_s);
 
     inputSpeed = speeds;
 
