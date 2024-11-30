@@ -19,10 +19,6 @@ Chassis::Chassis()
 	resetHeading();
 }
 
-void Chassis::Drive(const frc::ChassisSpeeds& speeds) {
-	auto moduleStates = kinematics.ToSwerveModuleStates(speeds);
-}
-
 units::meters_per_second_t Chassis::getMaxModuleSpeed() {
 	return 5_mps;
 }

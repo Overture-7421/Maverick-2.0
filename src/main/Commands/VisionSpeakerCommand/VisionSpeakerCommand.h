@@ -6,6 +6,7 @@
 
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
+#include <pathplanner/lib/util/FlippingUtil.h>
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
 #include "Subsystems/SuperStructure/SuperStructure.h"
 #include "Subsystems/Shooter/Shooter.h"

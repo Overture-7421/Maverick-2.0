@@ -20,11 +20,13 @@ FieldOrientedNoteTracking::FieldOrientedNoteTracking(
     }
 
 void FieldOrientedNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
-    if(!noteTrackingCamera->GetLatestResult().HasTargets()){
+	std::vector<photon::PhotonPipelineResult> targets = noteTrackingCamera->GetAllUnreadResults();
+
+    if(targets.empty()){
         return;
     }
 
-    photon::PhotonTrackedTarget trackedTarget = noteTrackingCamera->GetLatestResult().GetTargets().front();
+    photon::PhotonTrackedTarget trackedTarget = targets[0].GetTargets().front();
     units::meter_t distanceToTarget = photon::PhotonUtils::CalculateDistanceToTarget(0.25_m, 0.045_m, -20_deg, units::degree_t(trackedTarget.GetPitch()));
 
     frc::Translation2d targetTranslation = photon::PhotonUtils::EstimateCameraToTargetTranslation(distanceToTarget, {units::degree_t(trackedTarget.GetYaw())});

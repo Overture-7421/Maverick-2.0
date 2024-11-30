@@ -48,6 +48,7 @@
 #include <frc2/command/CommandScheduler.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/button/Trigger.h>
+#include <pathplanner/lib/auto/AutoBuilder.h>
 
 #include "Commands/AligntToNote/AlignToNote.h"
 #include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
@@ -148,16 +149,8 @@ private:
 
 	frc::SendableChooser<frc2::Command*> autoChooser;
 
-	frc2::CommandPtr gallitoOro = frc2::cmd::None();
-	frc2::CommandPtr gallitoOroV2 = frc2::cmd::None();
 	frc2::CommandPtr sourceAuto = frc2::cmd::None();
-	frc2::CommandPtr sourceSpecial = frc2::cmd::None();
 	frc2::CommandPtr ampAuto = frc2::cmd::None();
-	frc2::CommandPtr noteAuto4 = frc2::cmd::None();
-	frc2::CommandPtr autonomousGallito = frc2::cmd::None();
-	frc2::CommandPtr defaultAuto = frc2::cmd::None();
-
-	frc2::CommandPtr* autonomo = nullptr;
 
 	int allianceMulti;
 

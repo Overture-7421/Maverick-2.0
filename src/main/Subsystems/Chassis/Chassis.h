@@ -14,8 +14,6 @@ class Chassis : public SwerveChassis {
 public:
     Chassis();
  
-
-  void Drive(const frc::ChassisSpeeds& speeds); 
   units::meters_per_second_t getMaxModuleSpeed() override; 
   units::meter_t getDriveBaseRadius() override;
   frc::Rotation2d getRotation2d() override;

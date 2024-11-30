@@ -89,23 +89,13 @@ RobotContainer::RobotContainer() {
 		frc2::cmd::RunOnce([this] {chassis.setAcceptingVisionMeasurements(true);})
 	));
 
-	//gallitoOro = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
-	gallitoOroV2 = pathplanner::AutoBuilder::buildAuto("GallitoOroV2");
-	//autonomousGallito = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
-	noteAuto4 = pathplanner::AutoBuilder::buildAuto("4NoteAuto");
-	sourceSpecial = pathplanner::AutoBuilder::buildAuto("SourceSpecial");
 	sourceAuto = SourceAutoRace(&storage, &chassis);
 	ampAuto = AmpAutoRace(&storage, &chassis);
 
 
-	autoChooser.SetDefaultOption("None", defaultAuto.get());
-	//autoChooser.AddOption("GallitoOro", gallitoOro.get());
-	autoChooser.AddOption("GallitoOroV2", gallitoOroV2.get());
+	autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
 	autoChooser.AddOption("SourceAuto", sourceAuto.get());
-	//autoChooser.AddOption("SourceSpecial", sourceSpecial.get());
-	//autoChooser.AddOption("AutonomousGallito", autonomousGallito.get());
 	autoChooser.AddOption("AmpAuto", ampAuto.get());
-	autoChooser.AddOption("4NoteAuto", noteAuto4.get());
 
 
 	frc::SmartDashboard::PutData("AutoChooser", &autoChooser);
