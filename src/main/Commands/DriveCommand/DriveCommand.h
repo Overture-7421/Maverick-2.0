@@ -13,7 +13,7 @@
 #include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
 
-#include <OvertureLib/Gamepad/Gamepad.h>
+#include <OvertureLib/Gamepads/OverXboxController/OverXboxController.h>
 
 /**
  * An example command.
@@ -25,7 +25,7 @@
 class DriveCommand
     : public frc2::CommandHelper<frc2::Command, DriveCommand> {
  public:
-  DriveCommand(Chassis* chassis, Gamepad* gamepad);
+  DriveCommand(Chassis* chassis, OverXboxController* gamepad);
 
   void Initialize() override;
 
@@ -38,7 +38,7 @@ class DriveCommand
   private:
 
   Chassis* chassis;
-  Gamepad* gamepad;
+  OverXboxController* gamepad;
 
     frc::ProfiledPIDController<units::radian> headingController{
     // PID constants: 

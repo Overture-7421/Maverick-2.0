@@ -6,6 +6,5 @@
 
 #include "Subsystems/Chassis/Chassis.h"
 #include <frc2/command/Commands.h>
-#include "OvertureLib/Gamepad/Gamepad.h"
 
 frc2::CommandPtr ResetHeading(Chassis* chassis);

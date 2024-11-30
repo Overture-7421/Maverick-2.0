@@ -8,11 +8,11 @@
 #include "Subsystems/Storage/Storage.h"
 #include <frc/DigitalInput.h>
 #include "Subsystems/SuperStructure/SuperStructure.h" 
-#include "OvertureLib/Gamepad/Gamepad.h"
+#include "OvertureLib/Gamepads/OverXboxController/OverXboxController.h"
 
 #include <frc2/command/Commands.h>
 
-frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure, Gamepad* gamepad);
+frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure, OverXboxController* gamepad);
 
 
 

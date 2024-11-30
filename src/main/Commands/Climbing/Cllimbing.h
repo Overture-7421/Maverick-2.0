@@ -2,7 +2,7 @@
 
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <frc/XboxController.h>
-#include "OvertureLib/Gamepad/Gamepad.h"
+#include "OvertureLib/Gamepads/OverXboxController/OverXboxController.h"
 
 
 #include "Subsystems/Chassis/Chassis.h"
@@ -20,5 +20,5 @@
 #include <vector>
 #include <utility>
 
-frc2::CommandPtr AutoClimb(Chassis* chassis, SuperStructure* superStructure, SupportArms* supportArms, Storage* storage, Shooter* shooter, Gamepad* gamepad);
-frc2::CommandPtr ManualClimb(Chassis* chassis, SuperStructure* superStructure, SupportArms* supportArms, Storage* storage, Shooter* shooter, Gamepad* gamepad);
+frc2::CommandPtr AutoClimb(Chassis* chassis, SuperStructure* superStructure, SupportArms* supportArms, Storage* storage, Shooter* shooter, OverXboxController* gamepad);
+frc2::CommandPtr ManualClimb(Chassis* chassis, SuperStructure* superStructure, SupportArms* supportArms, Storage* storage, Shooter* shooter, OverXboxController* gamepad);

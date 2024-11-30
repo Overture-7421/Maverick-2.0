@@ -8,6 +8,7 @@
 #include "OvertureLib/MotorControllers/OverTalonFX/OverTalonFX.h"
 #include "OvertureLib/MotorControllers/ControllerNeutralMode/ControllerNeutralMode.h"
 #include <frc/DigitalInput.h>
+#include "Constants.h"
 
 
 class Storage : public frc2::SubsystemBase {
@@ -28,7 +29,8 @@ class Storage : public frc2::SubsystemBase {
 
  private:
  //ID 24
- OverTalonFX storagemotor{24, ControllerNeutralMode::Coast, false, "rio"};
+ OverTalonFX storagemotor{ConstantsSt::storageMotorConfig, "rio"};
+ VoltageOut voltageOut{ 0_V };
  frc::DigitalInput sensor1{1};
  //frc::DigitalInput sensor2{7};
  

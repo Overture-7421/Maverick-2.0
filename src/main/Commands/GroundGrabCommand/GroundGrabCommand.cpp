@@ -4,7 +4,7 @@
 
 #include "GroundGrabCommand.h"
 
-frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure, Gamepad* gamepad){
+frc2::CommandPtr GroundGrabCommand(Intake* intake, Storage* storage, SuperStructure* superStructure, OverXboxController* gamepad){
     return frc2::cmd::Sequence(
         superStructure->setAngle(-31_deg, 68_deg),
         frc2::cmd::WaitUntil([superStructure]{

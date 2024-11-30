@@ -31,18 +31,15 @@ public:
 	frc::SlewRateLimiter<units::radians_per_second>& getVwLimiter() override;
 
   frc::SwerveDriveKinematics<4>& getKinematics() override;
-
-  wpi::log::StructLogEntry<frc::Pose2d>& getPoseLog() override;
-  wpi::log::StructLogEntry<frc::Pose2d>& getVisionPoseLog() override;
  
 private:
   OverPigeon pigeon{13, "OverCANivore"}; 
 
   // Module configurations
-  static ModuleConfig FrontLeftConfig();
-  static ModuleConfig FrontRightConfig();
-  static ModuleConfig BackLeftConfig();
-  static ModuleConfig BackRightConfig();
+  static SwerveModuleConfig FrontLeftConfig();
+  static SwerveModuleConfig FrontRightConfig();
+  static SwerveModuleConfig BackLeftConfig();
+  static SwerveModuleConfig BackRightConfig();
 
   // Swerve modules
   SwerveModule frontLeftModule{Chassis::FrontLeftConfig()};

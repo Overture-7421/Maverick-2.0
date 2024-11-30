@@ -6,7 +6,7 @@
 #include "VisionSpeakerConstants.h"
 #include <Commands/UtilityFunctions/UtilityFunctions.h>
 
-  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, Gamepad* gamePad, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout) : headingSpeedsHelper({7, 0, 0.5,{1200_deg_per_s, 1200_deg_per_s_sq}}, chassis){
+  VisionSpeakerCommand::VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, OverXboxController* gamePad, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout) : headingSpeedsHelper({7, 0, 0.5,{1200_deg_per_s, 1200_deg_per_s_sq}}, chassis){
     this->chassis = chassis;
     this->superstructure = superstructure;
     this->shooter = shooter;

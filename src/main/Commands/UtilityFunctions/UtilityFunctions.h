@@ -15,9 +15,9 @@ const std::vector<std::pair<StageLocation, frc::Pose2d>> blueStageLocations{
 };
 
 const std::vector<std::pair<StageLocation, frc::Pose2d>> redStageLocations{
-	{StageLocation::Left,  pathplanner::GeometryUtil::flipFieldPose(blueStageLocations[0].second)},
-	{StageLocation::Right, pathplanner::GeometryUtil::flipFieldPose(blueStageLocations[1].second)},
-	{StageLocation::Back,  pathplanner::GeometryUtil::flipFieldPose(blueStageLocations[2].second)}
+	{StageLocation::Left,  pathplanner::FlippingUtil::flipFieldPose(blueStageLocations[0].second)},
+	{StageLocation::Right, pathplanner::FlippingUtil::flipFieldPose(blueStageLocations[1].second)},
+	{StageLocation::Back,  pathplanner::FlippingUtil::flipFieldPose(blueStageLocations[2].second)}
 };
 
 bool isRedAlliance();

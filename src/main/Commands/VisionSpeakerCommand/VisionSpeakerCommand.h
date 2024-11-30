@@ -11,7 +11,7 @@
 #include "Subsystems/Shooter/Shooter.h"
 #include "Subsystems/Chassis/Chassis.h"
 #include <OvertureLib/Subsystems/Swerve/SpeedsHelper/HeadingSpeedsHelper/HeadingSpeedsHelper.h>
-#include <OvertureLib/Gamepad/Gamepad.h>
+#include <OvertureLib/Gamepads/OverXboxController/OverXboxController.h>
 #include "frc/apriltag/AprilTag.h"
 #include "frc/apriltag/AprilTagFieldLayout.h"
 
@@ -23,51 +23,48 @@
  * Command will *not* work!
  */
 class VisionSpeakerCommand
-    : public frc2::CommandHelper<frc2::Command, VisionSpeakerCommand> {
- public:
-  VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, Gamepad* gamePad, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout);
-  VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout);
+	: public frc2::CommandHelper<frc2::Command, VisionSpeakerCommand> {
+public:
+	VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, OverXboxController* gamePad, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout);
+	VisionSpeakerCommand(Chassis* chassis, SuperStructure* superstructure, Shooter* shooter, units::degree_t* offsetVisionShootRed, units::degree_t* offsetVisionShootBlue, frc::AprilTagFieldLayout* tagLayout);
 
-  void Initialize() override; 
+	void Initialize() override;
 
-  void Execute() override;
+	void Execute() override;
 
-  void End(bool interrupted) override;
+	void End(bool interrupted) override;
 
-  bool IsFinished() override;
+	bool IsFinished() override;
 
-  private:
-  frc::Translation2d targetObjective;
-  TargetingWhileMoving targetWhileMoving{
-{
+private:
+	frc::Translation2d targetObjective;
+	TargetingWhileMoving targetWhileMoving{
+  {
 
-  {1.66_m, 0.22_s},
-  {1.9_m, 0.22_s},
-  {2.4_m, 0.25_s},
-  {2.9_m, 0.23_s},
-  {3.4_m, 0.26_s},
-  {3.9_m, 0.26_s},
-  {4.4_m, 0.34_s},
-  {4.9_m, 0.37_s},
-  {5.4_m, 0.38_s},
-  {5.9_m, 0.43_s},
-  {6.4_m, 0.48_s},
-  {6.9_m, 0.51_s},
+	{1.66_m, 0.22_s},
+	{1.9_m, 0.22_s},
+	{2.4_m, 0.25_s},
+	{2.9_m, 0.23_s},
+	{3.4_m, 0.26_s},
+	{3.9_m, 0.26_s},
+	{4.4_m, 0.34_s},
+	{4.9_m, 0.37_s},
+	{5.4_m, 0.38_s},
+	{5.9_m, 0.43_s},
+	{6.4_m, 0.48_s},
+	{6.9_m, 0.51_s},
+  }
 
+	};
 
-
-}
-
-  };
-
-  SuperStructure* superstructure = nullptr;
-  Shooter* shooter = nullptr;
-  Chassis* chassis = nullptr;
-  HeadingSpeedsHelper headingSpeedsHelper;
-  Gamepad* gamePad = nullptr;
-  units::degree_t* offsetVisionShootRed = nullptr;
-  units::degree_t* offsetVisionShootBlue = nullptr;
-  frc::AprilTagFieldLayout* tagLayout = nullptr;
-  units::degree_t offsetUpdated;
-  };
+	SuperStructure* superstructure = nullptr;
+	Shooter* shooter = nullptr;
+	Chassis* chassis = nullptr;
+	HeadingSpeedsHelper headingSpeedsHelper;
+	OverXboxController* gamePad = nullptr;
+	units::degree_t* offsetVisionShootRed = nullptr;
+	units::degree_t* offsetVisionShootBlue = nullptr;
+	frc::AprilTagFieldLayout* tagLayout = nullptr;
+	units::degree_t offsetUpdated;
+};
 

@@ -14,11 +14,12 @@ SpeedHelperNoteTracking::SpeedHelperNoteTracking(
 
 void SpeedHelperNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
 
-    if(!noteTrackingCamera->HasTargets()){
+	std::vector<photon::PhotonPipelineResult> getResults = noteTrackingCamera->GetAllUnreadResults();
+    if(!getResults.empty()) {
         return;
     }
 
-   photon::PhotonTrackedTarget trackedTarget = noteTrackingCamera->GetLatestResult().GetTargets().front();
+   photon::PhotonTrackedTarget trackedTarget = getResults[0].GetTargets().front();
    units::meter_t distanceToTarget = photon::PhotonUtils::CalculateDistanceToTarget(0.30_m, 0.045_m, -36_deg, units::degree_t(trackedTarget.GetPitch()));
    frc::Translation2d targetTranslation = photon::PhotonUtils::EstimateCameraToTargetTranslation(distanceToTarget, {units::degree_t(trackedTarget.GetYaw())});
 

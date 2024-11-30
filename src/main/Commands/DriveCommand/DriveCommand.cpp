@@ -3,11 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "DriveCommand.h"
-#include <OvertureLib/Gamepad/Gamepad.h>
+#include <OvertureLib/Gamepads/OverXboxController/OverXboxController.h>
 #include <cmath>
 #include <Commands/UtilityFunctions/UtilityFunctions.h>
 
-DriveCommand::DriveCommand(Chassis* chassis, Gamepad* gamepad) : headingSpeedsHelper{headingController, chassis} {
+DriveCommand::DriveCommand(Chassis* chassis, OverXboxController* gamepad) : headingSpeedsHelper{headingController, chassis} {
   this->chassis = chassis;
   this->gamepad = gamepad;
   // Use addRequirements() here to declare subsystem dependencies.
@@ -49,9 +49,9 @@ void DriveCommand::Execute() {
 
   headingSpeedsHelper.setTargetAngle(targetAngle);
 
-  auto xSpeed = xInput.Calculate(Utils::ApplyAxisFilter(allianceMulti * -gamepad->GetRawAxis(1), 0.2, 0.5) * chassis->getMaxModuleSpeed());
-  auto ySpeed = yInput.Calculate(Utils::ApplyAxisFilter(allianceMulti * -gamepad->GetRawAxis(0), 0.2, 0.5) * chassis->getMaxModuleSpeed());
-  auto rotationSpeed = (-gamepad->getTwist() * 5.0_tps);
+  auto xSpeed = xInput.Calculate(Utils::ApplyAxisFilter(allianceMulti * -gamepad->GetHID().GetRawAxis(1), 0.2, 0.5) * chassis->getMaxModuleSpeed());
+  auto ySpeed = yInput.Calculate(Utils::ApplyAxisFilter(allianceMulti * -gamepad->GetHID().GetRawAxis(0), 0.2, 0.5) * chassis->getMaxModuleSpeed());
+  auto rotationSpeed = (gamepad->getTwist() * 5.0_tps);
 
   frc::ChassisSpeeds speeds = frc::ChassisSpeeds::Discretize(frc::ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, chassis->getEstimatedPose().Rotation()), 0.02_s);
   chassis->setTargetSpeeds(speeds);

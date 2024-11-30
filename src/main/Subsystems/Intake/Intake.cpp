@@ -7,7 +7,8 @@
 Intake::Intake() = default;
 
 void Intake::setVoltage(units::volt_t voltage){
-    intakeMotor.SetVoltage(voltage);
+    voltageOut.EnableFOC = false;
+	intakeMotor.SetControl(voltageOut.WithOutput(voltage));
 }
 
 double Intake::getVoltage(){

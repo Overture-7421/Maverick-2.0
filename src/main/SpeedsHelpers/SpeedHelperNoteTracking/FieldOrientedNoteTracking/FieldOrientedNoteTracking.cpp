@@ -20,7 +20,7 @@ FieldOrientedNoteTracking::FieldOrientedNoteTracking(
     }
 
 void FieldOrientedNoteTracking::alterSpeed(frc::ChassisSpeeds &inputSpeed) {
-    if(!noteTrackingCamera->HasTargets()){
+    if(!noteTrackingCamera->GetLatestResult().HasTargets()){
         return;
     }
 

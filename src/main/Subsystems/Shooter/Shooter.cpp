@@ -3,43 +3,38 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Shooter.h"
-#include "Constants.h"
 
-Shooter::Shooter(){
-    leftMotor.setFollow(25, true);
+Shooter::Shooter() {
+	leftMotor.setFollow(25, true);
 
-    rightMotor.setPIDValues(0.1,0,0,0,0.065);
-    rightMotor.setSensorToMechanism(ConstantsSh::ShooterGearRatio);
-    rightMotor.setRotorToSensorRatio(ConstantsSh::ShooterMotorToSensor);
-
-    rightMotor.setClosedLoopVoltageRamp(0.1);
-    rightMotor.setSupplyCurrentLimit(true, 40, 60, 0.25);
+	rightMotor.setSensorToMechanism(ConstantsSh::ShooterGearRatio);
+	rightMotor.setRotorToSensorRatio(ConstantsSh::ShooterMotorToSensor);
 }
 
-void Shooter::setVoltage(units::volt_t voltage){
-    rightMotor.SetVoltage(voltage);
+void Shooter::setVoltage(units::volt_t voltage) {
+	rightMotor.SetVoltage(voltage);
 }
 
-double Shooter::getVelocityVoltage(){
-    return rightMotor.GetVelocity().GetValueAsDouble();
+double Shooter::getVelocityVoltage() {
+	return rightMotor.GetVelocity().GetValueAsDouble();
 }
 
-void Shooter::setObjectiveVelocity(double velocity){
-    rightMotor.setVelocityVoltage(velocity, 0, false);
+void Shooter::setObjectiveVelocity(double velocity) {
+	rightMotor.SetControl(velocityOutput.WithVelocity(units::turns_per_second_t{ velocity }).WithEnableFOC(false));
 }
 
-frc2::CommandPtr Shooter::setObjectiveVelocityPtr(){
-    return this->RunOnce([this] {this->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);});
+frc2::CommandPtr Shooter::setObjectiveVelocityPtr() {
+	return this->RunOnce([this] {this->setObjectiveVelocity(ConstantsSh::StopShooterSpeaker);});
 }
 
-bool Shooter::getObjectiveVelocity(double velocity){
-    double shooterError = velocity - rightMotor.GetVelocity().GetValueAsDouble();
+bool Shooter::getObjectiveVelocity(double velocity) {
+	double shooterError = velocity - rightMotor.GetVelocity().GetValueAsDouble();
 
-    if(std::abs(shooterError < 5)){
-        return true;
-    } else {
-        return false;
-    }
+	if (std::abs(shooterError < 5)) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 

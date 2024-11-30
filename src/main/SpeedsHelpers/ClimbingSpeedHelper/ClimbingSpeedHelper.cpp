@@ -55,7 +55,7 @@ void ClimbingSpeedHelper::initialize(){
     yPIDController.Reset(chassis->getEstimatedPose().Y());
 
     if(isRedAlliance()){
-      targetPose = pathplanner::GeometryUtil::flipFieldPose(targetPose);
+      targetPose = pathplanner::FlippingUtil::flipFieldPose(targetPose);
     } else{
       targetPose = targetPose;
     }

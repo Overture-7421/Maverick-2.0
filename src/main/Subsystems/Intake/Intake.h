@@ -9,7 +9,6 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/CommandBase.h>
 #include "Constants.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
@@ -34,8 +33,8 @@ class Intake : public frc2::SubsystemBase {
 
  private:
  //ID 20
-    OverTalonFX intakeMotor{20, ControllerNeutralMode::Coast, true, "rio"};
-
+    OverTalonFX intakeMotor{ConstantsIn::intakeMotorConfig, "rio"};
+	VoltageOut voltageOut{ 0_V };
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

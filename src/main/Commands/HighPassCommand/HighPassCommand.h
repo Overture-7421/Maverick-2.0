@@ -14,7 +14,7 @@
 #include <frc/controller/ProfiledPIDController.h>
 #include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
-#include <OvertureLib/Gamepad/Gamepad.h>
+#include <OvertureLib/Gamepads/OverXboxController/OverXboxController.h>
 
 
 /**
@@ -27,7 +27,7 @@
 class HighPassCommand
     : public frc2::CommandHelper<frc2::Command, HighPassCommand> {
  public:
-  HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad);
+  HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, OverXboxController* gamePad);
 
   void Initialize() override;
 
@@ -40,7 +40,7 @@ class HighPassCommand
   private:
   SuperStructure* superStructure;
   Shooter* shooter;
-  Gamepad* gamePad;
+  OverXboxController* gamePad;
   Chassis* chassis;
   
 

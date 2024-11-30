@@ -7,7 +7,19 @@
 
 class ConstantsSt {
 
-  public:
+public: 
+  constexpr static const OverTalonFXConfig storageMotorConfig = {
+	.MotorId = 24,
+	.NeutralMode = ControllerNeutralMode::Coast,
+	.Inverted = false,
+	.useFOC = false,
+	.PIDConfigs = ctre::phoenix6::configs::SlotConfigs(),
+	.CurrentLimit = 0_A,
+	.StatorCurrentLimit = 0_A,
+	.TriggerThreshold = 0_A,
+	.TriggerThresholdTime = 0_s,
+	.ClosedLoopRampRate = 0_s
+  };
 
   constexpr static const units::volt_t startVoltage = 4_V; //Previous 4
   constexpr static const units::volt_t startVoltageAuto = 2_V;

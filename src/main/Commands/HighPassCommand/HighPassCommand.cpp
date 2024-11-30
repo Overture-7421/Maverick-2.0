@@ -7,11 +7,10 @@
 #include "Commands/HighPassCommand/HighPassConstants.h"
 
 #include <frc/DriverStation.h>
-#include <pathplanner/lib/util/GeometryUtil.h>
 #include <Commands/UtilityFunctions/UtilityFunctions.h>
 
 
-HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, Gamepad* gamePad) : headingSpeedsHelper{headingController, chassis}{
+HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shooter, Chassis* chassis, OverXboxController* gamePad) : headingSpeedsHelper{headingController, chassis}{
   this->superStructure = superStructure;
   this->shooter = shooter;
   this->chassis = chassis;
@@ -24,7 +23,7 @@ HighPassCommand::HighPassCommand(SuperStructure* superStructure, Shooter* shoote
 void HighPassCommand::Initialize() {
 
   if(isRedAlliance()){
-    targetObjective = pathplanner::GeometryUtil::flipFieldPosition(HighPassConstants::TargetObjective);
+    targetObjective = pathplanner::FlippingUtil::flipFieldPosition(HighPassConstants::TargetObjective);
   } else {
     targetObjective = HighPassConstants::TargetObjective;
   }
