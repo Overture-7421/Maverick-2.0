@@ -60,9 +60,6 @@ void DriveCommand::Execute() {
 			speeds, RobotConstants::LoopTime
 		)
 	);
-  
-  chassis->setTargetSpeeds(speeds);
-
 }
 
 // Called once the command ends or is interrupted.
