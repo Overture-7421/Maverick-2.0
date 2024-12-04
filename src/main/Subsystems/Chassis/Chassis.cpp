@@ -82,9 +82,6 @@ frc::Rotation3d Chassis::getRotation3d() {
 }
 
 
-
-
-
 ModuleConfig Chassis::FrontLeftConfig(){
     ModuleConfig config{feedForwardFrontLeft};
     config.DrivedId = 6;
