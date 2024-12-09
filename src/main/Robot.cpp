@@ -3,206 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-#include <fmt/core.h>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <frc/MathUtil.h>
+#include <frc2/command/CommandScheduler.h>
+#include <frc/DataLogManager.h>
+#include <iostream>
 
-#include <pathplanner/lib/path/PathPlannerTrajectory.h>
-#include <pathplanner/lib/auto/NamedCommands.h>
-#include <frc2/command/Command.h>
-
-void Robot::RobotInit() {
-
- pathplanner::NamedCommands::registerCommand("autoSpeaker", std::move(
-    frc2::cmd::Sequence(
-      NearShoot(&superStructure, &shooter).ToPtr().WithTimeout(0.70_s),
-      storage.startStorage(), 
-      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
-      storage.stopStorage()
-    )));
-
-  pathplanner::NamedCommands::registerCommand("lol", std::move(
-    frc2::cmd::Sequence(
-      NearShootFar(&superStructure, &shooter).ToPtr().WithTimeout(0.95_s),
-      storage.startStorage(), 
-      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
-      storage.stopStorage()
-  )));
-
-  pathplanner::NamedCommands::registerCommand("spitShoot", std::move(
-    frc2::cmd::Sequence(
-      frc2::cmd::Wait(1.8_s),
-      SpitShoot(&superStructure, &shooter).ToPtr(),
-      storage.startStorage(),
-      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
-      storage.stopStorage()
-    )));
-
-    pathplanner::NamedCommands::registerCommand("spitLowShoot", std::move(
-    frc2::cmd::Sequence(
-      SpitShoot(&superStructure, &shooter).ToPtr(),
-      storage.startStorage(),
-      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
-      storage.stopStorage()
-    )));
-
-  pathplanner::NamedCommands::registerCommand("FarSpeaker", std::move(
-    frc2::cmd::Sequence(
-      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRedAuto, &offsetUpperShootBlueAuto, &tagLayout).ToPtr().WithTimeout(1.4_s),
-      storage.startStorage(),
-      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
-      ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
-    )));
-
-  pathplanner::NamedCommands::registerCommand("VisionSpeaker", std::move(
-    frc2::cmd::Sequence(
-      VisionSpeakerCommand(&chassis, &superStructure, &shooter, &offsetUpperShootRedAuto, &offsetUpperShootBlueAuto, &tagLayout).ToPtr().WithTimeout(1.0_s),
-      storage.startStorage(),
-      frc2::cmd::WaitUntil([&] {return !storage.isNoteOnSensor();}),
-      ClosedCommandAuto(&superStructure, &shooter, &storage, &intake).ToPtr()
-    )));
-
-  pathplanner::NamedCommands::registerCommand("GroundGrabLarge", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(3.5_s) //3.5 //Ayer11
-  )); 
-
-  pathplanner::NamedCommands::registerCommand("GroundGrabLargeAuto", std::move(
-    GroundGrabCommandAuto(&intake, &storage, &superStructure, &gamepad).WithTimeout(4.0_s)
-  ));
-
-  pathplanner::NamedCommands::registerCommand("GroundGrabSmall", std::move(
-    GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s) //previous 2.6 //Ayer 5.0
-  ));
-
-  pathplanner::NamedCommands::registerCommand("GroundGrabSmallSlow", std::move(
-    GroundGrabCommandAuto(&intake, &storage, &superStructure, &gamepad).WithTimeout(2.6_s) //previous 2.6 //5.0
-  ));
-
-  pathplanner::NamedCommands::registerCommand("AlignToNote", std::move(
-    FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &storage).ToPtr()
-  ));
-
-  pathplanner::NamedCommands::registerCommand("NoVision", std::move(
-    frc2::cmd::RunOnce([this] {chassis.setAcceptingVisionMeasurements(false);})
-  ));
-
-  pathplanner::NamedCommands::registerCommand("YesVision", std::move(
-    frc2::cmd::RunOnce([this] {chassis.setAcceptingVisionMeasurements(true);})
-  )); 
-  
-  //gallitoOro = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
-  gallitoOroV2 = pathplanner::AutoBuilder::buildAuto("GallitoOroV2");
-  //autonomousGallito = pathplanner::AutoBuilder::buildAuto("AutonomousGallito");
-  noteAuto4 = pathplanner::AutoBuilder::buildAuto("4NoteAuto");
-  sourceSpecial = pathplanner::AutoBuilder::buildAuto("SourceSpecial");
-  sourceAuto = SourceAutoRace(&storage, &chassis);
-  ampAuto = AmpAutoRace(&storage, &chassis);
-
-  
-  autoChooser.SetDefaultOption("None", &defaultAuto);
-  //autoChooser.AddOption("GallitoOro", &gallitoOro);
-  autoChooser.AddOption("GallitoOroV2", &gallitoOroV2);
-  autoChooser.AddOption("SourceAuto", &sourceAuto);
-  //autoChooser.AddOption("SourceSpecial", &sourceSpecial);
-  //autoChooser.AddOption("AutonomousGallito", &autonomousGallito);
-  autoChooser.AddOption("AmpAuto", &ampAuto);
-  autoChooser.AddOption("4NoteAuto", &noteAuto4);
-
-
-
-
-  frc::SmartDashboard::PutData("AutoChooser", &autoChooser);  
-
-  leds.SetDefaultCommand(BlinkEffect(&leds, "all", {224, 42, 266}, 4_s).ToPtr().IgnoringDisable(true));
-
-  intakeLeds.WhileTrue(BlinkEffect(&leds, "all", {224, 42, 266}, 0.2_s).ToPtr().IgnoringDisable(true));
-
-  fieldOrientedNoteTrackingLeds.WhileTrue(BlinkEffect(&leds, "all", {255, 255, 0}, 0.2_s).ToPtr().IgnoringDisable(true));
-
-  isNoteOnSensorLeds.WhileTrue(StaticEffect(&leds, "all", {28, 254, 98}). ToPtr().IgnoringDisable(true));
-  isNoteOnSensorLeds.OnTrue(driver.rumbleCommand(1.0).AndThen(frc2::cmd::Wait(1.0_s)).AndThen(driver.rumbleCommand(0.0)));
-  
-  //Driver
-  driver.A().OnTrue(LowPassCommand(&superStructure, &shooter, &chassis, &gamepad).ToPtr());
-  driver.A().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  driver.LeftBumper().WhileTrue((FieldOrientedAlignToNote(&chassis, &noteTrackingCamera, &intake, &storage, &superStructure).ToPtr()));
-  driver.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  driver.X().OnTrue(HighPassCommand(&superStructure, &shooter,&chassis, &gamepad).ToPtr());
-  driver.X().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  driver.RightBumper().WhileTrue(VisionSpeakerCommand(&chassis, &superStructure, &shooter, &gamepad, &offsetUpperShootRed, &offsetUpperShootBlue, &tagLayout).ToPtr());
-  driver.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  //driver.Y().WhileTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
-  //driver.Y().OnFalse(superStructure.setAngle(-10_deg, 80_deg));
-
-  driver.B().OnTrue(SpitNoteCommand(&intake, &storage, &superStructure));
-  driver.B().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  driver.Back().OnTrue(ResetHeading(&chassis));
-
-//OPERATOR BUTTONS
-
-  gamepad.upDpad().OnTrue(frc2::cmd::RunOnce([&]{
-    offsetUpperShootRed += -1.0_deg;
-    offsetUpperShootBlue += -1.0_deg;
-
-  }).AlongWith(BlinkEffect(&leds, "all", {255, 0, 0}, 0.3_s).ToPtr()).WithTimeout(2_s));
-
-   gamepad.downDpad().OnTrue(frc2::cmd::RunOnce([&]{
-    offsetUpperShootRed += 1.0_deg;
-    offsetUpperShootBlue += 1.0_deg;
-  }).AlongWith(BlinkEffect(&leds, "all", {0, 0, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));
-
-gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
-    offsetUpperShootRed = 0.0_deg;
-    offsetUpperShootBlue = 0.0_deg;
-  }).AlongWith(BlinkEffect(&leds, "all", {255, 255, 255}, 0.3_s).ToPtr()).WithTimeout(2_s));
-
-
-  chassis.SetDefaultCommand(DriveCommand(&chassis, &driver).ToPtr());
-
-  gamepad.LeftBumper().OnTrue(AmpCommand(&superStructure, &shooter).ToPtr());
-  gamepad.LeftBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  gamepad.RightBumper().OnTrue(ManualSpeakerCommand(&superStructure, &shooter).ToPtr());
-  gamepad.RightBumper().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  gamepad.RightTrigger().OnTrue(GroundGrabCommand(&intake, &storage, &superStructure, &gamepad).Unless([&]{
-      return driver.GetRightBumper() || storage.isNoteOnSensor() || driver.GetBButton() || driver.GetXButton();
-    
-  }));
-
-
-   gamepad.RightTrigger().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr().Unless([&]{
-       return driver.GetRightBumper() || driver.GetBButton() || driver.GetXButton();
-    
-   }));
-
-  gamepad.LeftTrigger().OnTrue(storage.startStorage());
-  gamepad.LeftTrigger().OnFalse(storage.stopStorage());
-
-  //Intake sin sensor A()
-
-  //Escalada manual Y() No esta probada
-  gamepad.Y().WhileTrue(ManualClimbCommand(&superStructure).ToPtr());
-  gamepad.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-  
-
-  driver.Y().OnTrue(AutoClimb(&chassis, &superStructure, &supportArms, &storage, &shooter, &gamepad));
-  driver.Y().OnFalse(ClosedCommand(&superStructure, &shooter, &storage, &intake).ToPtr());
-
-  //driver.Y().WhileTrue(Pathfind(&chassis, {4_m, 4_m, 0_deg}).ToPtr());
-
-
-  /*gamepad.rightDpad().WhileTrue(superStructure.setAngle(90_deg, 90_deg));
-  gamepad.rightDpad().OnFalse(superStructure.setAngle(-10_deg, 80_deg));*/
- 
-
-  supportArms.setServoAngle(-110_deg);  
-
+void Robot::RobotInit() { 
   #ifndef __FRC_ROBORIO__
 	simMotorManager.Init({
 	  {2, "Offseason 2024/motors/back_right_drive"},
@@ -242,82 +47,37 @@ gamepad.leftDpad().OnTrue(frc2::cmd::RunOnce([&]{
 
 	simDutyCycleEncoderManager.Init({});
 #endif
+
+  AddPeriodic([&] {
+		frc2::CommandScheduler::GetInstance().Run();
+	}, RobotConstants::LoopTime, RobotConstants::TimingOffset);
+
 }
 
-AprilTags::Config Robot::shooterCameraConfig() {
-    AprilTags::Config config;
-    config.cameraName = "Arducam_OV9281_USB_Camera";
-    config.cameraToRobot = { -14.950771_in, 0_m, 14.034697_in,{0_deg, -30_deg, 180_deg}};
-    return config;
-}
-
-
-AprilTags::Config Robot::frontRightCameraConfig() {
-    AprilTags::Config config;
-    config.cameraName = "Arducam_OV2311_USB_Camera";
-    config.cameraToRobot = {6.388283_in, -10.648092_in, 8.358231_in, {180_deg, -28.125_deg, -30_deg}};
-    return config;
-}
-
-
-
-/**
- * This function is called every 20 ms, no matter the mode. Use
- * this for items like diagnostics that you want ran during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
 void Robot::RobotPeriodic() {
-  frc2::CommandScheduler::GetInstance().Run();
-  chassis.shuffleboardPeriodic();
-  superStructure.getCurrentAngle(superStructure.lowerCANCoder.GetAbsolutePosition().GetValueAsDouble(), superStructure.upperCANCoder.GetAbsolutePosition().GetValueAsDouble());
-  frc::SmartDashboard::PutNumber("upperMotor position", superStructure.upperMotor.GetPosition().GetValueAsDouble());
-  //frc::SmartDashboard::PutNumber("lowerMotor position:", superStructure.lowerRightMotor.GetPosition().GetValueAsDouble());
-
-  //frc::SmartDashboard::PutNumber("actualVelocity", shooter.getVelocityVoltage());
+  m_container.UpdateTelemetry();
 
 }
-  //chassis.enableSpeedHelper(&headingSpeedsHelper);
 
-
-
-
-/**
- * This autonomous (along with the chooser code above) shows how to select
- * between different autonomous modes using the dashboard. The sendable chooser
- * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
- * remove all of the chooser code and uncomment the GetString line to get the
- * auto name from the text box below the Gyro.
- *
- * You can add additional auto modes by adding additional comparisons to the
- * if-else structure below with additional strings. If using the SendableChooser
- * make sure to add them to the chooser code above as well.
- */
 void Robot::AutonomousInit() {
-  autonomo = autoChooser.GetSelected();
-  autonomo->Schedule();
-  chassis.setAcceptingVisionMeasurements(true);
+  m_autonomousCommand = m_container.GetAutonomousCommand();
+
+	if (m_autonomousCommand) {
+		m_autonomousCommand->Schedule();
+	}
 }
 
-void Robot::AutonomousPeriodic() {
-
-}
+void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {
-  if(autonomo != nullptr){
-    autonomo->Cancel();
-  }
-  chassis.setAcceptingVisionMeasurements(true);
+  if (m_autonomousCommand) {
+		m_autonomousCommand->Cancel();
+	}
+	//m_teleopResetCommand->Schedule();
   
 }
 
-void Robot::TeleopPeriodic() {
-
-
-}
-
+void Robot::TeleopPeriodic() {}
 
 void Robot::DisabledInit() {}
 
