@@ -106,17 +106,17 @@ class RobotContainer : public OverContainer {
   Gamepad gamepad{1, 0.1, 0.8}; // Trigger 0.1
   Gamepad driver{0,0.25, 0.5};
 
-  //Subsystems
-  Chassis chassis;
-  Intake intake;
-  Storage storage;
-  Shooter shooter;
-  SuperStructure superStructure;
-  SupportArms supportArms;
-  units::degree_t offsetUpperShootRed = 3.0_deg;
-  units::degree_t offsetUpperShootRedAuto = 1.0_deg;
-  units::degree_t offsetUpperShootBlue = 3.0_deg;
-  units::degree_t offsetUpperShootBlueAuto = 1.0_deg;
+	//Subsystems
+	Chassis chassis;
+	Intake intake;
+	Storage storage;
+	Shooter shooter;
+	SuperStructure superStructure;
+	SupportArms supportArms;
+	units::degree_t offsetUpperShootRed = 0.0_deg;
+	units::degree_t offsetUpperShootRedAuto = 0.0_deg;
+	units::degree_t offsetUpperShootBlue = 0.0_deg;
+	units::degree_t offsetUpperShootBlueAuto = 0.0_deg;
 
   LedsManager leds{8, 240, {{"all", {0, 239}
     }}};

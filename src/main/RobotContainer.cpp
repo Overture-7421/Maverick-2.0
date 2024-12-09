@@ -232,7 +232,7 @@ void RobotContainer::ConfigDefaultCommands(){
 
 AprilTags::Config RobotContainer::shooterCameraConfig() {
     AprilTags::Config config;
-    config.cameraName = "Global_Shutter_Camera (1)";
+    config.cameraName = "Arducam_OV9281_USB_Camera";
     config.cameraToRobot = { -14.950771_in, 0_m, 14.034697_in,{0_deg, -30_deg, 180_deg}};
     return config;
 }
