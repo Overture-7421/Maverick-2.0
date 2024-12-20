@@ -89,13 +89,7 @@ RobotContainer::RobotContainer() {
 		frc2::cmd::RunOnce([this] {chassis.setAcceptingVisionMeasurements(true);})
 	));
 
-	sourceAuto = SourceAutoRace(&storage, &chassis);
-	ampAuto = AmpAutoRace(&storage, &chassis);
-
-
 	autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
-	autoChooser.AddOption("SourceAuto", sourceAuto.get());
-	autoChooser.AddOption("AmpAuto", ampAuto.get());
 
 
 	frc::SmartDashboard::PutData("AutoChooser", &autoChooser);

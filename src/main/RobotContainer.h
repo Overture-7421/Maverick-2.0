@@ -71,9 +71,6 @@
 #include "Commands/FieldOrientedAlignToNote/FieldOrientedAlignToNote.h"
 #include "SpeedsHelpers/ClimbingSpeedHelper/ClimbingSpeedHelper.h"
 
-#include "Autos/SourceAutoRace/SourceAutoRace.h"
-#include "Autos/AmpAutoRace/AmpAutoRace.h"
-
 #include "Commands/ClosedCommandAuto/ClosedCommandAuto.h"
 #include "Commands/GroundGrabCommandAuto/GroundGrabCommandAuto.h"
 #include "Commands/Climbing/Cllimbing.h"
@@ -148,9 +145,6 @@ private:
 
 
 	frc::SendableChooser<frc2::Command*> autoChooser;
-
-	frc2::CommandPtr sourceAuto = frc2::cmd::None();
-	frc2::CommandPtr ampAuto = frc2::cmd::None();
 
 	int allianceMulti;
 
