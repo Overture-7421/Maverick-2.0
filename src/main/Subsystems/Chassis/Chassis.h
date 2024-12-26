@@ -29,6 +29,8 @@ public:
 	frc::SlewRateLimiter<units::radians_per_second>& getVwLimiter() override;
 
   frc::SwerveDriveKinematics<4>& getKinematics() override;
+
+  void simPigeon();
  
 private:
   OverPigeon pigeon{13, "OverCANivore"}; 

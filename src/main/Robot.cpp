@@ -89,7 +89,9 @@ void Robot::TestPeriodic() {}
 
 void Robot::SimulationInit() {}
 
-void Robot::SimulationPeriodic() {}
+void Robot::SimulationPeriodic() {
+	m_container.Simulation();
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() {

@@ -75,6 +75,12 @@ AprilTags::Config RobotContainer::frontRightCameraConfig() {
 
 void RobotContainer::ConfigCharacterizationBindings() {}
 
+void RobotContainer::Simulation(){
+	chassis.simMode();
+	chassis.simPigeon();
+}
+
 void RobotContainer::UpdateTelemetry() {
+	frc::SmartDashboard::PutNumber("Pigeon", chassis.getRotation2d().Degrees().value());
 	chassis.shuffleboardPeriodic();
 }

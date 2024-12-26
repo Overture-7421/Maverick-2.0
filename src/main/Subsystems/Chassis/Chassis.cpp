@@ -4,6 +4,7 @@
 #include "OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h"
 #include "OvertureLib/Sensors/OverPigeon/OverPigeon.h"
 #include <units/angular_acceleration.h>
+#include <frc/RobotController.h>
 
 // Initialize static members
 
@@ -68,6 +69,13 @@ frc::Rotation3d Chassis::getRotation3d() {
 	return pigeon.GetRotation3d();
 }
 
+void Chassis::simPigeon() {
+	ctre::phoenix6::sim::Pigeon2SimState& gyro = pigeon.GetSimState();
+
+	gyro.SetSupplyVoltage(frc::RobotController::GetBatteryVoltage());
+	gyro.SetRawYaw(getRotation2d().Degrees() + getCurrentSpeeds().omega.convert<units::deg_per_s>() * 0.0005_s);
+}
+
 SwerveModuleConfig Chassis::FrontLeftConfig() {
 	SwerveModuleConfig config{ feedForwardFrontLeft };
 	config.DriveMotorConfig.MotorId = 6;
@@ -77,9 +85,14 @@ SwerveModuleConfig Chassis::FrontLeftConfig() {
 	config.DriveGearRatio = 5.9027777;
 	config.TurnGearRatio = 150.0 / 7.0;
 	config.WheelDiameter = 4_in;
-	config.DriveMotorConfig.PIDConfigs.kP = 53;
-	config.ModuleName = "Front Left";
+#ifndef __FRC_ROBORIO__
+	config.TurnMotorConfig.PIDConfigs.WithKP(10.0);
+	config.EncoderConfig.Offset = 0.0_tr;
+#else
+	config.TurnMotorConfig.PIDConfigs.WithKP(53.0);
 	config.EncoderConfig.Offset = -0.443359375_tr;
+#endif 
+	config.ModuleName = "Front Left";
 	config.DriveMotorConfig.Inverted = false;
 	return config;
 }
@@ -93,10 +106,15 @@ SwerveModuleConfig Chassis::FrontRightConfig() {
 	config.DriveGearRatio = 5.9027777;
 	config.TurnGearRatio = 150.0 / 7.0;
 	config.WheelDiameter = 4_in;
-	config.DriveMotorConfig.PIDConfigs.kP = 53.0;
+#ifndef __FRC_ROBORIO__
+	config.TurnMotorConfig.PIDConfigs.WithKP(10.0);
+	config.EncoderConfig.Offset = 0.0_tr;
+#else
+	config.TurnMotorConfig.PIDConfigs.WithKP(53.0);
+	config.EncoderConfig.Offset = -0.13037109375_tr;
+#endif 
 	config.DriveMotorConfig.Inverted = false;
 	config.ModuleName = "Front Right";
-	config.EncoderConfig.Offset = -0.13037109375_tr;
 	return config;
 }
 
@@ -109,10 +127,15 @@ SwerveModuleConfig Chassis::BackLeftConfig() {
 	config.DriveGearRatio = 5.9027777;
 	config.TurnGearRatio = 150.0 / 7.0;
 	config.WheelDiameter = 4_in;
-	config.DriveMotorConfig.PIDConfigs.kP = 53.0; //Original 53
+#ifndef __FRC_ROBORIO__
+	config.TurnMotorConfig.PIDConfigs.WithKP(10.0);
+	config.EncoderConfig.Offset = 0.0_tr;
+#else
+	config.TurnMotorConfig.PIDConfigs.WithKP(53.0);
+	config.EncoderConfig.Offset = 0.05419921875_tr;
+#endif  //Original 53
 	config.ModuleName = "Back Left";
 	config.DriveMotorConfig.Inverted = false;
-	config.EncoderConfig.Offset = 0.05419921875_tr;
 	return config;
 }
 
@@ -125,9 +148,14 @@ SwerveModuleConfig Chassis::BackRightConfig() {
 	config.DriveGearRatio = 5.9027777;
 	config.TurnGearRatio = 150.0 / 7.0;
 	config.WheelDiameter = 4_in;
-	config.DriveMotorConfig.PIDConfigs.kP = 53.0;
+#ifndef __FRC_ROBORIO__
+	config.TurnMotorConfig.PIDConfigs.WithKP(10.0);
+	config.EncoderConfig.Offset = 0.0_tr;
+#else
+	config.TurnMotorConfig.PIDConfigs.WithKP(53.0);
+	config.EncoderConfig.Offset = 0.0791015625_tr;
+#endif 
 	config.DriveMotorConfig.Inverted = false;
 	config.ModuleName = "Back Right";
-	config.EncoderConfig.Offset = 0.0791015625_tr;
 	return config;
 }
