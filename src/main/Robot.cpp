@@ -9,43 +9,43 @@
 
 void Robot::RobotInit() { 
   #ifndef __FRC_ROBORIO__
-	simMotorManager.Init({
-	  {2, "Offseason 2024/motors/back_right_drive"},
-	  {4, "Offseason 2024/motors/back_left_drive"},
-	  {6, "Offseason 2024/motors/front_left_drive"},
-	  {8, "Offseason 2024/motors/front_right_drive"},
+	// simMotorManager.Init({
+	//   {2, "Offseason 2024/motors/back_right_drive"},
+	//   {4, "Offseason 2024/motors/back_left_drive"},
+	//   {6, "Offseason 2024/motors/front_left_drive"},
+	//   {8, "Offseason 2024/motors/front_right_drive"},
 
-	  {1, "Offseason 2024/motors/back_right_rotation"},
-	  {3, "Offseason 2024/motors/back_left_rotation"},
-	  {5, "Offseason 2024/motors/front_left_rotation"},
-	  {7, "Offseason 2024/motors/front_right_rotation"},
+	//   {1, "Offseason 2024/motors/back_right_rotation"},
+	//   {3, "Offseason 2024/motors/back_left_rotation"},
+	//   {5, "Offseason 2024/motors/front_left_rotation"},
+	//   {7, "Offseason 2024/motors/front_right_rotation"},
 
-    {21, "Offseason 2024/motors/lower_arm"},
-    {23, "Offseason 2024/motors/upper_arm"},
+    // {21, "Offseason 2024/motors/lower_arm"},
+    // {23, "Offseason 2024/motors/upper_arm"},
 
-    {20, "Offseason 2024/motors/intake_motor"},
-    {24, "Offseason 2024/motors/storage_motor"},
-    {25, "Offseason 2024/motors/shooter_motor"}
-
-
-		});
-
-	simPigeonManager.Init("Offseason 2024/imu");
-
-	simCANCoderManager.Init({
-	  {9, "Offseason 2024/cancoders/back_right_cancoder"},
-	  {10, "Offseason 2024/cancoders/back_left_cancoder"},
-	  {11, "Offseason 2024/cancoders/front_left_cancoder"},
-	  {12, "Offseason 2024/cancoders/front_right_cancoder"},
-
-	  {27, "Offseason 2024/cancoders/upper_cancoder"},
-	  {29, "Offseason 2024/cancoders/upper_cancoder"},
-	  {28, "Offseason 2024/cancoders/lower_cancoder"}
+    // {20, "Offseason 2024/motors/intake_motor"},
+    // {24, "Offseason 2024/motors/storage_motor"},
+    // {25, "Offseason 2024/motors/shooter_motor"}
 
 
-		});
+	// 	});
 
-	simDutyCycleEncoderManager.Init({});
+	// simPigeonManager.Init("Offseason 2024/imu");
+
+	// simCANCoderManager.Init({
+	//   {9, "Offseason 2024/cancoders/back_right_cancoder"},
+	//   {10, "Offseason 2024/cancoders/back_left_cancoder"},
+	//   {11, "Offseason 2024/cancoders/front_left_cancoder"},
+	//   {12, "Offseason 2024/cancoders/front_right_cancoder"},
+
+	//   {27, "Offseason 2024/cancoders/upper_cancoder"},
+	//   {29, "Offseason 2024/cancoders/upper_cancoder"},
+	//   {28, "Offseason 2024/cancoders/lower_cancoder"}
+
+
+	// 	});
+
+	// simDutyCycleEncoderManager.Init({});
 #endif
 
   AddPeriodic([&] {

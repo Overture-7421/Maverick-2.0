@@ -15,7 +15,6 @@
 #include "OvertureLib/Simulation/SimDutyCycleEncoderManager/SimDutyCycleEncoderManager.h"
 #include "OvertureLib/Simulation/SimMotorManager/SimMotorManager.h"
 #include "OvertureLib/Simulation/SimPigeonManager/SimPigeonManager.h"
-#include "OvertureLib/Robots/OverRobot/OverRobot.h"
 #include "Subsystems/Chassis/Chassis.h"
 #include <frc/XboxController.h>
 #include <frc/Joystick.h>
@@ -30,54 +29,20 @@
 #include <OvertureLib/Subsystems/LedsManager/Effects/StaticEffect/StaticEffect.h>
 #include <OvertureLib/Subsystems/LedsManager/Effects/BlinkEffect/BlinkEffect.h>
 
-#include <OvertureLib/Robots/OverRobot/OverRobot.h>
 #include <OvertureLib/Gamepads/OverXboxController/OverXboxController.h>
-
-#include "Subsystems/Intake/Intake.h"
-#include "Subsystems/Storage/Storage.h"
-#include "Subsystems/Shooter/Shooter.h"
-
-#include <OvertureLib/Subsystems/LedsManager/LedsManager.h>
-#include <OvertureLib/Subsystems/LedsManager/Effects/BlinkEffect/BlinkEffect.h>
-#include <OvertureLib/Subsystems/LedsManager/Effects/StaticEffect/StaticEffect.h>
-#include "Subsystems/SupportArms/SupportArms.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <OvertureLib/Robots/OverRobot/OverRobot.h>
-#include "Subsystems/SuperStructure/SuperStructure.h"
 #include <frc2/command/CommandScheduler.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 
 #include "Commands/AligntToNote/AlignToNote.h"
-#include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
-#include "Commands/AmpCommand/AmpCommand.h"
-#include "Commands/ClosedCommand/ClosedCommand.h"
-#include "Commands/ManualSpeakerCommand/ManualSpeakerCommand.h"
-#include "Commands/GroundGrabCommand/GroundGrabCommand.h"
-#include "Commands/LowPassCommand/LowPassCommand.h"
-#include "Commands/HighPassCommand/HighPassCommand.h"
-#include "Commands/ClosedPassCommand/ClosedPassCommand.h"
-#include "Commands/SpitNoteCommand/SpitNoteCommand.h"
 #include "SpeedsHelpers/SpeedHelperNoteTracking/SpeedHelperNoteTracking/SpeedHelperNoteTracking.h"
 #include "SpeedsHelpers/SpeedHelperNoteTracking/FieldOrientedNoteTracking/FieldOrientedNoteTracking.h"
-#include "Commands/VisionSpeakerCommand/VisionSpeakerCommand.h"
-#include "Commands/NearShoot/NearShoot.h"
-#include "Commands/ManualClimeCommand/ManualClimbCommand.h"
 #include "Commands/DriveCommand/DriveCommand.h"
-#include "Subsystems/SupportArms/SupportArms.h"
-#include "Commands/FarSpeakerCommand/FarSpeakerCommand.h"
-#include "Commands/FieldOrientedAlignToNote/FieldOrientedAlignToNote.h"
-#include "SpeedsHelpers/ClimbingSpeedHelper/ClimbingSpeedHelper.h"
-
-#include "Commands/ClosedCommandAuto/ClosedCommandAuto.h"
-#include "Commands/GroundGrabCommandAuto/GroundGrabCommandAuto.h"
-#include "Commands/Climbing/Cllimbing.h"
 #include "Commands/ResetHeading/ResetHeading.h"
-#include "Commands/SpitShoot/SpitShoot.h"
-#include "Commands/NearShootFar/NearShootFar.h"
-
 
 
 class RobotContainer : public OverContainer {
@@ -97,16 +62,10 @@ private:
 	void ConfigCharacterizationBindings();
 
 	//Controls
-	OverXboxController gamepad{ 1, 0.1, 0.8 }; // Trigger 0.1
-	OverXboxController driver{ 0,0.25, 0.5 };
+	OverXboxController driver{ 0,0.20, 0.5 };
 
 	//Subsystems
 	Chassis chassis;
-	Intake intake;
-	Storage storage;
-	Shooter shooter;
-	SuperStructure superStructure;
-	SupportArms supportArms;
 	units::degree_t offsetUpperShootRed = 3.0_deg;
 	units::degree_t offsetUpperShootRedAuto = 1.0_deg;
 	units::degree_t offsetUpperShootBlue = 3.0_deg;
@@ -114,16 +73,6 @@ private:
 
 	LedsManager leds{ 8, 240, {{"all", {0, 239}
 	  }} };
-
-	frc2::Trigger intakeLeds{ [this] {
-	  return intake.getVoltage() > 0.0;
-	} };
-
-	frc2::Trigger isNoteOnSensorLeds{ [this] {return storage.isNoteOnSensor();
-	} };
-
-	frc2::Trigger fieldOrientedNoteTrackingLeds{ [this] {return FieldOrientedAlignToNote::isSpeedHelperOn();
-	} };
 
 
 #ifndef __FRC_ROBORIO__
@@ -141,12 +90,6 @@ private:
 
 
 	SpeedHelperNoteTracking speedHelperNoteTracking{ &chassis, &noteTrackingCamera };
-	//ClimbingSpeedHelper climbingSpeedHelper{&chassis, };
-
 
 	frc::SendableChooser<frc2::Command*> autoChooser;
-
-	int allianceMulti;
-
-
 };
