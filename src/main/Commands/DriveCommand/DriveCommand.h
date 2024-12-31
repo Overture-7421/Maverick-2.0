@@ -10,7 +10,6 @@
 #include "Subsystems/Chassis/Chassis.h"
 
 #include <frc/controller/ProfiledPIDController.h>
-#include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 #include <OvertureLib/Math/TargetingWhileMoving/TargetingWhileMoving.h>
 
 #include <OvertureLib/Gamepads/OverXboxController/OverXboxController.h>

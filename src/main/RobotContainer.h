@@ -17,13 +17,9 @@
 #include "OvertureLib/Simulation/SimPigeonManager/SimPigeonManager.h"
 #include "Subsystems/Chassis/Chassis.h"
 #include <frc/XboxController.h>
-#include <frc/Joystick.h>
 #include "frc/DriverStation.h"
 #include "OvertureLib/Subsystems/Vision/AprilTags/AprilTags.h"
 #include "OvertureLib/Math/Utils.h"
-#include <frc/controller/ProfiledPIDController.h>
-#include <frc/trajectory/TrapezoidProfile.h>
-#include <OvertureLib/Subsystems/Swerve/SpeedsHelper/SpeedsHelper.h>
 #include <OvertureLib/Subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 #include <OvertureLib/Subsystems/LedsManager/LedsManager.h>
 #include <OvertureLib/Subsystems/LedsManager/Effects/StaticEffect/StaticEffect.h>
@@ -37,6 +33,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
 
 #include "Commands/AligntToNote/AlignToNote.h"
 #include "SpeedsHelpers/SpeedHelperNoteTracking/SpeedHelperNoteTracking/SpeedHelperNoteTracking.h"
@@ -63,14 +60,10 @@ private:
 	void ConfigCharacterizationBindings();
 
 	//Controls
-	OverXboxController driver{ 0,0.20, 0.5 };
+	OverXboxController driver{ 0,0.20, 0.2 };
 
 	//Subsystems
 	Chassis chassis;
-	units::degree_t offsetUpperShootRed = 3.0_deg;
-	units::degree_t offsetUpperShootRedAuto = 1.0_deg;
-	units::degree_t offsetUpperShootBlue = 3.0_deg;
-	units::degree_t offsetUpperShootBlueAuto = 1.0_deg;
 
 	LedsManager leds{ 8, 240, {{"all", {0, 239}
 	  }} };

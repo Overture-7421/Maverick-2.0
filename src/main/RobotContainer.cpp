@@ -5,11 +5,6 @@
 #include "RobotContainer.h"
 
 #include <fmt/core.h>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <frc/MathUtil.h>
-
-#include <pathplanner/lib/auto/NamedCommands.h>
-#include <frc2/command/Command.h>
 
 RobotContainer::RobotContainer() {
 
